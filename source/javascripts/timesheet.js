@@ -25,19 +25,18 @@
     var html = [];
 
     for (var n = 0, m = this.data.length; n < m; n++) {
-      var lne = [];
       var cur = this.data[n];
 
-      console.log(cur)
-
-      var line = '<span class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>'
-        + '<span class="date">'
-        + (cur.start.hasMonth ? this.formatMonth(cur.start.getMonth() + 1) + '/' : '' ) + cur.start.getFullYear()
-        + (cur.end ? '-' + ((cur.end.hasMonth ? this.formatMonth(cur.end.getMonth() + 1) + '/' : '' ) + cur.end.getFullYear()) : '')
-        + '</span> '
-        + '<span class="label">'
-        + cur.label
-        + '</span>';
+      var line = [
+        '<span class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>',
+        '<span class="date">',
+        (cur.start.hasMonth ? this.formatMonth(cur.start.getMonth() + 1) + '/' : '' ) + cur.start.getFullYear(),
+        (cur.end ? '-' + ((cur.end.hasMonth ? this.formatMonth(cur.end.getMonth() + 1) + '/' : '' ) + cur.end.getFullYear()) : ''),
+        '</span> ',
+        '<span class="label">',
+        cur.label,
+        '</span>'
+      ];
 
       html.push('<li>' + line + '</li>');
     }
@@ -74,7 +73,7 @@
       var beg = this.parseDate(data[n][0]);
       var end = data[n].length === 4 ? this.parseDate(data[n][1]) : null;
       var lbl = data[n][2] || data[n][1];
-      var cat = data[n][3] || 'default'
+      var cat = data[n][3] || 'default';
 
       if (beg.getFullYear() < this.year.min) {
         this.year.min = beg.getFullYear();
@@ -88,7 +87,7 @@
 
       this.data.push({start: beg, end: end, label: lbl, type: cat});
     }
-  }
+  };
 
   window.Timeline = Timeline;
 })();
