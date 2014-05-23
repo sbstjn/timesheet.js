@@ -1,7 +1,11 @@
+// require 'timesheet.bubble'
+
+/* global TimesheetBubble */
+
 (function() {
   'use strict';
 
-  var Timeline = function(container, data) {
+  var Timesheet = function(container, data) {
     this.container = '#' + container;
     this.data = [];
     this.year = {
@@ -14,28 +18,18 @@
     this.insertData();
   };
 
-  Timeline.prototype.formatMonth = function(num) {
-    num = parseInt(num, 10);
-
-    return num >= 10 ? num : '0' + num;
-  };
-
-  Timeline.prototype.insertData = function() {
-    // document.querySelector(this.container).innerHTML += this.data.join('');
+  Timesheet.prototype.insertData = function() {
     var html = [];
+    var widthMonth = document.querySelector(this.container + ' .scale section').offsetWidth;
 
     for (var n = 0, m = this.data.length; n < m; n++) {
       var cur = this.data[n];
+      var bubble = new TimesheetBubble(widthMonth, this.year.min, cur.start, cur.end);
 
       var line = [
-        '<span class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>',
-        '<span class="date">',
-        (cur.start.hasMonth ? this.formatMonth(cur.start.getMonth() + 1) + '/' : '' ) + cur.start.getFullYear(),
-        (cur.end ? '-' + ((cur.end.hasMonth ? this.formatMonth(cur.end.getMonth() + 1) + '/' : '' ) + cur.end.getFullYear()) : ''),
-        '</span> ',
-        '<span class="label">',
-        cur.label,
-        '</span>'
+        '<span style="margin-left: ' + bubble.getStartOffset() + 'px; width: ' + bubble.getWidth() + 'px;" class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>',
+        '<span class="date">' + bubble.getDateLabel() + '</span> ',
+        '<span class="label">' + cur.label + '</span>'
       ].join('');
 
       html.push('<li>' + line + '</li>');
@@ -44,18 +38,18 @@
     document.querySelector(this.container).innerHTML += '<ul class="data">' + html.join('') + '</ul>';
   };
 
-  Timeline.prototype.drawSections = function() {
+  Timesheet.prototype.drawSections = function() {
     var html = [];
 
     for (var c = this.year.min; c <= this.year.max; c++) {
       html.push('<section>' + c + '</section>');
     }
 
-    document.querySelector(this.container).className = 'timeline';
+    document.querySelector(this.container).className = 'timesheet';
     document.querySelector(this.container).innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
-  Timeline.prototype.parseDate = function(date) {
+  Timesheet.prototype.parseDate = function(date) {
     if (date.indexOf('/') === -1) {
       date = new Date(parseInt(date, 10), 0, 1);
       date.hasMonth = false;
@@ -68,7 +62,7 @@
     return date;
   };
 
-  Timeline.prototype.parse = function(data) {
+  Timesheet.prototype.parse = function(data) {
     for (var n = 0, m = data.length; n<m; n++) {
       var beg = this.parseDate(data[n][0]);
       var end = data[n].length === 4 ? this.parseDate(data[n][1]) : null;
@@ -89,5 +83,5 @@
     }
   };
 
-  window.Timeline = Timeline;
+  window.Timesheet = Timesheet;
 })();
