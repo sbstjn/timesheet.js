@@ -1,0 +1,104 @@
+@import 'normalize'
+
+html, body
+  margin: 0
+  padding: 0
+  width: 100%
+  height: 100%
+  background-color: rgba(51, 51, 51, 0.9)
+
+#container
+  display: table
+  width: 100%
+  height: 100%
+
+#content
+  display: table-cell
+  height: 100%
+  text-align: center
+  vertical-align: middle
+
+#timeline
+  width: 800px
+  height: 600px
+  margin: 0 auto
+
+.timeline
+  border-top: 1px solid rgba(250, 250, 250, 0.5)
+  position: relative
+
+  .scale
+    height: 100%
+    position: absolute
+    top: 0
+    left: 0
+    float: left
+
+    section
+      float: left
+      width: 50px
+      text-align: center
+      color: rgba(250, 250, 250, 0.8)
+      font-family: 'Signika Negative'
+      font-size: 13px
+      line-height: 24px
+      font-weight: lighter
+      border-left: 1px dashed rgba(250, 250, 250, 0.2)
+      height: 100%
+
+      // &:last-child
+        border-right: 1px dashed rgba(250, 250, 250, 0.3)
+
+  .data
+    margin: 24px 0 0 0
+    padding: 0
+    text-align: left
+    list-style-type: none
+    color: rgba(250, 250, 250, 0.8)
+    font-family: 'Signika Negative'
+    font-size: 13px
+    overflow: hidden
+
+    li
+      // background-color: rgba(251, 251, 251, 0.1)
+      margin: 0 0 4px -3px
+      line-height: 24px
+      height: 24px
+      display: block
+      cursor: pointer
+      clear: both
+      position: relative
+
+      &:hover
+        // background-color: rgba(251, 251, 251, 0.1)
+        .bubble
+          opacity: 1
+
+      .data
+        font-weight: bold
+      .label
+        font-weight: lighter
+        font-size: 12px
+
+      .bubble
+        width: 24px
+        height: 7px
+        background-color: red
+        display: block
+        float: left
+        position: relative
+        top: 8px
+        border-radius: 3px
+        margin: 0 10px 0 0
+        opacity: 0.7
+
+      .bubble-default
+        background-color: rgba(243, 85, 46, 1)
+      .bubble-lorem
+        background-color: rgba(136, 195, 58, 1)
+      .bubble-ipsum
+        background-color: rgba(67, 106, 224, 1)
+      .bubble-dolor
+        background-color: rgba(244, 210, 52, 1)
+      .bubble-set
+        background-color: rgba(112, 125, 134, 1)

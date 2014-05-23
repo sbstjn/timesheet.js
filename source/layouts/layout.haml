@@ -1,0 +1,13 @@
+!!! 5
+%html
+  %head
+    %meta{:charset => 'utf-8'}
+    %meta{:content => 'IE=edge,chrome=1', 'http-equiv' => 'X-UA-Compatible'}
+
+    = javascript_include_tag 'timesheet.js', 'main.js'
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700'
+    = stylesheet_link_tag 'all.css'
+    = yield_content :head
+  %body{ :class => page_classes }
+    #container
+      = yield
