@@ -36,7 +36,7 @@
         '<span class="label">',
         cur.label,
         '</span>'
-      ];
+      ].join('');
 
       html.push('<li>' + line + '</li>');
     }

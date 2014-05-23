@@ -5,18 +5,21 @@ html, body
   padding: 0
   width: 100%
   height: 100%
-  background-color: rgba(51, 51, 51, 0.9)
+  background-color: rgba(61, 61, 61, 1)
 
 #container
+  height: 100%
+
+#box
   display: table
   width: 100%
   height: 100%
 
-#content
-  display: table-cell
-  height: 100%
-  text-align: center
-  vertical-align: middle
+  #box-inner
+    display: table-cell
+    height: 100%
+    text-align: center
+    vertical-align: middle
 
 #timeline
   width: 800px
@@ -25,6 +28,7 @@ html, body
 
 .timeline
   border-top: 1px solid rgba(250, 250, 250, 0.5)
+  background-color: rgba(51, 51, 51, 1)
   position: relative
 
   .scale
@@ -50,7 +54,7 @@ html, body
         border-right: 1px dashed rgba(250, 250, 250, 0.3)
 
   .data
-    margin: 24px 0 0 0
+    margin: 28px 0 0 0
     padding: 0
     text-align: left
     list-style-type: none
@@ -60,10 +64,10 @@ html, body
     overflow: hidden
 
     li
-      // background-color: rgba(251, 251, 251, 0.1)
-      margin: 0 0 4px -3px
-      line-height: 24px
-      height: 24px
+      background-color: rgba(251, 251, 251, 0.1)
+      margin: 0 0 3px -3px
+      line-height: 21px
+      height: 21px
       display: block
       cursor: pointer
       clear: both
@@ -87,7 +91,7 @@ html, body
         display: block
         float: left
         position: relative
-        top: 8px
+        top: 7px
         border-radius: 3px
         margin: 0 10px 0 0
         opacity: 0.7
