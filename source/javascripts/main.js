@@ -10,7 +10,7 @@
     new Timesheet('timesheet', 2002, 2013, [
       ['2002', '09/2002', 'A freaking awesome time', 'lorem'],
       ['06/2002', '09/2003', 'Some great memories', 'ipsum'],
-      ['09/2003', 'Had very bad luck'],
+      ['2003', 'Had very bad luck'],
       ['10/2003', '2006', 'At least had fun', 'dolor'],
       ['02/2005', '05/2006', 'Enjoyed those times as well', 'ipsum'],
       ['07/2005', '09/2005', 'Bad luck again', 'default'],

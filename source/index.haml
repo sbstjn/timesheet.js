@@ -2,22 +2,59 @@
   #box-inner
     %h1
       Timesheet<span>.js</span>
-    %p Visualize events with pure <span>HTML5 and CSS3</span>. Create responsive time sheets with sneaky JavaScript. Generated based on HTML structure or just plain text.
+    %p Visualize your data with sexy <span>HTML5</span> and <span>CSS3</span>. Create simple responsive time sheets with sneaky JavaScript. Style them with CSS3 and have mobile fun as well …
 
     #timesheet
 
-    %p Just include Timesheet.js and configure your data. No external dependencies, <span>no jQuery</span> needed and <span>no Angular.JS</span> as well! Just pure JavaScript generation, beautiful HTML5 layout and some realy delicious CSS3.
+    %p Just include Timesheet.js and configure your data. No external dependencies, no jQuery needed and of course no Angular.JS! Just a few lines JavaScript to generate a beautiful HTML5 layout and some really delicious CSS to be customized by mighty you.
 
     %code
       %pre
-        :escaped
-          <script src="/javascripts/timesheet.js" type="text/javascript">
+        = preserve do
+          :escaped
+            <script src="/javascripts/timesheet.js" type="text/javascript" />
 
-    %p Create your HTML structure. Or prepare your data in plain text or easily create Timesheets with pure JavaScripts
+    %p Create a simple time sheet based on a JS array of events:
 
     %code
       %pre
-        :escaped
-          <ul><li></li></ul>
+        = preserve do
+          :escaped
+            new Timesheet('timesheet', 2002, 2013, [
+              ['2002', '09/2002', 'A freaking awesome time', 'lorem'],
+              ['06/2002', '09/2003', 'Some great memories', 'ipsum'],
+              ['2003', 'Had very bad luck'],
+              ['10/2003', '2006', 'At least had fun', 'dolor'],
+              ['02/2005', '05/2006', 'Enjoyed those times as well', 'ipsum'],
+              ['07/2005', '09/2005', 'Bad luck again', 'default'],
+              ['10/2005', '2008', 'For a long time nothing happened', 'dolor'],
+              ['01/2008', '05/2009', 'LOST Season #4', 'lorem'],
+              ['01/2009', '05/2009', 'LOST Season #4', 'lorem'],
+              ['02/2010', '05/2010', 'LOST Season #5', 'lorem'],
+              ['09/2008', '06/2010', 'FRINGE #1 & #2', 'ipsum']
+            ]);
 
-    %p Lorem ipsum dolor sit amet.
+    %p Or let Timesheet.js parse your HTML structure. You now, for Google and all those spiders out there. Would be a shame if those events of yours don't get indexed!
+
+    %code
+      %pre
+        = preserve do
+          :escaped
+            <div id="timesheet"></div>
+
+            <ul class="timesheet-data" data-timesheet="timesheet">
+              <li>
+                <span class="date">2002-09/2002</span>
+                <span class="label" data-tag="lorem">A freaking awesome time</span>
+              </li>
+              <li>
+                <span class="date">06/2002-09/2003</span>
+                <span class="label" data-tag="lorem">Some great memories</span>
+              </li>
+              <li>
+                <span class="date">2003</span>
+                <span class="label" data-tag="lorem">Had very bad luck</span>
+              </li>
+            </ul>
+
+    %p It's that simple to use <span>Timesheet.js</span>. So, have a nice day and thank you for smoking …
