@@ -5,12 +5,12 @@
 (function() {
   'use strict';
 
-  var Timesheet = function(container, data) {
+  var Timesheet = function(container, min, max, data) {
     this.container = '#' + container;
     this.data = [];
     this.year = {
-      min: (new Date()).getFullYear(),
-      max: (new Date()).getFullYear()
+      min: min,
+      max: max
     };
 
     this.parse(data);
@@ -66,7 +66,7 @@
     for (var n = 0, m = data.length; n<m; n++) {
       var beg = this.parseDate(data[n][0]);
       var end = data[n].length === 4 ? this.parseDate(data[n][1]) : null;
-      var lbl = data[n][2] || data[n][1];
+      var lbl = data[n].length === 4 ? data[n][2] : data[n][1];
       var cat = data[n][3] || 'default';
 
       if (beg.getFullYear() < this.year.min) {
