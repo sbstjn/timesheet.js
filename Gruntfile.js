@@ -2,6 +2,26 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig({
+    uglify: {
+      options: {
+        mangle: false
+      },
+      my_target: {
+        files: {
+          'dist/timesheet.js': ['source/javascripts/timesheet.bubble.js', 'source/javascripts/timesheet.js']
+        }
+      }
+    },
+    sass: {
+      dist: {
+        options: {
+          style: 'compressed'
+        },
+        files: {
+          'dist/timesheet.css': 'source/stylesheets/timesheet.css.sass'
+        }
+      }
+    },
     jshint: {
       all: {
         src: [
@@ -47,6 +67,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-simple-mocha');
 
-  // Add a default task. This is optional, of course :)
-  grunt.registerTask('default', ['simplemocha', 'jshint', 'watch']);
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+
+  // Default task
+  grunt.registerTask('default', ['simplemocha', 'jshint']);
+
+  // Build task
+  grunt.registerTask('build', ['uglify', 'sass']);
 };

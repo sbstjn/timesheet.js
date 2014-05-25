@@ -1,5 +1,5 @@
 {
-  "name": "mm-grunt-sass-haml",
+  "name": "timesheet.js",
   "version": "0.0.1",
   "description": "Middleman, Grunt, JSHint, SASS, HAML",
   "author": "semu",
@@ -9,6 +9,8 @@
     "grunt-jslint": "~1.1.1",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-simple-mocha": "^0.4.0"
+    "grunt-simple-mocha": "^0.4.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-sass": "^0.7.3"
   }
 }
