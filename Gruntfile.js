@@ -31,6 +31,7 @@ module.exports = function(grunt) {
           'Gruntfile.js',
           'source/**/*.js',
           'source/**/*.js.erb',
+          'test/*.js',
           '.jshint'
         ],
         tasks: ['simplemocha', 'jshint'],

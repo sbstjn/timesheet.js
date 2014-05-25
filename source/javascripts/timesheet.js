@@ -16,9 +16,12 @@
       max: max
     };
 
-    this.parse(data);
-    this.drawSections();
-    this.insertData();
+    this.parse(data || []);
+
+    if (typeof document !== 'undefined') {
+      this.drawSections();
+      this.insertData();
+    }
   };
 
   /**
