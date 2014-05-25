@@ -5,6 +5,9 @@
 (function() {
   'use strict';
 
+  /**
+   * Initialize a Timesheet
+   */
   var Timesheet = function(container, min, max, data) {
     this.container = '#' + container;
     this.data = [];
@@ -18,6 +21,9 @@
     this.insertData();
   };
 
+  /**
+   * Insert data into Timesheet
+   */
   Timesheet.prototype.insertData = function() {
     var html = [];
     var widthMonth = document.querySelector(this.container + ' .scale section').offsetWidth;
@@ -38,6 +44,9 @@
     document.querySelector(this.container).innerHTML += '<ul class="data">' + html.join('') + '</ul>';
   };
 
+  /**
+   * Draw section labels
+   */
   Timesheet.prototype.drawSections = function() {
     var html = [];
 
@@ -49,6 +58,9 @@
     document.querySelector(this.container).innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
+  /**
+   * Parse data string
+   */
   Timesheet.prototype.parseDate = function(date) {
     if (date.indexOf('/') === -1) {
       date = new Date(parseInt(date, 10), 0, 1);
@@ -62,6 +74,9 @@
     return date;
   };
 
+  /**
+   * Parse passed data
+   */
   Timesheet.prototype.parse = function(data) {
     for (var n = 0, m = data.length; n<m; n++) {
       var beg = this.parseDate(data[n][0]);

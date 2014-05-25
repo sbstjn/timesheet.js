@@ -13,6 +13,17 @@ module.exports = function(grunt) {
         }
       }
     },
+    simplemocha: {
+      options: {
+        globals: ['should'],
+        timeout: 3000,
+        ignoreLeaks: false,
+        grep: '',
+        ui: 'tdd',
+        reporter: 'spec'
+      },
+      all: { src: ['test/**/*.js'] }
+    },
     watch: {
       scripts: {
         files: [
@@ -22,7 +33,7 @@ module.exports = function(grunt) {
           'source/**/*.js.erb',
           '.jshint'
         ],
-        tasks: ['jshint'],
+        tasks: ['simplemocha', 'jshint'],
         options: {
           interrupt: true,
         },
@@ -33,7 +44,8 @@ module.exports = function(grunt) {
   // For this to work, you need to have run `npm install grunt-simple-mocha`
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-simple-mocha');
 
   // Add a default task. This is optional, of course :)
-  grunt.registerTask('default', ['jshint', 'watch']);
+  grunt.registerTask('default', ['simplemocha', 'jshint', 'watch']);
 };
