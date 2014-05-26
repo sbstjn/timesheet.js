@@ -57,7 +57,7 @@
       html.push('<section>' + c + '</section>');
     }
 
-    document.querySelector(this.container).className = 'timesheet';
+    document.querySelector(this.container).className = 'timesheet color-scheme-default';
     document.querySelector(this.container).innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 

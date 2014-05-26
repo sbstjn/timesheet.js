@@ -1,8 +1,8 @@
-# Timesheet.js - Work in progress
+# Timesheet.js
 
 Simple JavaScript library to create HTML time sheets. Wrapped in an example project using Middleman …
 
-![](https://raw.githubusercontent.com/semu/timesheet.js/master/screen.png)
+![https://semu.github.io/timesheet.js](https://raw.githubusercontent.com/semu/timesheet.js/master/screen.png)
 
 ```javascript
 new Timesheet('timesheet', 2002, 2013, [

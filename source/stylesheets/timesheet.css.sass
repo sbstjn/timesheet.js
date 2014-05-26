@@ -1,4 +1,4 @@
-#timesheet
+.timesheet
   width: 720px
   height: 292px
   margin: 0 auto
@@ -7,6 +7,31 @@
   border-top: 1px solid rgba(250, 250, 250, 0.5)
   background-color: rgba(51, 51, 51, 1)
   position: relative
+
+  &.color-scheme-default
+    .bubble-default
+      background-color: RGBA(252, 70, 74, 1) // red
+    .bubble-lorem
+      background-color: RGBA(154, 202, 39, 1) // green
+    .bubble-ipsum
+      background-color: RGBA(60, 182, 227, 1) // blue
+    .bubble-dolor
+      background-color: RGBA(244, 207, 48, 1) // yellow
+    .bubble-sit
+      background-color: RGBA(169, 105, 202, 1) // cyan
+
+  &.color-scheme-alternative
+    .bubble-default
+      background-color: rgba(243, 85, 46, 1)
+    .bubble-lorem
+      background-color: rgba(136, 195, 58, 1)
+    .bubble-ipsum
+      background-color: rgba(67, 106, 224, 1)
+    .bubble-dolor
+      background-color: rgba(244, 210, 52, 1)
+    .bubble-set
+      background-color: rgba(112, 125, 134, 1)
+
 
   .scale
     height: 100%
@@ -66,7 +91,6 @@
       .bubble
         width: 24px
         height: 7px
-        background-color: red
         display: block
         float: left
         position: relative
@@ -75,13 +99,23 @@
         margin: 0 10px 0 0
         opacity: 0.7
 
-      .bubble-default
-        background-color: rgba(243, 85, 46, 1)
-      .bubble-lorem
-        background-color: rgba(136, 195, 58, 1)
-      .bubble-ipsum
-        background-color: rgba(67, 106, 224, 1)
-      .bubble-dolor
-        background-color: rgba(244, 210, 52, 1)
-      .bubble-set
-        background-color: rgba(112, 125, 134, 1)
+#timesheet-alternative
+  background-color: RGBA(247, 247, 247, 1)
+  border-radius: 5px
+
+  section
+    color: RGBA(63, 68, 72, 1)
+    border-left: 1px dashed RGBA(63, 68, 72, 0.2)
+
+    &:first-child
+      border-left: 1px dashed transparent
+
+  .date
+    display: none
+
+  .bubble
+    margin-right: 7px
+
+  .label
+    padding-left: 0px
+    color: RGBA(48, 48, 48, 1)
