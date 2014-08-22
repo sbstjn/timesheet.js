@@ -19,3 +19,5 @@ new Timesheet('timesheet', 2002, 2013, [
   ['09/2008', '06/2010', 'FRINGE #1 & #2', 'ipsum']
 ]);
 ```
+
+Inspired by [cheeaun](https://github.com/cheeaun/life) and [Ilya](https://www.igvita.com/).
