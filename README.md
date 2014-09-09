@@ -20,4 +20,4 @@ new Timesheet('timesheet', 2002, 2013, [
 ]);
 ```
 
-Inspired by [cheeaun](https://github.com/cheeaun/life) and [Ilya](https://www.igvita.com/).
+Timesheet.js is licensed under MIT License.
