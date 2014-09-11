@@ -4,6 +4,12 @@ Simple JavaScript library to create HTML time sheets. Wrapped in an example proj
 
 ![https://semu.github.io/timesheet.js](https://raw.githubusercontent.com/semu/timesheet.js/master/screen.png)
 
+You only have to include `dist/timesheet.js` and `dist/timesheet.css` in your HTML and initialize Timesheet.js with:
+
+```HTML
+<div id="timesheet"></div>
+```
+
 ```javascript
 new Timesheet('timesheet', 2002, 2013, [
   ['2002', '09/2002', 'A freaking awesome time', 'lorem'],
