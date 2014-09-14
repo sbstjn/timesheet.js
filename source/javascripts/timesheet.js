@@ -18,7 +18,7 @@
     this.parse(data || []);
 
     if (typeof document !== 'undefined') {
-      this.container = document.querySelector('#'+container);
+      this.container = (typeof container === 'string') ? document.querySelector('#'+container) : container;
       this.drawSections();
       this.insertData();
     }
