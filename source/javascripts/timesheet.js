@@ -9,7 +9,6 @@
    * Initialize a Timesheet
    */
   var Timesheet = function(container, min, max, data) {
-    this.container = '#' + container;
     this.data = [];
     this.year = {
       min: min,
@@ -19,6 +18,7 @@
     this.parse(data || []);
 
     if (typeof document !== 'undefined') {
+      this.container = document.querySelector('#'+container);
       this.drawSections();
       this.insertData();
     }
@@ -29,7 +29,7 @@
    */
   Timesheet.prototype.insertData = function() {
     var html = [];
-    var widthMonth = document.querySelector(this.container + ' .scale section').offsetWidth;
+    var widthMonth = this.container.querySelector('.scale section').offsetWidth;
 
     for (var n = 0, m = this.data.length; n < m; n++) {
       var cur = this.data[n];
@@ -44,7 +44,7 @@
       html.push('<li>' + line + '</li>');
     }
 
-    document.querySelector(this.container).innerHTML += '<ul class="data">' + html.join('') + '</ul>';
+    this.container.innerHTML += '<ul class="data">' + html.join('') + '</ul>';
   };
 
   /**
@@ -57,8 +57,8 @@
       html.push('<section>' + c + '</section>');
     }
 
-    document.querySelector(this.container).className = 'timesheet color-scheme-default';
-    document.querySelector(this.container).innerHTML = '<div class="scale">' + html.join('') + '</div>';
+    this.container.className = 'timesheet color-scheme-default';
+    this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
   /**
