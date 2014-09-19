@@ -1,6 +1,6 @@
 # Timesheet.js
 
-Simple JavaScript library to create HTML time sheets. Wrapped in an example project using Middleman …
+Simple JavaScript library to create HTML time sheets. Wrapped in an example project using Middleman…
 
 ![https://semu.github.io/timesheet.js](https://raw.githubusercontent.com/semu/timesheet.js/master/screen.png)
 
