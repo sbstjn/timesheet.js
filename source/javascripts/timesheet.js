@@ -33,7 +33,7 @@
 
     for (var n = 0, m = this.data.length; n < m; n++) {
       var cur = this.data[n];
-      var bubble = new TimesheetBubble(widthMonth, this.year.min, cur.start, cur.end ? cur.end : new Date(this.year.max+1, 0, 1), cur.end ? false : true);
+      var bubble = new TimesheetBubble(widthMonth, this.year.min, cur.start, cur.end);
 
       var line = [
         '<span style="margin-left: ' + bubble.getStartOffset() + 'px; width: ' + bubble.getWidth() + 'px;" class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>',
@@ -66,7 +66,7 @@
    */
   Timesheet.prototype.parseDate = function(date) {
     if (date === 'present') {
-      return null;
+      return new Date(10000 + this.year.max, 0, 1);
     }
     if (date.indexOf('/') === -1) {
       date = new Date(parseInt(date, 10), 0, 1);
@@ -94,7 +94,7 @@
         this.year.min = beg.getFullYear();
       }
 
-      if (end && end.getFullYear() > this.year.max) {
+      if (end && end.getFullYear() < 10000 && end.getFullYear() > this.year.max) {
         this.year.max = end.getFullYear();
       } else if (beg.getFullYear() > this.year.max) {
         this.year.max = beg.getFullYear();

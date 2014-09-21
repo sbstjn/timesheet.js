@@ -4,11 +4,14 @@
   /**
    * Timesheet Bubble
    */
-  var Bubble = function(wMonth, min, start, end, endless) {
+  var Bubble = function(wMonth, min, start, end) {
     this.min = min;
     this.start = start;
     this.end = end;
-    this.endless = endless;
+    if (this.end && this.end.getFullYear() && this.end.getFullYear() > 9999) {
+      this.endless = true;
+      this.end = new Date(end.getFullYear()-9999, this.end.getMonth(), 1);
+    }
     this.widthMonth = wMonth;
   };
 
@@ -71,9 +74,9 @@
   Bubble.prototype.getDateLabel = function() {
     return [
       (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
-      (this.endless ? '&mdash;' :
-        (this.end ? '&ndash;' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()) : '')
-      )
+      (this.end 
+        ? (this.endless ? '&mdash;' : '&ndash;' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()))
+        : '')
     ].join('');
   };
 
