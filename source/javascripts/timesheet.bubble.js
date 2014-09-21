@@ -4,10 +4,11 @@
   /**
    * Timesheet Bubble
    */
-  var Bubble = function(wMonth, min, start, end) {
+  var Bubble = function(wMonth, min, start, end, endless) {
     this.min = min;
     this.start = start;
     this.end = end;
+    this.endless = endless;
     this.widthMonth = wMonth;
   };
 
@@ -70,7 +71,9 @@
   Bubble.prototype.getDateLabel = function() {
     return [
       (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
-      (this.end ? '-' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()) : '')
+      (this.endless ? '&mdash;' :
+        (this.end ? '&ndash;' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()) : '')
+      )
     ].join('');
   };
 
