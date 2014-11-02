@@ -2,7 +2,7 @@
 
 Simple JavaScript library to create HTML time sheets. Wrapped in an example project using Middleman …
 
-![https://semu.github.io/timesheet.js](https://raw.githubusercontent.com/semu/timesheet.js/master/screen.png)
+![https://sbstjn.github.io/timesheet.js](https://raw.githubusercontent.com/sbstjn/timesheet.js/master/screen.png)
 
 You only have to include `dist/timesheet.js` and `dist/timesheet.css` in your HTML and initialize Timesheet.js with:
 
