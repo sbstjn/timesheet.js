@@ -1,40 +1,79 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset='utf-8'>
-    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
-    <meta content='Timesheet.js' property='og:title'>
-    <meta content='With Timesheet.js you can create simple time and data sheets using HTML5, JavaScript and CSS3.' property='og:description'>
-    <meta content='https://sbstjn.github.io/timesheet.js/' property='og:url'>
-    <meta content='https://raw.githubusercontent.com/sbstjn/timesheet.js/master/screen.png' property='og:image'>
-    <meta content='669118929' property='fb:admins'>
-    <title>Timesheet.js - Open time tables with HTML, JavaScript and CSS …</title>
-    <script src="javascripts/timesheet-ec6cdbbf.js" type="text/javascript"></script><script src="javascripts/main-d80740b0.js" type="text/javascript"></script>
-    <link href="http://fonts.googleapis.com/css?family=Oxygen+Mono:400,600,800" rel="stylesheet" type="text/css" />
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet" type="text/css" />
-    <link href="http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/all-4d3cb721.css" rel="stylesheet" type="text/css" />
-    
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Timesheet.js : JavaScript library for simple HTML5 &amp; CSS3 time sheets">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Timesheet.js</title>
   </head>
-  <body class='black index'>
-    <span><a href='https://github.com/sbstjn/timesheet.js'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67' alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png'></a></span>
-    <div id='container'>
-      <div id='box'>
-        <div id='box-inner'>
-          <h1>
-            Timesheet<span>.js</span>
-          </h1>
-          <p>Visualize your data and events with sexy <span>HTML5</span> and <span>CSS3</span>. Create simple time sheets with sneaky JavaScript. Style them with CSS and have mobile fun as well …</p>
-          <div id='timesheet-default'></div>
-          <p>Just include Timesheet.js and configure your data. No external dependencies, no jQuery needed and of course no Angular.JS! Just a few lines JavaScript to generate a beautiful HTML5 layout and some really delicious CSS to be customized by mighty you.</p>
-          <code><pre>&lt;script src=&quot;/javascripts/timesheet.js&quot; type=&quot;text/javascript&quot; /&gt;</pre></code>
-          <p>Create a simple time sheet based on a JS array of events:</p>
-          <code><pre>new Timesheet('timesheet-default', 2002, 2013, [&#x000A;  ['2002', '09/2002', 'A freaking awesome time', 'lorem'],&#x000A;  ['06/2002', '09/2003', 'Some great memories', 'ipsum'],&#x000A;  ['2003', 'Had very bad luck'],&#x000A;  ['10/2003', '2006', 'At least had fun', 'dolor'],&#x000A;  ['02/2005', '05/2006', 'Enjoyed those times as well', 'ipsum'],&#x000A;  ['07/2005', '09/2005', 'Bad luck again', 'default'],&#x000A;  ['10/2005', '2008', 'For a long time nothing happened', 'dolor'],&#x000A;  ['01/2008', '05/2009', 'LOST Season #4', 'lorem'],&#x000A;  ['01/2009', '05/2009', 'LOST Season #4', 'lorem'],&#x000A;  ['02/2010', '05/2010', 'LOST Season #5', 'lorem'],&#x000A;  ['09/2008', '06/2010', 'FRINGE #1 &amp; #2', 'ipsum']&#x000A;]);</pre></code>
-          <p>It's that simple to use <span>Timesheet.js</span>. So, have a nice day, thank you for smoking and maybe try using Timesheet.js with custom styles …</p>
-          <p class='footer'>Timesheet.js is licensed under MIT License<br />Cheers to <a href="https://twitter.com/cheeaun">Cheeaun</a> and <a href="https://twitter.com/igrigorik/">Ilya</a><br /><br /><br /><span><a href="https://github.com/sbstjn/timesheet.js">❤</a></span><br /><br /><a href="#dark" id="switch-dark">dark</a> | <a href="#light" id="switch-light">light</a></p>
-        </div>
-      </div>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/semu/timesheet.js">View on GitHub</a>
+
+          <h1 id="project_title">Timesheet.js</h1>
+          <h2 id="project_tagline">JavaScript library for simple HTML5 &amp; CSS3 time sheets</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/semu/timesheet.js/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/semu/timesheet.js/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
     </div>
-    <script type='text/javascript'>var _gauges = _gauges || []; (function() { var t = document.createElement('script'); t.type = 'text/javascript'; t.async = true; t.id = 'gauges-tracker'; t.setAttribute('data-site-id', '538272a38bfdf705f50037c3'); t.src = '//secure.gaug.es/track.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(t, s); })();</script>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>
+<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>
+<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Timesheet.js maintained by <a href="https://github.com/semu">semu</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
