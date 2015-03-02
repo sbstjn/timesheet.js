@@ -4,6 +4,8 @@
 
 (function(){
   'use strict';
+  
+  var body = document.querySelector('body');
 
   Lib.ready(function() {
     /* jshint -W031 */
@@ -22,11 +24,11 @@
     ]);
 
     document.querySelector('#switch-dark').addEventListener('click', function() {
-      document.querySelector('body').className = 'index black';
+      body.className = 'index black';
     });
 
     document.querySelector('#switch-light').addEventListener('click', function() {
-      document.querySelector('body').className = 'index white';
+      body.className = 'index white';
     });
   });
 })();
