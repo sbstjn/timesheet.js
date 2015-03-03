@@ -26,4 +26,10 @@ new Timesheet('timesheet', 2002, 2013, [
 ]);
 ```
 
+### Bower
+
+`$ > bower install https://github.com/sbstjn/timesheet.js.git`
+
+## License
+
 Timesheet.js is licensed under MIT License.
