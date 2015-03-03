@@ -5,8 +5,6 @@
 (function(){
   'use strict';
   
-  var body = document.querySelector('body');
-
   Lib.ready(function() {
     /* jshint -W031 */
     new Timesheet('timesheet-default', 2002, 2013, [
@@ -24,11 +22,11 @@
     ]);
 
     document.querySelector('#switch-dark').addEventListener('click', function() {
-      body.className = 'index black';
+      document.querySelector('body').className = 'index black';
     });
 
     document.querySelector('#switch-light').addEventListener('click', function() {
-      body.className = 'index white';
+      document.querySelector('body').className = 'index white';
     });
   });
 })();
