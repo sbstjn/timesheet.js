@@ -85,7 +85,7 @@
       var beg = this.parseDate(data[n][0]);
       var end = data[n].length === 4 ? this.parseDate(data[n][1]) : null;
       var lbl = data[n].length === 4 ? data[n][2] : data[n][1];
-      var cat = data[n][3] || 'default';
+      var cat = data[n].length === 4 ? data[n][3] : data[n].length === 3 ? data[n][2] : 'default';
 
       if (beg.getFullYear() < this.year.min) {
         this.year.min = beg.getFullYear();
