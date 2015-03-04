@@ -1,5 +1,3 @@
-/* global TimesheetBubble */
-
 (function() {
   'use strict';
 
