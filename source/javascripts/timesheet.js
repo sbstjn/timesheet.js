@@ -100,7 +100,9 @@
   };
 
   /*
-    extend tabel to inline all possible dates
+    extend tabel to inline all possible dates 
+    and enable more events underneath each other 
+    if there are more events in same dates
   */
   Timesheet.prototype.extend = function() {
     var yearGap = this.year.max - this.year.min + 1;
