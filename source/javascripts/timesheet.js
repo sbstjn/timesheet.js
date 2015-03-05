@@ -98,6 +98,19 @@
       this.data.push({start: beg, end: end, label: lbl, type: cat});
     }
   };
+
+  /*
+    extend tabel to inline all possible dates
+  */
+  Timesheet.prototype.extend = function() {
+    var yearGap = this.year.max - this.year.min + 1;
+    var yearSection = this.container.childNodes[0].getElementsByTagName("section")[0].offsetWidth;
+
+    this.container.style.height = "auto";
+    this.container.style.overflow = "auto";
+    this.container.childNodes[0].style.width = yearGap * yearSection;
+    this.container.childNodes[1].style.overflow = "visible";
+  }
   
   /**
    * Timesheet Bubble
