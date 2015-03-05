@@ -17,24 +17,81 @@
     
   </head>
   <body class='black index'>
-    <span><a href='https://github.com/sbstjn/timesheet.js'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67' alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png'></a></span>
-    <div id='container'>
+
+    <header class="header">
+        <div class="container">
+            
+            <span>
+                <a href='https://github.com/sbstjn/timesheet.js'>
+                    <img style='position: absolute; top: 0; right: 0; border: 0;' 
+                    src='https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67' alt='Fork me on GitHub' data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png'>
+                </a>
+            </span>
+
+            <h1>
+                Timesheet<span>.js</span>
+            </h1>
+            <p>
+                Visualize your data and events with sexy 
+                <span>HTML5</span> 
+                and 
+                <span>CSS3</span>. 
+                Create simple time sheets with sneaky JavaScript. Style them with CSS and have mobile fun as well …
+            </p>
+
+        </div>
+    </header>
+
+    <div class='container'>
       <div id='box'>
         <div id='box-inner'>
-          <h1>
-            Timesheet<span>.js</span>
-          </h1>
-          <p>Visualize your data and events with sexy <span>HTML5</span> and <span>CSS3</span>. Create simple time sheets with sneaky JavaScript. Style them with CSS and have mobile fun as well …</p>
+
           <div id='timesheet-default'></div>
-          <p>Just include Timesheet.js and configure your data. No external dependencies, no jQuery needed and of course no Angular.JS! Just a few lines JavaScript to generate a beautiful HTML5 layout and some really delicious CSS to be customized by almighty you.</p>
-          <code><pre>&lt;script src=&quot;/javascripts/timesheet.js&quot; type=&quot;text/javascript&quot; /&gt;</pre></code>
+
+          <p>
+            Just include Timesheet.js and configure your data. No external dependencies, no jQuery needed and of course no Angular.JS! Just a few lines JavaScript to generate a beautiful HTML5 layout and some really delicious CSS to be customized by almighty you.
+        </p>
+          <code>
+            <pre>
+                &lt;script src=&quot;/javascripts/timesheet.js&quot; type=&quot;text/javascript&quot; /&gt;</pre></code>
           <p>Create a simple time sheet based on a JS array of events:</p>
           <code><pre>new Timesheet('timesheet-default', 2002, 2013, [&#x000A;  ['2002', '09/2002', 'A freaking awesome time', 'lorem'],&#x000A;  ['06/2002', '09/2003', 'Some great memories', 'ipsum'],&#x000A;  ['2003', 'Had very bad luck'],&#x000A;  ['10/2003', '2006', 'At least had fun', 'dolor'],&#x000A;  ['02/2005', '05/2006', 'Enjoyed those times as well', 'ipsum'],&#x000A;  ['07/2005', '09/2005', 'Bad luck again', 'default'],&#x000A;  ['10/2005', '2008', 'For a long time nothing happened', 'dolor'],&#x000A;  ['01/2008', '05/2009', 'LOST Season #4', 'lorem'],&#x000A;  ['01/2009', '05/2009', 'LOST Season #4', 'lorem'],&#x000A;  ['02/2010', '05/2010', 'LOST Season #5', 'lorem'],&#x000A;  ['09/2008', '06/2010', 'FRINGE #1 &amp; #2', 'ipsum']&#x000A;]);</pre></code>
           <p>It's that simple to use <span>Timesheet.js</span>. So, have a nice day, thank you for smoking and maybe try using Timesheet.js with custom styles …</p>
-          <p class='footer'>Timesheet.js is licensed under <a href="https://github.com/sbstjn/timesheet.js/blob/master/LICENSE.md">MIT License</a><br />Cheers to <a href="https://twitter.com/cheeaun">Cheeaun</a> and <a href="https://twitter.com/igrigorik/">Ilya</a><br /><br /><br /><span><a href="http://S11K.com">❤</a></span><br /><br /><a href="#dark" id="switch-dark">dark</a> | <a href="#light" id="switch-light">light</a></p>
+
+          
         </div>
       </div>
     </div>
+    
+    <div class="changer">
+        <div class="wrap-button">
+            <a href="#light" id="switch-light">light</a>
+            <a href="#dark" id="switch-dark">dark</a> 
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>
+            Timesheet.js is licensed under 
+            <a href="https://github.com/sbstjn/timesheet.js/blob/master/LICENSE.md">
+                MIT License
+            </a>
+            <br />
+            Cheers to <a href="https://twitter.com/cheeaun">Cheeaun</a> and 
+            <a href="https://twitter.com/igrigorik/">Ilya</a>
+            <span>
+                <a href="http://S11K.com">❤</a>
+            </span>
+        </p>
+        <p>
+            <small>
+                GitHub Pages &mdash; 
+                Theme by <a href="https://github.com/Luanramos" title="Luan Ramos">Luan Ramos</a>
+            </small>
+        </p>
+    </footer>
+
+
     <script type='text/javascript'>var _gauges = _gauges || []; (function() { var t = document.createElement('script'); t.type = 'text/javascript'; t.async = true; t.id = 'gauges-tracker'; t.setAttribute('data-site-id', '538272a38bfdf705f50037c3'); t.src = '//secure.gaug.es/track.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(t, s); })();</script>
   </body>
 </html>
