@@ -98,6 +98,23 @@
       this.data.push({start: beg, end: end, label: lbl, type: cat});
     }
   };
+
+  /*
+    extend tabel to inline all possible dates 
+    and enable more events underneath each other 
+    if there are more events in same dates
+  */
+  Timesheet.prototype.extend = function() {
+    var yearGap = this.year.max - this.year.min + 1;
+    var yearSection = this.container.childNodes[0].getElementsByTagName("section")[0].offsetWidth;
+    var scaleCont = this.container.childNodes[0];
+    var dataCont = this.container.childNodes[1];
+
+    this.container.style.height = "auto";
+    this.container.style.overflow = "auto";
+    scaleCont.style.width = yearGap * yearSection;
+    dataCont.style.overflow = "visible";
+  }
   
   /**
    * Timesheet Bubble
