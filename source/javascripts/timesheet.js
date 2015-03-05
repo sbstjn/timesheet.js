@@ -107,11 +107,13 @@
   Timesheet.prototype.extend = function() {
     var yearGap = this.year.max - this.year.min + 1;
     var yearSection = this.container.childNodes[0].getElementsByTagName("section")[0].offsetWidth;
+    var scaleCont = this.container.childNodes[0];
+    var dataCont = this.container.childNodes[1];
 
     this.container.style.height = "auto";
     this.container.style.overflow = "auto";
-    this.container.childNodes[0].style.width = yearGap * yearSection;
-    this.container.childNodes[1].style.overflow = "visible";
+    scaleCont.style.width = yearGap * yearSection;
+    dataCont.style.overflow = "visible";
   }
   
   /**
