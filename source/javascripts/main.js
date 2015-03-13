@@ -4,7 +4,7 @@
 
 (function(){
   'use strict';
-
+  
   Lib.ready(function() {
     /* jshint -W031 */
     new Timesheet('timesheet-default', 2002, 2013, [

@@ -1,5 +1,3 @@
-// require 'timesheet.bubble'
-
 /* global TimesheetBubble */
 
 (function() {
@@ -33,7 +31,7 @@
 
     for (var n = 0, m = this.data.length; n < m; n++) {
       var cur = this.data[n];
-      var bubble = new TimesheetBubble(widthMonth, this.year.min, cur.start, cur.end);
+      var bubble = new Bubble(widthMonth, this.year.min, cur.start, cur.end);
 
       var line = [
         '<span style="margin-left: ' + bubble.getStartOffset() + 'px; width: ' + bubble.getWidth() + 'px;" class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>',
@@ -88,7 +86,7 @@
       var beg = this.parseDate(data[n][0]);
       var end = data[n].length === 4 ? this.parseDate(data[n][1]) : null;
       var lbl = data[n].length === 4 ? data[n][2] : data[n][1];
-      var cat = data[n][3] || 'default';
+      var cat = data[n].length === 4 ? data[n][3] : data[n].length === 3 ? data[n][2] : 'default';
 
       if (beg.getFullYear() < this.year.min) {
         this.year.min = beg.getFullYear();
@@ -102,6 +100,85 @@
 
       this.data.push({start: beg, end: end, label: lbl, type: cat});
     }
+  };
+  
+  /**
+   * Timesheet Bubble
+   */
+  var Bubble = function(wMonth, min, start, end) {
+    this.min = min;
+    this.start = start;
+    this.end = end;
+    if (this.end && this.end.getFullYear() && this.end.getFullYear() > 9999) {
+      this.endless = true;
+      this.end = new Date(end.getFullYear()-9999, this.end.getMonth(), 1);
+    }
+    this.widthMonth = wMonth;
+  };
+  
+  /**
+   * Format month number
+   */
+  Bubble.prototype.formatMonth = function(num) {
+    num = parseInt(num, 10);
+  
+    return num >= 10 ? num : '0' + num;
+  };
+  
+  /**
+   * Calculate starting offset for bubble
+   */
+  Bubble.prototype.getStartOffset = function() {
+    return (this.widthMonth/12) * (12 * (this.start.getFullYear() - this.min) + this.start.getMonth());
+  };
+  
+  /**
+   * Get count of full years from start to end
+   */
+  Bubble.prototype.getFullYears = function() {
+    return ((this.end && this.end.getFullYear()) || this.start.getFullYear()) - this.start.getFullYear();
+  };
+  
+  /**
+   * Get count of all months in Timesheet Bubble
+   */
+  Bubble.prototype.getMonths = function() {
+    var fullYears = this.getFullYears();
+    var months = 0;
+  
+    if (!this.end) {
+      months += !this.start.hasMonth ? 12 : 1;
+    } else {
+      if (!this.end.hasMonth) {
+        months += 12 - (this.start.hasMonth ? this.start.getMonth() : 0);
+        months += 12 * (fullYears-1 > 0 ? fullYears-1 : 0);
+      } else {
+        months += this.end.getMonth() + 1;
+        months += 12 - (this.start.hasMonth ? this.start.getMonth() : 0);
+        months += 12 * (fullYears-1);
+      }
+    }
+  
+    return months;
+  };
+  
+  /**
+   * Get bubble's width in pixel
+   */
+  Bubble.prototype.getWidth = function() {
+    return (this.widthMonth/12) * this.getMonths();
+  };
+  
+  /**
+   * Get the bubble's label
+   */
+  Bubble.prototype.getDateLabel = function() {
+    return [
+      (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
+      (this.end 
+        ? (this.endless ? '&mdash;' : '&ndash;' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()))
+        : '')
+    ].join('');
   };
 
   window.Timesheet = Timesheet;

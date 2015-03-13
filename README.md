@@ -2,7 +2,7 @@
 
 Simple JavaScript library to create HTML time sheets. Wrapped in an example project using Middleman …
 
-![https://semu.github.io/timesheet.js](https://raw.githubusercontent.com/semu/timesheet.js/master/screen.png)
+![https://sbstjn.github.io/timesheet.js](https://raw.githubusercontent.com/sbstjn/timesheet.js/master/screen.png)
 
 You only have to include `dist/timesheet.js` and `dist/timesheet.css` in your HTML and initialize Timesheet.js with:
 
@@ -25,5 +25,11 @@ new Timesheet('timesheet', 2002, 2013, [
   ['09/2008', '06/2010', 'FRINGE #1 & #2', 'ipsum']
 ]);
 ```
+
+### Bower
+
+`$ > bower install https://github.com/sbstjn/timesheet.js.git`
+
+## License
 
 Timesheet.js is licensed under MIT License.
