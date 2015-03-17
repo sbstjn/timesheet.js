@@ -63,6 +63,9 @@
    * Parse data string
    */
   Timesheet.prototype.parseDate = function(date) {
+    if (date === 'present') {
+      return new Date(10000 + this.year.max, 0, 1);
+    }
     if (date.indexOf('/') === -1) {
       date = new Date(parseInt(date, 10), 0, 1);
       date.hasMonth = false;
@@ -89,7 +92,7 @@
         this.year.min = beg.getFullYear();
       }
 
-      if (end && end.getFullYear() > this.year.max) {
+      if (end && end.getFullYear() < 10000 && end.getFullYear() > this.year.max) {
         this.year.max = end.getFullYear();
       } else if (beg.getFullYear() > this.year.max) {
         this.year.max = beg.getFullYear();
@@ -106,6 +109,10 @@
     this.min = min;
     this.start = start;
     this.end = end;
+    if (this.end && this.end.getFullYear() && this.end.getFullYear() > 9999) {
+      this.endless = true;
+      this.end = new Date(end.getFullYear()-9999, this.end.getMonth(), 1);
+    }
     this.widthMonth = wMonth;
   };
   
@@ -168,7 +175,9 @@
   Bubble.prototype.getDateLabel = function() {
     return [
       (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
-      (this.end ? '-' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()) : '')
+      (this.end 
+        ? (this.endless ? '&mdash;' : '&ndash;' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()))
+        : '')
     ].join('');
   };
 
