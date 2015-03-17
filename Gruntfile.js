@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       my_target: {
         files: {
-          'dist/timesheet.js': ['source/javascripts/timesheet.bubble.js', 'source/javascripts/timesheet.js']
+          'dist/timesheet.js': ['source/javascripts/timesheet.js']
         }
       }
     },
