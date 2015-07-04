@@ -14,6 +14,9 @@
 /.sass-cache
 /.cache
 
+# Built gh-pages
+/gh-pages
+
 # Ignore .DS_store file
 .DS_Store
 

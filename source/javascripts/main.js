@@ -1,11 +1,11 @@
-//= require_tree .
-
 /* global Lib, Timesheet */
 
 (function(){
   'use strict';
   
   Lib.ready(function() {
+    console.log('ads');
+    
     /* jshint -W031 */
     new Timesheet('timesheet-default', 2002, 2013, [
       ['2002', '09/2002', 'A freaking awesome time', 'lorem'],

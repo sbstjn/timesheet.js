@@ -1,0 +1,101 @@
+
+.white
+  .timesheet
+    width: 720px
+    height: 292px
+    margin: 0 auto
+  
+  .timesheet
+    border-top: 1px solid rgba(60, 60, 60, 0.3)
+    background-color: rgba(251, 251, 251, 1)
+    position: relative
+  
+    &.color-scheme-default
+      .bubble-default
+        background-color: RGBA(252, 70, 74, 1) // red
+      .bubble-lorem
+        background-color: RGBA(154, 202, 39, 1) // green
+      .bubble-ipsum
+        background-color: RGBA(60, 182, 227, 1) // blue
+      .bubble-dolor
+        background-color: RGBA(244, 207, 48, 1) // yellow
+      .bubble-sit
+        background-color: RGBA(169, 105, 202, 1) // cyan
+  
+    &.color-scheme-alternative
+      .bubble-default
+        background-color: rgba(243, 85, 46, 1)
+      .bubble-lorem
+        background-color: rgba(136, 195, 58, 1)
+      .bubble-ipsum
+        background-color: rgba(67, 106, 224, 1)
+      .bubble-dolor
+        background-color: rgba(244, 210, 52, 1)
+      .bubble-sit
+        background-color: rgba(112, 125, 134, 1)
+  
+  
+    .scale
+      height: 100%
+      position: absolute
+      top: 0
+      left: 0
+      float: left
+  
+      section
+        float: left
+        width: 59px
+        color: rgba(50, 50, 50, 0.8)
+        font-family: 'Signika Negative'
+        font-size: 13px
+        line-height: 24px
+        font-weight: 300
+        border-left: 1px dashed rgba(50, 50, 50, 0.1)
+        height: 100%
+  
+    .data
+      margin: 28px 0 0 0
+      padding: 0
+      text-align: left
+      list-style-type: none
+      color: rgba(250, 250, 250, 0.8)
+      font-family: 'Signika Negative'
+      font-size: 13px
+      overflow: hidden
+  
+      li
+        margin: 0 0 3px 0
+        line-height: 22px
+        height: 21px
+        display: block
+        cursor: pointer
+        clear: both
+        position: relative
+        white-space: nowrap
+  
+        &:hover
+          .bubble
+            opacity: 1
+  
+        .date
+          color: rgba(121, 121, 121, 1)
+          font-size: 14px
+  
+        .label
+          font-weight: lighter
+          font-size: 14px
+          padding-left: 5px
+          line-height: 21px
+          color: rgba(51, 51, 50, 1)
+          white-space: nowrap
+  
+        .bubble
+          width: 24px
+          height: 7px
+          display: block
+          float: left
+          position: relative
+          top: 7px
+          border-radius: 4px
+          margin: 0 10px 0 0
+          opacity: 0.7
