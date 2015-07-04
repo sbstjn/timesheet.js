@@ -1,5 +1,3 @@
-/* global TimesheetBubble */
-
 (function() {
   'use strict';
 
@@ -31,7 +29,7 @@
 
     for (var n = 0, m = this.data.length; n < m; n++) {
       var cur = this.data[n];
-      var bubble = new Bubble(widthMonth, this.year.min, cur.start, cur.end);
+      var bubble = this.createBubble(widthMonth, this.year.min, cur.start, cur.end);
 
       var line = [
         '<span style="margin-left: ' + bubble.getStartOffset() + 'px; width: ' + bubble.getWidth() + 'px;" class="bubble bubble-' + (cur.type || 'default') + '" data-duration="' + (cur.end ? Math.round((cur.end-cur.start)/1000/60/60/24/39) : '') + '"></span>',
@@ -98,7 +96,14 @@
       this.data.push({start: beg, end: end, label: lbl, type: cat});
     }
   };
-  
+
+  /**
+   * Wrapper for adding bubbles
+   */
+  Timesheet.prototype.createBubble = function(wMonth, min, start, end) {
+    return new Bubble(wMonth, min, start, end);
+  };
+
   /**
    * Timesheet Bubble
    */
@@ -108,37 +113,37 @@
     this.end = end;
     this.widthMonth = wMonth;
   };
-  
+
   /**
    * Format month number
    */
   Bubble.prototype.formatMonth = function(num) {
     num = parseInt(num, 10);
-  
+
     return num >= 10 ? num : '0' + num;
   };
-  
+
   /**
    * Calculate starting offset for bubble
    */
   Bubble.prototype.getStartOffset = function() {
     return (this.widthMonth/12) * (12 * (this.start.getFullYear() - this.min) + this.start.getMonth());
   };
-  
+
   /**
    * Get count of full years from start to end
    */
   Bubble.prototype.getFullYears = function() {
     return ((this.end && this.end.getFullYear()) || this.start.getFullYear()) - this.start.getFullYear();
   };
-  
+
   /**
    * Get count of all months in Timesheet Bubble
    */
   Bubble.prototype.getMonths = function() {
     var fullYears = this.getFullYears();
     var months = 0;
-  
+
     if (!this.end) {
       months += !this.start.hasMonth ? 12 : 1;
     } else {
@@ -151,17 +156,17 @@
         months += 12 * (fullYears-1);
       }
     }
-  
+
     return months;
   };
-  
+
   /**
    * Get bubble's width in pixel
    */
   Bubble.prototype.getWidth = function() {
     return (this.widthMonth/12) * this.getMonths();
   };
-  
+
   /**
    * Get the bubble's label
    */
