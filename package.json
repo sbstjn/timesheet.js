@@ -1,6 +1,6 @@
 {
   "name": "timesheet.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!",
   "author": "sbstjn <mail@sbstjn.com>",
   "devDependencies": {
