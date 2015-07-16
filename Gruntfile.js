@@ -10,7 +10,8 @@ module.exports = function(grunt) {
 			},
 			my_target: {
 				files: {
-					'dist/timesheet.min.js': ['source/javascripts/timesheet.js']
+          'dist/timesheet.min.js': ['source/javascripts/timesheet.js'],
+					'dist/timesheet-advanced.min.js': ['source/javascripts/timesheet-advanced.js']
 				}
 			}
 		},
@@ -97,7 +98,8 @@ module.exports = function(grunt) {
 				files: [
 					{expand: false, src: __dirname + '/source/javascripts/lib.js', 				 dest: __dirname + '/gh-pages/script/lib.js'},
 					{expand: false, src: __dirname + '/source/javascripts/main.js',				dest: __dirname + '/gh-pages/script/main.js'},
-					{expand: false, src: __dirname + '/dist/timesheet.min.js',			      dest: __dirname + '/gh-pages/script/timesheet.min.js'},
+          {expand: false, src: __dirname + '/dist/timesheet.min.js',			      dest: __dirname + '/gh-pages/script/timesheet.min.js'},
+					{expand: false, src: __dirname + '/dist/timesheet-advanced.min.js',			      dest: __dirname + '/gh-pages/script/timesheet-advanced.min.js'},
 					{expand: false, src: __dirname + '/dist/timesheet.min.css', 					 dest: __dirname + '/gh-pages/styles/timesheet.css'},
 					{expand: false, src: __dirname + '/dist/timesheet-white.min.css',			dest: __dirname + '/gh-pages/styles/timesheet-white.css'},
 					{expand: false, src: __dirname + '/dist/timesheet.min.css.map', 			 dest: __dirname + '/gh-pages/styles/timesheet.css.map'},

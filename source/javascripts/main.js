@@ -7,7 +7,7 @@
     console.log('ads');
     
     /* jshint -W031 */
-    new Timesheet('timesheet-default', 2002, 2013, [
+    new Timesheet('timesheet-default', 'serial', 2002, 2013, [
       ['2002', '09/2002', 'A freaking awesome time', 'lorem'],
       ['06/2002', '09/2003', 'Some great memories', 'ipsum'],
       ['2003', 'Had very bad luck'],
