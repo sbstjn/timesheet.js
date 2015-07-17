@@ -119,16 +119,25 @@
   Timesheet.prototype.generateMarkupParallel = function() {
     var html = [];
     this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+    var startTag = '';
+    var endTag = '';
 
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
+      if (bubble.link !== '') {
+        startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">';
+        endTag = '</a>';
+      }
+      else {
+        startTag = '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">';
+        endTag = '</span>';
+      }
 
       var line = [
-        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '">' +
-        (bubble.link !== '' ? '<a href="' + bubble.link + '">&gt;&gt;</a></span>' : '</span>') +
-        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">' +
+        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+         startTag +
         '<span class="date">' + bubble.getDateLabel() + '</span>',
-        '<span class="label">' + bubble.label + '</span>' + '</span>'
+        '<span class="label">' + bubble.label + '</span>' + endTag
       ].join('');
 
       html.push('<li>' + line + '</li>');
