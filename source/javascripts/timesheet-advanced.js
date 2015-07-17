@@ -166,17 +166,17 @@
         var line = [];
         for (j = 0; j < currentList.bubbles.length; j++) {
           currentBubble = currentList.bubbles[j];
-          console.log(currentBubble);
           line.push(
             '<li>',
-              '<span style="left: ' + '0px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '">',
-                '<span class="timesheet-label">' + currentBubble.label + '</span>',
+              '<span style="left: ' + currentBubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
+              '<span class="info-wrapper">',
+                '<span class="date">' + currentBubble.getDateLabel() + '</span>',
+                '<span class="label">' + currentBubble.label + '</span>',
               '</span>',
             '</li>'
           );
-
-          html.push(line.join(''));
         }
+        html.push(line.join(''));
         html.push('</ul>');
         html.push('</li>');
       }
