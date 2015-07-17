@@ -21,6 +21,14 @@
       ['09/2008', '06/2010', 'FRINGE #1 & #2', 'blue', '']
     ]);
 
+    new Timesheet('timesheet-projects', 'serial', 2010, 2015, [
+      // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
+      // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
+      ['2010', '', 'Slickguns', 'red', 'www.slickguns.com'],
+      ['2011', '', 'Wikiarms', 'blue', 'www.wikairms.com'],
+      ['03/2012', '', 'Lorem ipsum', 'yellow', '']
+    ]);
+
     document.querySelector('#switch-dark').addEventListener('click', function() {
       document.querySelector('body').className = 'index black';
     });
