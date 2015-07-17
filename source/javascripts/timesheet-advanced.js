@@ -1,8 +1,6 @@
 (function() {
   'use strict';
 
-  /* jshint onevar: false */
-
   /**
    * Initialize Timesheet object.
    */
@@ -30,33 +28,45 @@
    * Parse timesheet data.
    */
   Timesheet.prototype.parse = function(data) {
-    for (var n = 0; n < data.length; n++) {
-      var beg = this.parseDate(data[n][0]);
-      var end = data[n].length === 4 ? this.parseDate(data[n][1]) : null;
-      var label = data[n].length === 4 ? data[n][2] : data[n][1];
-      var bubbleType = data[n].length === 4 ? data[n][3] : data[n].length === 3 ? data[n][2] : 'default';
+    try {
+      for (var n = 0; n < data.length; n++) {
+        if (data[n].length !== 5) {
+          throw 'Not enough input parameters for bubble ' + (n + 1);
+        }
+        var beg = this.parseDate(data[n][0]);
+        var end = (data[n][1] !== '' ? this.parseDate(data[n][1]) : null);
+        var label = data[n][2];
+        var bubbleType = (data[n][3] !== '' ? data[n][3] : 'default');
+        var link = (data[n][4] !== '' ? data[n][4] : '');
 
-      if (beg.getFullYear() < this.year.min) {
-        this.year.min = beg.getFullYear();
+        if (beg.getFullYear() < this.year.min) {
+          this.year.min = beg.getFullYear();
+        }
+
+        if (end && end.getFullYear() > this.year.max) {
+          this.year.max = end.getFullYear();
+        }
+        else if (beg.getFullYear() > this.year.max) {
+          this.year.max = beg.getFullYear();
+        }
+
+        this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
+
+        this.bubbles.push(this.createBubble({
+            start: beg,
+            end: end,
+            type: bubbleType,
+            label: label,
+            timesheetYearMin: this.year.min,
+            timesheetYearMax: this.year.max,
+            link: link
+          })
+        );
       }
 
-      if (end && end.getFullYear() > this.year.max) {
-        this.year.max = end.getFullYear();
-      } else if (beg.getFullYear() > this.year.max) {
-        this.year.max = beg.getFullYear();
-      }
-
-      this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
-
-      this.bubbles.push(this.createBubble({
-          start: beg,
-          end: end,
-          type: bubbleType,
-          label: label,
-          timesheetYearMin: this.year.min,
-          timesheetYearMax: this.year.max
-        })
-      );
+    }
+    catch (err) {
+      console.error(err);
     }
   };
 
@@ -67,7 +77,8 @@
     if (date.indexOf('/') === -1) {
       date = new Date(parseInt(date, 10), 0, 1);
       date.hasMonth = false;
-    } else {
+    }
+    else {
       date = date.split('/');
       date = new Date(parseInt(date[1], 10), parseInt(date[0], 10)-1, 1);
       date.hasMonth = true;
@@ -108,14 +119,25 @@
   Timesheet.prototype.generateMarkupParallel = function() {
     var html = [];
     this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+    var startTag = '';
+    var endTag = '';
 
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
+      if (bubble.link !== '') {
+        startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">';
+        endTag = '</a>';
+      }
+      else {
+        startTag = '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">';
+        endTag = '</span>';
+      }
 
       var line = [
-        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>',
+        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+         startTag +
         '<span class="date">' + bubble.getDateLabel() + '</span>',
-        '<span class="label">' + bubble.label + '</span>'
+        '<span class="label">' + bubble.label + '</span>' + endTag
       ].join('');
 
       html.push('<li>' + line + '</li>');
@@ -225,6 +247,7 @@
         options.end = maxDate;
       }
     }
+
     return new Bubble(options);
   };
 
@@ -242,6 +265,7 @@
     this.monthOffsetEnd = this.getEndOffset();
     this.monthsLength = this.monthOffsetEnd - this.monthOffsetStart;
 
+    this.link = options.link;
     this.type = options.type;
     this.label = options.label;
   };
