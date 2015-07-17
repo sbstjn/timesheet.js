@@ -5,7 +5,7 @@
   
   Lib.ready(function() {
     /* jshint -W031 */
-    new Timesheet('timesheet-default', 'parallel', 2002, 2013, [
+    new Timesheet('timesheet-default', 'serial', 2002, 2013, [
         // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
         // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2002', '09/2002', 'A freaking awesome time', 'red', ''],
