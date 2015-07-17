@@ -12,6 +12,7 @@
       max: max
     };
     this.bubbles = [];
+    this.widthYear = 0;
 
     // Parse function fills this.bubbles as well.
     this.parse(data || []);
@@ -96,15 +97,16 @@
    */
   Timesheet.prototype.generateMarkupParallel = function() {
     var html = [];
-    var widthYear = this.container.querySelector('.scale section').offsetWidth;
+    this.widthYear = this.container.querySelector('.scale section').offsetWidth;
 
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
       var bubbleData = this.data[n];
 
       var line = [
-        '<span style="margin-left: ' + bubble.monthOffsetStart * widthYear / 2 + 'px;" class="bubble bubble-' + bubbleData.type + '" data-duration="' + bubble.monthsLength + '"></span>',
-        '<span class="date">' + bubble.getDateLabel() + '</span>'
+        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubbleData.bubbleType + '" data-duration="' + bubble.monthsLength + '"></span>',
+        '<span class="date">' + bubble.getDateLabel() + '</span>',
+        '<span class="label">' + bubbleData.label + '</span>'
       ].join('');
 
       html.push('<li>' + line + '</li>');
@@ -166,6 +168,22 @@
    */
   Bubble.prototype.getEndOffset = function() {
     return (12 * (this.end.getFullYear() - this.timesheetYearMin) + this.end.getMonth());
+  };
+
+  /**
+   * Format month number
+   */
+  Bubble.prototype.formatMonth = function(num) {
+    num = parseInt(num, 10);
+
+    return num >= 10 ? num : '0' + num;
+  };
+
+  /**
+   * Get bubble's width in pixel
+   */
+  Bubble.prototype.getWidth = function(widthYear) {
+    return (widthYear/12) * this.monthsLength;
   };
 
   /**
