@@ -5,7 +5,7 @@
   
   Lib.ready(function() {
     /* jshint -W031 */
-    new Timesheet('timesheet-default', 'parallel', 2002, 2013, [
+    new Timesheet('timesheet-default', 'serial', 2002, 2013, [
         // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
         // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2002', '09/2002', 'A freaking awesome time', 'red', ''],
@@ -19,6 +19,14 @@
       ['01/2009', '05/2009', 'LOST Season #4', 'red', ''],
       ['02/2010', '05/2010', 'LOST Season #5', 'blue', ''],
       ['09/2008', '06/2010', 'Just include Timesheet.js and configure your data. No external dependencies, no jQuery ', 'blue', '']
+    ]);
+
+    new Timesheet('timesheet-projects', 'serial', 2010, 2015, [
+      // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
+      // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
+      ['2010', '', 'Slickguns', 'red', 'www.slickguns.com'],
+      ['2011', '', 'Wikiarms', 'blue', 'www.wikairms.com'],
+      ['03/2012', '', 'Lorem ipsum', 'yellow', '']
     ]);
 
     document.querySelector('#switch-dark').addEventListener('click', function() {
