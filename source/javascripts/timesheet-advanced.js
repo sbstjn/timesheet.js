@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  /* jshint onevar: false */
+
   /**
    * Initialize Timesheet object.
    */
@@ -46,7 +48,15 @@
 
       this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
 
-      this.bubbles.push(this.createBubble(beg, end, this.year.min, this.year.max));
+      this.bubbles.push(this.createBubble({
+          start: beg,
+          end: end,
+          type: bubbleType,
+          label: label,
+          timesheetYearMin: this.year.min,
+          timesheetYearMax: this.year.max
+        })
+      );
     }
   };
 
@@ -101,12 +111,11 @@
 
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
-      var bubbleData = this.data[n];
 
       var line = [
-        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubbleData.bubbleType + '" data-duration="' + bubble.monthsLength + '"></span>',
+        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>',
         '<span class="date">' + bubble.getDateLabel() + '</span>',
-        '<span class="label">' + bubbleData.label + '</span>'
+        '<span class="label">' + bubble.label + '</span>'
       ].join('');
 
       html.push('<li>' + line + '</li>');
@@ -119,41 +128,123 @@
    * Generate serial markup.
    */
   Timesheet.prototype.generateMarkupSerial = function() {
+    var html = [];
+    var i, j, currentList, currentBubble;
+    this.widthYear = this.container.querySelector('.scale section').offsetWidth;
 
+    var lists = this.buildSerialBubbleLists();
+
+    html.push('<ul class="data">');
+    // Lists loop, for rendering markup.
+    for (i = 0; i < lists.length; i++) {
+      currentList = lists[i];
+      if (currentList.bubbles.length) {
+        html.push('<li>');
+        html.push('<ul>');
+        var line = [];
+        for (j = 0; j < currentList.bubbles.length; j++) {
+          currentBubble = currentList.bubbles[j];
+          console.log(currentBubble);
+          line.push(
+            '<li>',
+              '<span style="left: ' + '0px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '">',
+                '<span class="timesheet-label">' + currentBubble.label + '</span>',
+              '</span>',
+            '</li>'
+          );
+
+          html.push(line.join(''));
+        }
+        html.push('</ul>');
+        html.push('</li>');
+      }
+    }
+    html.push('</ul>');
+
+    this.container.innerHTML += html.join('');
+  };
+
+  /**
+   * Helper function for building bubble lists on serial timesheet view.
+   */
+  Timesheet.prototype.buildSerialBubbleLists = function() {
+    var i, j;
+    var list;
+    var bubble;
+
+    // One list element is a single row of bubbles.
+    var lists = [
+      {
+        monthOffsetEnd: 0,
+        bubbles: []
+      }
+    ];
+
+    // Bubbles loop.
+    for (i = 0; i < this.bubbles.length; i++) {
+      bubble = this.bubbles[i];
+
+      // Lists loop
+      for (j = 0; j < lists.length; j++) {
+        list = lists[j];
+        // Check if is first element in loop (monthOffsetEnd is 0) or if bubble starts at least 1 month after list ends.
+        if (!list.monthOffsetEnd || list.monthOffsetEnd + 1 <= bubble.monthOffsetStart) {
+          lists[j].bubbles.push(bubble);
+          lists[j].monthOffsetEnd = bubble.monthOffsetEnd;
+          break;
+        }
+
+        // If it's the last iteration and we haven't found a list to which we can add bubble, create a new list.
+        if  (j === lists.length - 1) {
+          lists[j + 1] = {
+            monthOffsetEnd: bubble.monthOffsetEnd,
+            bubbles: [
+              bubble
+            ]
+          };
+          break;
+        }
+      }
+    }
+
+    return lists;
   };
 
   /**
    * Wrapper for adding bubbles.
    */
-  Timesheet.prototype.createBubble = function(start, end, timesheetYearMin, timesheetYearMax) {
+  Timesheet.prototype.createBubble = function(options) {
     // If end isn't defined, it means that the bubble is still active, so copy min value between current date and ending year that's set up in constructor.
-    if (end === null) {
+    if (options.end === null) {
       var currentDate = new Date();
       var maxDate = new Date(this.year.max, 12, 31);
 
       if (currentDate.getTime() < maxDate.getTime()) {
-        end = currentDate;
+        options.end = currentDate;
       }
       else {
-        end = maxDate;
+        options.end = maxDate;
       }
     }
-    return new Bubble(start, end, timesheetYearMin, timesheetYearMax);
+    return new Bubble(options);
   };
 
   /**
    * Timesheet Bubble.
    */
-  var Bubble = function(start, end, timesheetYearMin, timesheetYearMax) {
-    this.start = start;
-    this.end = end;
+  var Bubble = function(options) {
+    this.start = options.start;
+    this.end = options.end;
 
-    this.timesheetYearMin = timesheetYearMin;
-    this.timesheetYearMax = timesheetYearMax;
+    this.timesheetYearMin = options.timesheetYearMin;
+    this.timesheetYearMax = options.timesheetYearMax;
 
     this.monthOffsetStart = this.getStartOffset();
     this.monthOffsetEnd = this.getEndOffset();
     this.monthsLength = this.monthOffsetEnd - this.monthOffsetStart;
+
+    this.type = options.type;
+    this.label = options.label;
   };
 
   /**
