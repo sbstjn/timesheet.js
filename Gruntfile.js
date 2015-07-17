@@ -30,7 +30,6 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'dist/timesheet.min.css': 'source/stylesheets/timesheet.sass',
-					'dist/timesheet-white.min.css': 'source/stylesheets/timesheet-white.sass'
 				}
 			}
 		},

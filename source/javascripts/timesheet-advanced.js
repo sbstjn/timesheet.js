@@ -86,7 +86,7 @@
       html.push('<section>' + c + '</section>');
     }
 
-    this.container.className = 'timesheet color-scheme-default';
+    this.container.className = 'timesheet';
     this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
