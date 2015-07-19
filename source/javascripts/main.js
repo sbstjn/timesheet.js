@@ -5,7 +5,7 @@
   
   Lib.ready(function() {
     /* jshint -W031 */
-    new Timesheet('timesheet-default', 'serial', 2002, 2013, [
+    new Timesheet('timesheet-default', 'parallel', 2002, 2011, [
         // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
         // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2002', '09/2002', 'A freaking awesome time', 'red', ''],
@@ -26,15 +26,9 @@
       // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2010', '', 'Slickguns', 'red', 'www.slickguns.com'],
       ['2011', '', 'Wikiarms', 'blue', 'www.wikairms.com'],
+      ['09/2014', '03/2015', 'Gateway15', '', ''],
+      ['05/2015', '06/2015', 'Feedback collect', 'green', ''],
       ['03/2012', '', 'Lorem ipsum', 'yellow', '']
     ]);
-
-    document.querySelector('#switch-dark').addEventListener('click', function() {
-      document.querySelector('body').className = 'index black';
-    });
-
-    document.querySelector('#switch-light').addEventListener('click', function() {
-      document.querySelector('body').className = 'index white';
-    });
   });
 })();
