@@ -69,32 +69,40 @@
    * Parse timesheet data.
    */
   Timesheet.prototype.parse = function(data) {
+    var overrideTimesheetMin = this.options.timesheetYearMin === null;
+    var overrideTimesheetMax = this.options.timesheetYearMax === null;
+
     for (var n = 0; n < data.length; n++) {
       if (data[n].length !== 5) {
         throw 'Not enough input parameters for bubble ' + (n + 1);
       }
-      var beg = this.parseDate(data[n][0]);
-      var end = (data[n][1] !== '' ? this.parseDate(data[n][1]) : null);
+      var bubbleStart = this.parseDate(data[n][0]);
+      var bubbleEnd = (data[n][1] !== '' ? this.parseDate(data[n][1]) : null);
       var label = data[n][2];
       var bubbleType = (data[n][3] !== '' ? data[n][3] : 'default');
       var link = (data[n][4] !== '' ? data[n][4] : '');
 
-      if (beg.getFullYear() < this.options.timesheetYearMin) {
-        this.options.timesheetYearMin = beg.getFullYear();
+      // todo: if start before beginning, if end after end don't add to list of bubbles.
+
+      // Check if  timesheet year min/max wasn't set and use minimum/maximum bubble value for setting up the year sections.
+      if (overrideTimesheetMin && bubbleStart.getFullYear() < this.options.timesheetYearMin) {
+        this.options.timesheetYearMin = bubbleStart.getFullYear();
       }
 
-      if (end && end.getFullYear() > this.options.timesheetYearMax) {
-        this.options.timesheetYearMax = end.getFullYear();
-      }
-      else if (beg.getFullYear() > this.options.timesheetYearMax) {
-        this.options.timesheetYearMax = beg.getFullYear();
+      if (overrideTimesheetMax) {
+        if (bubbleEnd && bubbleEnd.getFullYear() > this.options.timesheetYearMax) {
+          this.options.timesheetYearMax = bubbleEnd.getFullYear();
+        }
+        else if (bubbleStart.getFullYear() > this.options.timesheetYearMax) {
+          this.options.timesheetYearMax = bubbleStart.getFullYear();
+        }
       }
 
-      this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
+      this.data.push({start: bubbleStart, end: bubbleEnd, label: label, bubbleType: bubbleType});
 
       this.bubbles.push(this.createBubble({
-          start: beg,
-          end: end,
+          start: bubbleStart,
+          end: bubbleEnd,
           type: bubbleType,
           label: label,
           timesheetYearMin: this.options.timesheetYearMin,
@@ -181,17 +189,18 @@
 
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
+      var position = bubble.getPosition(this);
       if (bubble.link !== '') {
-        startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">';
+        startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
         endTag = '</a>';
       }
       else {
-        startTag = '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px;">';
+        startTag = '<span style="margin-left: ' + position.offset + '">';
         endTag = '</span>';
       }
 
       var line = [
-        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+        '<span style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
          startTag +
         '<span class="date">' + bubble.getDateLabel() + '</span>',
         '<span class="label">' + bubble.label + '</span>' + endTag
@@ -223,9 +232,10 @@
         var line = [];
         for (j = 0; j < currentList.bubbles.length; j++) {
           currentBubble = currentList.bubbles[j];
+          var position = currentBubble.getPosition(this);
           line.push(
             '<li>',
-              '<span style="left: ' + currentBubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
+              '<span style="left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
               '<span class="info-wrapper">',
                 '<span class="date">' + currentBubble.getDateLabel() + '</span>',
                 '<span class="label">' + currentBubble.label + '</span>',
@@ -319,8 +329,10 @@
     this.timesheetYearMin = options.timesheetYearMin;
     this.timesheetYearMax = options.timesheetYearMax;
 
-    this.monthOffsetStart = this.getStartOffset();
-    this.monthOffsetEnd = this.getEndOffset();
+    var offsets = this.getMonthOffsets();
+    this.monthOffsetStart = offsets.monthStart;
+    this.monthOffsetEnd = offsets.monthEnd;
+
     this.monthsLength = this.monthOffsetEnd - this.monthOffsetStart;
 
     this.link = options.link;
@@ -329,17 +341,25 @@
   };
 
   /**
-   * Calculate starting offset for bubble (in months).
+   * Get month offsets for start and end of bubbles.
    */
-  Bubble.prototype.getStartOffset = function() {
-    return (12 * (this.start.getFullYear() - this.timesheetYearMin) + this.start.getMonth());
-  };
+  Bubble.prototype.getMonthOffsets = function() {
+    var offsets = {};
 
-  /**
-   * Calculate ending offset for bubble (in months).
-   */
-  Bubble.prototype.getEndOffset = function() {
-    return (12 * (this.end.getFullYear() - this.timesheetYearMin) + this.end.getMonth());
+    offsets.monthStart = Math.abs(12 * (this.start.getFullYear() - this.timesheetYearMin) + this.start.getMonth());
+    offsets.monthEnd = Math.abs(12 * (this.end.getFullYear() - this.timesheetYearMin) + this.end.getMonth());
+
+    if (this.start.getFullYear() < this.timesheetYearMin) {
+      // Remove the years of difference from start.
+      offsets.monthStart -= ((this.timesheetYearMin - this.start.getFullYear()) * 12);
+    }
+
+    if (this.end.getFullYear() > this.timesheetYearMax) {
+      // Round it to the end of the year by removing 1 year from offset.
+      offsets.monthEnd -= ((this.end.getFullYear() - this.timesheetYearMax - 1) * 12);
+    }
+
+    return offsets;
   };
 
   /**
@@ -356,6 +376,18 @@
    */
   Bubble.prototype.getWidth = function(widthYear) {
     return (widthYear/12) * this.monthsLength;
+  };
+
+  /**
+   * Returns bubble pixel dimensions and left offset.
+   */
+  Bubble.prototype.getPosition = function(timesheet) {
+    var position = {};
+
+    position.offset = this.monthOffsetStart * timesheet.widthYear / 12 + 'px';
+    position.width = this.getWidth(timesheet.widthYear) + 'px';
+
+    return position;
   };
 
   /**
