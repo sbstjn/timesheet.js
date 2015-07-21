@@ -69,32 +69,40 @@
    * Parse timesheet data.
    */
   Timesheet.prototype.parse = function(data) {
+    var overrideTimesheetMin = this.options.timesheetYearMin === null;
+    var overrideTimesheetMax = this.options.timesheetYearMax === null;
+
     for (var n = 0; n < data.length; n++) {
       if (data[n].length !== 5) {
         throw 'Not enough input parameters for bubble ' + (n + 1);
       }
-      var beg = this.parseDate(data[n][0]);
-      var end = (data[n][1] !== '' ? this.parseDate(data[n][1]) : null);
+      var bubbleStart = this.parseDate(data[n][0]);
+      var bubbleEnd = (data[n][1] !== '' ? this.parseDate(data[n][1]) : null);
       var label = data[n][2];
       var bubbleType = (data[n][3] !== '' ? data[n][3] : 'default');
       var link = (data[n][4] !== '' ? data[n][4] : '');
 
-      if (beg.getFullYear() < this.options.timesheetYearMin) {
-        this.options.timesheetYearMin = beg.getFullYear();
+      // Check if  timesheet year min/max wasn't set and use minimum/maximum bubble value for setting up the year sections.
+      if (overrideTimesheetMin) {
+        if (bubbleStart.getFullYear() < this.options.timesheetYearMin) {
+          this.options.timesheetYearMin = bubbleStart.getFullYear();
+        }
       }
 
-      if (end && end.getFullYear() > this.options.timesheetYearMax) {
-        this.options.timesheetYearMax = end.getFullYear();
-      }
-      else if (beg.getFullYear() > this.options.timesheetYearMax) {
-        this.options.timesheetYearMax = beg.getFullYear();
+      if (overrideTimesheetMax) {
+        if (bubbleEnd && bubbleEnd.getFullYear() > this.options.timesheetYearMax) {
+          this.options.timesheetYearMax = bubbleEnd.getFullYear();
+        }
+        else if (bubbleStart.getFullYear() > this.options.timesheetYearMax) {
+          this.options.timesheetYearMax = bubbleStart.getFullYear();
+        }
       }
 
-      this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
+      this.data.push({start: bubbleStart, end: bubbleEnd, label: label, bubbleType: bubbleType});
 
       this.bubbles.push(this.createBubble({
-          start: beg,
-          end: end,
+          start: bubbleStart,
+          end: bubbleEnd,
           type: bubbleType,
           label: label,
           timesheetYearMin: this.options.timesheetYearMin,
