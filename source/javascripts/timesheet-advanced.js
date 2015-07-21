@@ -1,16 +1,39 @@
 (function() {
   'use strict';
 
+  function merge(target, source) {
+    /* Merges two (or more) objects,
+     giving the last one precedence */
+    if ( typeof target !== 'object' ) {
+      target = {};
+    }
+
+    for (var property in source) {
+      if (source.hasOwnProperty(property)) {
+        var sourceProperty = source[property];
+
+        if (typeof sourceProperty === 'object') {
+          target[property] = merge(target[property], sourceProperty);
+          continue;
+        }
+
+        target[property] = sourceProperty;
+      }
+    }
+
+    for (var a = 2, l = arguments.length; a < l; a++) {
+      merge(target, arguments[a]);
+    }
+
+    return target;
+  }
+
   /**
    * Initialize Timesheet object.
    */
-  var Timesheet = function(container, type, min, max, data) {
-    this.type = (type === 'serial' || type === 'parallel') ? type : 'parallel';
+  var Timesheet = function(data, options) {
+    this.options = this.mergeWithDefault(options);
     this.data = [];
-    this.year = {
-      min: min,
-      max: max
-    };
     this.bubbles = [];
     this.widthYear = 0;
 
@@ -18,11 +41,28 @@
     this.parse(data || []);
 
     if (typeof document !== 'undefined') {
-      this.container = (typeof container === 'string') ? document.querySelector('#' + container) : container;
+      this.container = (typeof this.options.container === 'string') ? document.querySelector('#' + this.options.container) : this.options.container;
       this.drawSections();
       this.drawCurrentMonth();
       this.insertData();
     }
+  };
+
+  /**
+   * Set default options and merge them with passed ones.
+   */
+  Timesheet.prototype.mergeWithDefault = function(options) {
+    var defaults = {
+      container: 'timesheet',
+      type: 'parallel',
+      theme: 'dark',
+      extraClass: '',
+      showDate: true,
+      timesheetYearMin: null,
+      timesheetYearMax: null
+    };
+
+    return merge(defaults, options);
   };
 
   /**
@@ -88,11 +128,16 @@
   Timesheet.prototype.drawSections = function() {
     var html = [];
 
-    for (var c = this.year.min; c <= this.year.max; c++) {
+    for (var c = this.options.timesheetYearMin; c <= this.options.timesheetYearMax; c++) {
       html.push('<section>' + c + '</section>');
     }
 
-    this.container.className = 'timesheet ' + 'timesheet--' + this.type;
+    this.container.className = 'timesheet ' + 'timesheet--' + this.options.type;
+
+    if (this.options.extraClass.length) {
+      this.container.className += ' ' + this.options.extraClass;
+    }
+
     this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
@@ -103,11 +148,11 @@
     var date = new Date();
 
     // If max year on X axis is after or is the current year.
-    if (this.year.max >= date.getFullYear()) {
-      if (this.year.max === date.getFullYear() && date.getMonth() < 12) {
+    if (this.options.timesheetYearMax >= date.getFullYear()) {
+      if (this.options.timesheetYearMax === date.getFullYear() && date.getMonth() < 12) {
         this.widthYear = this.container.querySelector('.scale section').offsetWidth;
 
-        var currentMonthOffset = (this.year.max - this.year.min) * 12 + date.getMonth();
+        var currentMonthOffset = (this.options.timesheetYearMax - this.options.timesheetYearMin) * 12 + date.getMonth();
         this.container.innerHTML += '<div class="ts-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
       }
     }
@@ -117,10 +162,10 @@
    * Insert data into Timesheet.
    */
   Timesheet.prototype.insertData = function() {
-    if (this.type === 'parallel') {
+    if (this.options.type === 'parallel') {
       this.generateMarkupParallel();
     }
-    else if (this.type === 'serial') {
+    else if (this.options.type === 'serial') {
       this.generateMarkupSerial();
     }
   };
@@ -251,7 +296,7 @@
     // If end isn't defined, it means that the bubble is still active, so copy min value between current date and ending year that's set up in constructor.
     if (options.end === null) {
       var currentDate = new Date();
-      var maxDate = new Date(this.year.max, 12, 31);
+      var maxDate = new Date(this.options.timesheetYearMax, 12, 31);
 
       if (currentDate.getTime() < maxDate.getTime()) {
         options.end = currentDate;
