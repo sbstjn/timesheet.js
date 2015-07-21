@@ -390,9 +390,14 @@
     tooltip.appendChild(textLabel);
 
     tooltip.style.left = ((e.pageX + 90 >= document.body.clientWidth) ? (document.body.clientWidth - 181) : ((e.pageX - 90 < 0) ? 0 : (e.pageX - 90))) + 'px';
-    tooltip.style.top = e.pageY + 'px';
 
     document.body.appendChild(tooltip);
+    if (document.body.clientHeight < e.pageY + tooltip.offsetHeight) {
+      tooltip.style.top = (e.pageY - tooltip.offsetHeight - 5) + 'px';
+    }
+    else {
+      tooltip.style.top = e.pageY + 'px';
+    }
   };
 
   /**
