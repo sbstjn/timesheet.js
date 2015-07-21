@@ -123,6 +123,27 @@
     else if (this.type === 'serial') {
       this.generateMarkupSerial();
     }
+
+    var bubbleFilter = function(elem) {return elem.classList && elem.classList.contains('bubble');};
+    var bubbleHandler = function(e) {
+      //var bubble = e.delegateTarget;
+      console.log(e);
+    };
+    this.container.addEventListener('click', delegate(bubbleFilter, bubbleHandler));
+  };
+
+  var delegate = function(criteria, listener) {
+    return function(e) {
+      var el = e.target;
+      do {
+        if (!criteria(el)) {
+          continue;
+        }
+        e.delegateTarget = el;
+        listener.apply(this, arguments);
+        return;
+      } while((el = el.parentNode));
+    };
   };
 
   /**
