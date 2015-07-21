@@ -5,7 +5,8 @@
   
   Lib.ready(function() {
     /* jshint -W031 */
-    new Timesheet('timesheet-default', 'parallel', 2002, 2011, [
+    new Timesheet(
+      [
         // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
         // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2002', '09/2002', 'A freaking awesome time', 'red', ''],
@@ -19,9 +20,15 @@
       ['01/2009', '05/2009', 'LOST Season #4', 'red', ''],
       ['02/2010', '05/2010', 'LOST Season #5', 'blue', ''],
       ['09/2008', '06/2010', 'Just include Timesheet.js and configure your data. No external dependencies, no jQuery ', 'blue', '']
-    ]);
+    ],
+      {
+        container: 'timesheet-default',
+        type: 'parallel',
+        timesheetYearMin: 2002,
+        timesheetYearMax: 2011
+      });
 
-    new Timesheet('timesheet-projects', 'serial', 2010, 2015, [
+    new Timesheet([
       // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
       // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2010', '', 'Slickguns', 'red', 'www.slickguns.com'],
@@ -29,6 +36,12 @@
       ['09/2014', '03/2015', 'Gateway15', '', ''],
       ['05/2015', '06/2015', 'Feedback collect', 'green', ''],
       ['03/2012', '', 'Lorem ipsum', 'yellow', '']
-    ]);
+    ],
+      {
+        container: 'timesheet-projects',
+        type: 'serial',
+        timesheetYearMin: 2010,
+        timesheetYearMax: 2015
+      });
   });
 })();

@@ -1,16 +1,39 @@
 (function() {
   'use strict';
 
+  function merge(target, source) {
+    /* Merges two (or more) objects,
+     giving the last one precedence */
+    if ( typeof target !== 'object' ) {
+      target = {};
+    }
+
+    for (var property in source) {
+      if (source.hasOwnProperty(property)) {
+        var sourceProperty = source[property];
+
+        if (typeof sourceProperty === 'object') {
+          target[property] = merge(target[property], sourceProperty);
+          continue;
+        }
+
+        target[property] = sourceProperty;
+      }
+    }
+
+    for (var a = 2, l = arguments.length; a < l; a++) {
+      merge(target, arguments[a]);
+    }
+
+    return target;
+  }
+
   /**
    * Initialize Timesheet object.
    */
-  var Timesheet = function(container, type, min, max, data) {
-    this.type = (type === 'serial' || type === 'parallel') ? type : 'parallel';
+  var Timesheet = function(data, options) {
+    this.options = this.mergeWithDefault(options);
     this.data = [];
-    this.year = {
-      min: min,
-      max: max
-    };
     this.bubbles = [];
     this.widthYear = 0;
 
@@ -18,11 +41,28 @@
     this.parse(data || []);
 
     if (typeof document !== 'undefined') {
-      this.container = (typeof container === 'string') ? document.querySelector('#' + container) : container;
+      this.container = (typeof this.options.container === 'string') ? document.querySelector('#' + this.options.container) : this.options.container;
       this.drawSections();
       this.drawCurrentMonth();
       this.insertData();
     }
+  };
+
+  /**
+   * Set default options and merge them with passed ones.
+   */
+  Timesheet.prototype.mergeWithDefault = function(options) {
+    var defaults = {
+      container: 'timesheet',
+      type: 'parallel',
+      theme: 'dark',
+      extraClass: '',
+      showDate: true,
+      timesheetYearMin: null,
+      timesheetYearMax: null
+    };
+
+    return merge(defaults, options);
   };
 
   /**
@@ -40,15 +80,15 @@
         var bubbleType = (data[n][3] !== '' ? data[n][3] : 'default');
         var link = (data[n][4] !== '' ? data[n][4] : '');
 
-        if (beg.getFullYear() < this.year.min) {
-          this.year.min = beg.getFullYear();
+        if (beg.getFullYear() < this.options.timesheetYearMin) {
+          this.options.timesheetYearMin = beg.getFullYear();
         }
 
-        if (end && end.getFullYear() > this.year.max) {
-          this.year.max = end.getFullYear();
+        if (end && end.getFullYear() > this.options.timesheetYearMax) {
+          this.options.timesheetYearMax = end.getFullYear();
         }
-        else if (beg.getFullYear() > this.year.max) {
-          this.year.max = beg.getFullYear();
+        else if (beg.getFullYear() > this.options.timesheetYearMax) {
+          this.options.timesheetYearMax = beg.getFullYear();
         }
 
         this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
@@ -58,8 +98,8 @@
             end: end,
             type: bubbleType,
             label: label,
-            timesheetYearMin: this.year.min,
-            timesheetYearMax: this.year.max,
+            timesheetYearMin: this.options.timesheetYearMin,
+            timesheetYearMax: this.options.timesheetYearMax,
             link: link
           })
         );
@@ -94,11 +134,11 @@
   Timesheet.prototype.drawSections = function() {
     var html = [];
 
-    for (var c = this.year.min; c <= this.year.max; c++) {
+    for (var c = this.options.timesheetYearMin; c <= this.options.timesheetYearMax; c++) {
       html.push('<section>' + c + '</section>');
     }
 
-    this.container.className = 'timesheet ' + 'timesheet--' + this.type;
+    this.container.className = 'timesheet ' + 'timesheet--' + this.options.type;
     this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
@@ -109,11 +149,11 @@
     var date = new Date();
 
     // If max year on X axis is after or is the current year.
-    if (this.year.max >= date.getFullYear()) {
-      if (this.year.max === date.getFullYear() && date.getMonth() < 12) {
+    if (this.options.timesheetYearMax >= date.getFullYear()) {
+      if (this.options.timesheetYearMax === date.getFullYear() && date.getMonth() < 12) {
         this.widthYear = this.container.querySelector('.scale section').offsetWidth;
 
-        var currentMonthOffset = (this.year.max - this.year.min) * 12 + date.getMonth();
+        var currentMonthOffset = (this.options.timesheetYearMax - this.options.timesheetYearMin) * 12 + date.getMonth();
         this.container.innerHTML += '<div class="ts-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
       }
     }
@@ -123,10 +163,10 @@
    * Insert data into Timesheet.
    */
   Timesheet.prototype.insertData = function() {
-    if (this.type === 'parallel') {
+    if (this.options.type === 'parallel') {
       this.generateMarkupParallel();
     }
-    else if (this.type === 'serial') {
+    else if (this.options.type === 'serial') {
       this.generateMarkupSerial();
     }
   };
@@ -257,7 +297,7 @@
     // If end isn't defined, it means that the bubble is still active, so copy min value between current date and ending year that's set up in constructor.
     if (options.end === null) {
       var currentDate = new Date();
-      var maxDate = new Date(this.year.max, 12, 31);
+      var maxDate = new Date(this.options.timesheetYearMax, 12, 31);
 
       if (currentDate.getTime() < maxDate.getTime()) {
         options.end = currentDate;
