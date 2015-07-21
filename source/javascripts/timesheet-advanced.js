@@ -20,6 +20,7 @@
     if (typeof document !== 'undefined') {
       this.container = (typeof container === 'string') ? document.querySelector('#' + container) : container;
       this.drawSections();
+      this.drawCurrentMonth();
       this.insertData();
     }
   };
@@ -99,6 +100,23 @@
 
     this.container.className = 'timesheet';
     this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
+  };
+
+  /**
+   * Adds vertical line which represents current month on X axis (if applicable).
+   */
+  Timesheet.prototype.drawCurrentMonth = function() {
+    var date = new Date();
+
+    // If max year on X axis is after or is the current year.
+    if (this.year.max >= date.getFullYear()) {
+      if (this.year.max === date.getFullYear() && date.getMonth() < 12) {
+        this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+
+        var currentMonthOffset = (this.year.max - this.year.min) * 12 + date.getMonth();
+        this.container.innerHTML += '<div class="ts-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
+      }
+    }
   };
 
   /**
