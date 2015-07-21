@@ -84,23 +84,6 @@
         .bubble
           opacity: 1
 
-      > ul
-        position: relative
-        height: 25px
-
-        > li
-          display: block
-          position: absolute
-          top: 0
-
-          .info-wrapper
-            display: none
-            position: absolute
-
-          .bubble
-            margin-right: 0
-
-
   &.timesheet--white
     border-top: 1px solid rgba(60, 60, 60, 0.3)
     background-color: rgba(251, 251, 251, 1)
@@ -115,6 +98,7 @@
       section
         color: rgba(50, 50, 50, 0.8)
         border-left: 1px dashed rgba(50, 50, 50, 0.1)
+
     .data
       li
         .date
@@ -150,3 +134,19 @@
     top: 0
     height: 16px
     margin-bottom: 0
+
+  .ts-bubbles-wrapper
+    position: relative
+    height: 25px
+
+    > li
+      display: block
+      position: absolute
+      top: 0
+
+      .info-wrapper
+        display: none
+        position: absolute
+
+      .bubble
+        margin-right: 0
