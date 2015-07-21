@@ -42,6 +42,28 @@
       border-left: 1px dashed rgba(250, 250, 250, 0.2)
       height: 100%
 
+  .date
+    color: rgba(181, 181, 181, 1)
+    font-size: 14px
+
+  .label
+    font-weight: lighter
+    font-size: 14px
+    padding-left: 5px
+    line-height: 21px
+    color: rgba(151, 151, 150, 1)
+    white-space: nowrap
+
+  .bubble
+    width: 24px
+    height: 7px
+    display: block
+    position: relative
+    top: 7px
+    border-radius: 4px
+    margin: 0 10px 6px 0
+    opacity: 0.7
+
   .data
     margin: 28px 0 0 0
     padding: 0
@@ -52,7 +74,7 @@
     font-size: 13px
 
     > li
-      margin: 0 0 3px 0
+      margin-bottom: 3px
       display: block
       clear: both
       position: relative
@@ -62,37 +84,14 @@
         .bubble
           opacity: 1
 
-      .date
-        color: rgba(181, 181, 181, 1)
-        font-size: 14px
-
-      .label
-        font-weight: lighter
-        font-size: 14px
-        padding-left: 5px
-        line-height: 21px
-        color: rgba(151, 151, 150, 1)
-        white-space: nowrap
-
-      .bubble
-        width: 24px
-        height: 7px
-        display: block
-        position: relative
-        top: 7px
-        border-radius: 4px
-        margin: 0 10px 6px 0
-        opacity: 0.7
-
       > ul
         position: relative
-        height: 30px
+        height: 25px
 
         > li
           display: block
           position: absolute
           top: 0
-          margin-bottom: 20px
 
           .info-wrapper
             display: none
@@ -145,3 +144,9 @@
     width: 0
     height: 100%
     border-right: 1px solid #2E7791
+
+.timesheet--serial
+  .bubble
+    top: 0
+    height: 16px
+    margin-bottom: 0
