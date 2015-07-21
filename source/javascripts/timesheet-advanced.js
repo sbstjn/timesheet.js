@@ -116,6 +116,26 @@
   };
 
   /**
+   * Function for checking whether bubble fits timesheet.
+   */
+  Timesheet.prototype.bubbleFits = function(bubbleStart, bubbleEnd) {
+    var dateTimesheetStart = new Date('01/01/' + this.options.timesheetYearMin);
+    var dateTimesheetEnd = new Date('12/31/' + this.options.timesheetYearMax);
+
+    var fits = false;
+
+    if (dateTimesheetStart < bubbleStart && bubbleStart < dateTimesheetEnd) {
+      fits = true;
+    }
+
+    if (dateTimesheetEnd > bubbleStart && bubbleEnd > dateTimesheetStart) {
+      fits = true;
+    }
+
+    return fits;
+  };
+
+  /**
    * Parse data string
    */
   Timesheet.prototype.parseDate = function(date) {
@@ -219,24 +239,26 @@
 
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
-      var position = bubble.getPosition(this);
-      if (bubble.link !== '') {
-        startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
-        endTag = '</a>';
-      }
-      else {
-        startTag = '<span style="margin-left: ' + position.offset + '">';
-        endTag = '</span>';
-      }
+      if (this.bubbleFits(bubble.start, bubble.end)) {
+        var position = bubble.getPosition(this);
+        if (bubble.link !== '') {
+          startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
+          endTag = '</a>';
+        }
+        else {
+          startTag = '<span style="margin-left: ' + position.offset + '">';
+          endTag = '</span>';
+        }
 
-      var line = [
-        '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
-         startTag +
-        '<span class="date">' + bubble.getDateLabel() + '</span>',
-        '<span class="label">' + bubble.label + '</span>' + endTag
-      ].join('');
+        var line = [
+          '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+          startTag +
+          '<span class="date">' + bubble.getDateLabel() + '</span>',
+          '<span class="label">' + bubble.label + '</span>' + endTag
+        ].join('');
 
-      html.push('<li>' + line + '</li>');
+        html.push('<li>' + line + '</li>');
+      }
     }
 
     this.container.innerHTML += '<ul class="data">' + html.join('') + '</ul>';
@@ -428,7 +450,7 @@
 
     if (this.start.getFullYear() < this.timesheetYearMin) {
       // Remove the years of difference from start.
-      offsets.monthStart -= ((this.timesheetYearMin - this.start.getFullYear()) * 12);
+      offsets.monthStart -= ((this.timesheetYearMin - this.start.getFullYear()) * 12) - this.start.getMonth();
     }
 
     if (this.end.getFullYear() > this.timesheetYearMax) {
