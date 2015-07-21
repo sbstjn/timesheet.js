@@ -41,7 +41,8 @@
         container: 'timesheet-projects',
         type: 'serial',
         timesheetYearMin: 2010,
-        timesheetYearMax: 2015
+        timesheetYearMax: 2015,
+        extraClass: 'test'
       });
   });
 })();

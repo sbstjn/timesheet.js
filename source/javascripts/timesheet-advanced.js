@@ -139,6 +139,11 @@
     }
 
     this.container.className = 'timesheet ' + 'timesheet--' + this.options.type;
+
+    if (this.options.extraClass.length) {
+      this.container.className += ' ' + this.options.extraClass;
+    }
+
     this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
