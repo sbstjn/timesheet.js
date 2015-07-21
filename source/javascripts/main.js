@@ -22,8 +22,6 @@
     ]);
 
     new Timesheet('timesheet-projects', 'serial', 2010, 2015, [
-      // example 1: ['2002', '09/2002', 'A freaking awesome time', 'red', 'www.example.com']
-      // example 2: ['2002', '', 'A freaking awesome time', '', ''] - 5 parameters required, start and label are obligatory
       ['2010', '', 'Slickguns', 'red', 'www.slickguns.com'],
       ['2011', '', 'Wikiarms', 'blue', 'www.wikairms.com'],
       ['09/2014', '03/2015', 'Gateway15', '', ''],
