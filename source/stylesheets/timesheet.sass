@@ -145,26 +145,30 @@
         margin-right: 0
         border-radius: 8px
 
-.bubble-tooltip
+.timesheet-tooltip
   position: absolute
-  top: 1091px
-  left: 200px
-  background-color: rgb(185, 159, 48)
-  width: 200px
+  background-color: white
+  max-width: 200px
   display: inline-block
   color: rgb(51, 51, 51)
   text-align: center
-  padding: 6px
+  padding: 10px
 
-.bubble-tooltip-date
+.timesheet-tooltip-date
   color: black
   font-size: 14px
   font-weight: bold
+  display: block
+  border-bottom: 1px solid rgb(242, 242, 242)
+  padding-bottom: 5px
+  margin-bottom: 5px
 
-.bubble-tooltip-label
+.timesheet-tooltip-label
   width: auto
-  color: black
   /* text-decoration: underline; cursor: pointer */
   margin: 0 5px
   text-align: center
   font-size: 14px
+
+p.timesheet-tooltip-label
+  color: black

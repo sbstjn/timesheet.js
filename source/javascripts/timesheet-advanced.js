@@ -174,7 +174,7 @@
       }
 
       var line = [
-        '<span data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+        '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
          startTag +
         '<span class="date">' + bubble.getDateLabel() + '</span>',
         '<span class="label">' + bubble.label + '</span>' + endTag
@@ -208,7 +208,7 @@
           currentBubble = currentList.bubbles[j];
           line.push(
             '<li>',
-              '<span data-bubble-label="' + currentBubble.label + '" data-bubble-date="' + currentBubble.getDateLabel() + '" style="left: ' + currentBubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
+              '<span data-bubble-link="' + currentBubble.link + '" data-bubble-label="' + currentBubble.label + '" data-bubble-date="' + currentBubble.getDateLabel() + '" style="left: ' + currentBubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
             '</li>'
           );
         }
@@ -298,22 +298,44 @@
   var drawTooltip = function(e) {
     var readAttributes = function(element) {
       return {
-        dateLabel:element.getAttribute('data-bubble-date'),
-        label:element.getAttribute('data-bubble-label')
+        dateLabel: element.getAttribute('data-bubble-date'),
+        label: element.getAttribute('data-bubble-label'),
+        link: element.getAttribute('data-bubble-link')
       };
     };
 
-    var content = readAttributes(e.delegateTarget);
-    var html = [];
-    html.push('<div class="bubble-tooltip">');
-    var line = [];
-    line.push('<span class="bubble-tooltip-date">' + content.dateLabel + '</span>');
-    line.push('<p class="bubble-tooltip-label">' + content.label + '</p>');
-    html.push(line.join(''));
-    html.push('</div>');
+    var content = readAttributes(e.delegateTarget),
+        tooltip = document.createElement('div'),
+        dateLabel = document.createElement('span'),
+        textLabel,
+        dateLabelValue = document.createTextNode(content.dateLabel),
+        labelValue = document.createTextNode(content.label);
 
-    //document.body.innerHTML += html.join('');
-    console.log(line);
+    tooltip.className = 'timesheet-tooltip';
+    tooltip.id = 'timesheet-tooltip';
+
+    dateLabel.appendChild(dateLabelValue);
+    dateLabel.className = 'timesheet-tooltip-date';
+    tooltip.appendChild(dateLabel);
+
+    if (content.link) {
+      textLabel = document.createElement('a');
+      textLabel.appendChild(labelValue);
+      textLabel.title = content.label;
+      textLabel.href = content.link;
+    }
+    else {
+      textLabel = document.createElement('p');
+      textLabel.appendChild(labelValue);
+    }
+
+    textLabel.className = 'timesheet-tooltip-label';
+    tooltip.appendChild(textLabel);
+
+    tooltip.style.left = e.pageX + 'px';
+    tooltip.style.top = e.pageY + 'px';
+
+    document.body.appendChild(tooltip);
   };
 
   /**
