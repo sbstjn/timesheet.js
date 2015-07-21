@@ -180,7 +180,7 @@
       currentList = lists[i];
       if (currentList.bubbles.length) {
         html.push('<li>');
-        html.push('<ul>');
+        html.push('<ul class="ts-bubbles-wrapper">');
         var line = [];
         for (j = 0; j < currentList.bubbles.length; j++) {
           currentBubble = currentList.bubbles[j];
