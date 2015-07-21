@@ -124,14 +124,14 @@
       this.generateMarkupSerial();
     }
 
-    var bubbleFilter = function(elem) {return elem.classList && elem.classList.contains('bubble');};
-    var bubbleHandler = function(e) {
-      //var bubble = e.delegateTarget;
-      console.log(e);
-    };
-    this.container.addEventListener('click', delegate(bubbleFilter, bubbleHandler));
+    // Elements on which to detect click event.
+    var bubbleFilter = function(elem) {return hasClass(elem, 'bubble');};
+    this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip));
   };
 
+  /**
+   * Helper function for setting event handler to elements that satisfy criteria.
+   */
   var delegate = function(criteria, listener) {
     return function(e) {
       var el = e.target;
@@ -144,6 +144,13 @@
         return;
       } while((el = el.parentNode));
     };
+  };
+
+  /**
+   * Helper function for checking if element has class.
+   */
+  var hasClass = function(element, cls) {
+    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
   };
 
   /**
@@ -167,7 +174,7 @@
       }
 
       var line = [
-        '<span style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+        '<span data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + bubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + bubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
          startTag +
         '<span class="date">' + bubble.getDateLabel() + '</span>',
         '<span class="label">' + bubble.label + '</span>' + endTag
@@ -201,11 +208,7 @@
           currentBubble = currentList.bubbles[j];
           line.push(
             '<li>',
-              '<span style="left: ' + currentBubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
-              '<span class="info-wrapper">',
-                '<span class="date">' + currentBubble.getDateLabel() + '</span>',
-                '<span class="label">' + currentBubble.label + '</span>',
-              '</span>',
+              '<span data-bubble-label="' + currentBubble.label + '" data-bubble-date="' + currentBubble.getDateLabel() + '" style="left: ' + currentBubble.monthOffsetStart * this.widthYear / 12 + 'px; width: ' + currentBubble.getWidth(this.widthYear) + 'px;" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
             '</li>'
           );
         }
@@ -280,9 +283,37 @@
       else {
         options.end = maxDate;
       }
+      options.present = true;
+    }
+    else {
+      options.present = false;
     }
 
     return new Bubble(options);
+  };
+
+  /**
+   * Show tooltip for given mouse event.
+   */
+  var drawTooltip = function(e) {
+    var readAttributes = function(element) {
+      return {
+        dateLabel:element.getAttribute('data-bubble-date'),
+        label:element.getAttribute('data-bubble-label')
+      };
+    };
+
+    var content = readAttributes(e.delegateTarget);
+    var html = [];
+    html.push('<div class="bubble-tooltip">');
+    var line = [];
+    line.push('<span class="bubble-tooltip-date">' + content.dateLabel + '</span>');
+    line.push('<p class="bubble-tooltip-label">' + content.label + '</p>');
+    html.push(line.join(''));
+    html.push('</div>');
+
+    //document.body.innerHTML += html.join('');
+    console.log(line);
   };
 
   /**
@@ -302,6 +333,7 @@
     this.link = options.link;
     this.type = options.type;
     this.label = options.label;
+    this.present = options.present;
   };
 
   /**
@@ -340,7 +372,7 @@
   Bubble.prototype.getDateLabel = function() {
     return [
       (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
-      (this.end ? '-' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()) : '')
+      (this.present ? ' - present' : ' - ' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()))
     ].join('');
   };
 
