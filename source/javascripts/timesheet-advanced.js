@@ -1,3 +1,5 @@
+// jshint maxstatements:false
+
 (function() {
   'use strict';
 
@@ -176,6 +178,34 @@
     else if (this.options.type === 'serial') {
       this.generateMarkupSerial();
     }
+
+    // Elements on which to detect click event.
+    var bubbleFilter = function(elem) {return hasClass(elem, 'bubble');};
+    this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip));
+  };
+
+  /**
+   * Helper function for setting event handler to elements that satisfy criteria.
+   */
+  var delegate = function(criteria, listener) {
+    return function(e) {
+      var el = e.target;
+      do {
+        if (!criteria(el)) {
+          continue;
+        }
+        e.delegateTarget = el;
+        listener.apply(this, arguments);
+        return;
+      } while((el = el.parentNode));
+    };
+  };
+
+  /**
+   * Helper function for checking if element has class.
+   */
+  var hasClass = function(element, cls) {
+    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
   };
 
   /**
@@ -200,7 +230,7 @@
       }
 
       var line = [
-        '<span style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
+        '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + bubble.type + '" data-duration="' + bubble.monthsLength + '"></span>' +
          startTag +
         '<span class="date">' + bubble.getDateLabel() + '</span>',
         '<span class="label">' + bubble.label + '</span>' + endTag
@@ -235,11 +265,7 @@
           var position = currentBubble.getPosition(this);
           line.push(
             '<li>',
-              '<span style="left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
-              '<span class="info-wrapper">',
-                '<span class="date">' + currentBubble.getDateLabel() + '</span>',
-                '<span class="label">' + currentBubble.label + '</span>',
-              '</span>',
+              '<span data-bubble-link="' + currentBubble.link + '" data-bubble-label="' + currentBubble.label + '" data-bubble-date="' + currentBubble.getDateLabel() + '" style="left: ' + position.offset + '; width: ' + position.width + ';" class="bubble bubble-' + currentBubble.type + '" data-duration="' + currentBubble.monthsLength + '"></span>',
             '</li>'
           );
         }
@@ -314,9 +340,59 @@
       else {
         options.end = maxDate;
       }
+      options.present = true;
+    }
+    else {
+      options.present = false;
     }
 
     return new Bubble(options);
+  };
+
+  /**
+   * Show tooltip for given mouse event.
+   */
+  var drawTooltip = function(e) {
+    var readAttributes = function(element) {
+      return {
+        dateLabel: element.getAttribute('data-bubble-date'),
+        label: element.getAttribute('data-bubble-label'),
+        link: element.getAttribute('data-bubble-link')
+      };
+    };
+
+    var content = readAttributes(e.delegateTarget),
+        tooltip = document.createElement('div'),
+        dateLabel = document.createElement('span'),
+        textLabel,
+        dateLabelValue = document.createTextNode(content.dateLabel),
+        labelValue = document.createTextNode(content.label);
+
+    tooltip.className = 'timesheet-tooltip';
+    tooltip.id = 'timesheet-tooltip';
+
+    dateLabel.appendChild(dateLabelValue);
+    dateLabel.className = 'timesheet-tooltip-date';
+    tooltip.appendChild(dateLabel);
+
+    if (content.link) {
+      textLabel = document.createElement('a');
+      textLabel.appendChild(labelValue);
+      textLabel.title = content.label;
+      textLabel.href = content.link;
+    }
+    else {
+      textLabel = document.createElement('p');
+      textLabel.appendChild(labelValue);
+    }
+
+    textLabel.className = 'timesheet-tooltip-label';
+    tooltip.appendChild(textLabel);
+
+    tooltip.style.left = e.pageX + 'px';
+    tooltip.style.top = e.pageY + 'px';
+
+    document.body.appendChild(tooltip);
   };
 
   /**
@@ -338,6 +414,7 @@
     this.link = options.link;
     this.type = options.type;
     this.label = options.label;
+    this.present = options.present;
   };
 
   /**
@@ -396,7 +473,7 @@
   Bubble.prototype.getDateLabel = function() {
     return [
       (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
-      (this.end ? '-' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()) : '')
+      (this.present ? ' - present' : ' - ' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()))
     ].join('');
   };
 
