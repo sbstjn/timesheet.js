@@ -98,7 +98,7 @@
       html.push('<section>' + c + '</section>');
     }
 
-    this.container.className = 'timesheet';
+    this.container.className = 'timesheet ' + 'timesheet--' + this.type;
     this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
   };
 
