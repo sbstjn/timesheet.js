@@ -455,7 +455,7 @@
 
     if (this.end.getFullYear() > this.timesheetYearMax) {
       // Round it to the end of the year by removing 1 year from offset.
-      offsets.monthEnd -= ((this.end.getFullYear() - this.timesheetYearMax - 1) * 12);
+      offsets.monthEnd -= ((this.end.getFullYear() - this.timesheetYearMax - 1) * 12) + this.end.getMonth();
     }
 
     return offsets;
