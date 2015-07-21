@@ -389,7 +389,7 @@
     textLabel.className = 'timesheet-tooltip-label';
     tooltip.appendChild(textLabel);
 
-    tooltip.style.left = e.pageX + 'px';
+    tooltip.style.left = ((e.pageX + 90 >= document.body.clientWidth) ? (document.body.clientWidth - 181) : ((e.pageX - 90 < 0) ? 0 : (e.pageX - 90))) + 'px';
     tooltip.style.top = e.pageY + 'px';
 
     document.body.appendChild(tooltip);
