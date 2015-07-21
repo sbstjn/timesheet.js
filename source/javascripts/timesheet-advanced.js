@@ -79,15 +79,15 @@
       var bubbleType = (data[n][3] !== '' ? data[n][3] : 'default');
       var link = (data[n][4] !== '' ? data[n][4] : '');
 
-      if (beg.getFullYear() < this.year.min) {
-        this.year.min = beg.getFullYear();
+      if (beg.getFullYear() < this.options.timesheetYearMin) {
+        this.options.timesheetYearMin = beg.getFullYear();
       }
 
-      if (end && end.getFullYear() > this.year.max) {
-        this.year.max = end.getFullYear();
+      if (end && end.getFullYear() > this.options.timesheetYearMax) {
+        this.options.timesheetYearMax = end.getFullYear();
       }
-      else if (beg.getFullYear() > this.year.max) {
-        this.year.max = beg.getFullYear();
+      else if (beg.getFullYear() > this.options.timesheetYearMax) {
+        this.options.timesheetYearMax = beg.getFullYear();
       }
 
       this.data.push({start: beg, end: end, label: label, bubbleType: bubbleType});
@@ -97,8 +97,8 @@
           end: end,
           type: bubbleType,
           label: label,
-          timesheetYearMin: this.year.min,
-          timesheetYearMax: this.year.max,
+          timesheetYearMin: this.options.timesheetYearMin,
+          timesheetYearMax: this.options.timesheetYearMax,
           link: link
         })
       );
