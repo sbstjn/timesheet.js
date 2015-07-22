@@ -195,7 +195,7 @@
       this.container.className += ' ' + this.options.extraClass;
     }
 
-    this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
+    this.container.innerHTML = '<div class="tsa-scale">' + html.join('') + '</div>';
   };
 
   /**
@@ -207,7 +207,7 @@
     // If max year on X axis is after or is the current year.
     if (this.options.timesheetYearMax >= date.getFullYear()) {
       if (this.options.timesheetYearMax === date.getFullYear() && date.getMonth() < 12) {
-        this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+        this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
 
         var currentMonthOffset = (this.options.timesheetYearMax - this.options.timesheetYearMin) * 12 + date.getMonth();
         this.container.innerHTML += '<div class="ts-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
@@ -227,7 +227,7 @@
     }
 
     // Elements on which to detect click event.
-    var bubbleFilter = function(elem) {return hasClass(elem, 'bubble');};
+    var bubbleFilter = function(elem) {return hasClass(elem, 'tsa-bubble');};
 
     if (this.container.addEventListener) {
       this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
@@ -303,7 +303,7 @@
    */
   Timesheet.prototype.generateMarkupParallel = function() {
     var html = [];
-    this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+    this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
     var startTag = '';
     var endTag = '';
 
@@ -312,7 +312,7 @@
       if (this.bubbleFits(bubble.start, bubble.end)) {
         var position = bubble.getPosition(this);
         if (bubble.link !== '') {
-          startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
+          startTag ='<a class="tsa-bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
           endTag = '</a>';
         }
         else {
@@ -320,27 +320,27 @@
           endTag = '</span>';
         }
 
-        var bubbleClasses = ['bubble', 'bubble-' + bubble.type];
+        var bubbleClasses = ['tsa-bubble', 'tsa-bubble-' + bubble.type];
         if (bubble.startedBeforeTimesheet) {
-          bubbleClasses.push('bubble--started-before');
+          bubbleClasses.push('tsa-bubble--started-before');
         }
 
         if (bubble.endedAfterTimesheet) {
-          bubbleClasses.push('bubble--ended-after');
+          bubbleClasses.push('tsa-bubble--ended-after');
         }
 
         var line = [
           '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="' + bubbleClasses.join(' ') + '" data-duration="' + bubble.monthsLength + '"></span>' +
           startTag +
-          '<span class="date">' + bubble.getDateLabel() + '</span>',
-          '<span class="label">' + bubble.label + '</span>' + endTag
+          '<span class="tsa-date">' + bubble.getDateLabel() + '</span>',
+          '<span class="tsa-label">' + bubble.label + '</span>' + endTag
         ].join('');
 
         html.push('<li>' + line + '</li>');
       }
     }
 
-    this.container.innerHTML += '<ul class="data">' + html.join('') + '</ul>';
+    this.container.innerHTML += '<ul class="tsa-data">' + html.join('') + '</ul>';
   };
 
   /**
@@ -349,28 +349,28 @@
   Timesheet.prototype.generateMarkupSerial = function() {
     var html = [];
     var i, j, currentList, currentBubble;
-    this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+    this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
 
     var lists = this.buildSerialBubbleLists();
 
-    html.push('<ul class="data">');
+    html.push('<ul class="tsa-data">');
     // Lists loop, for rendering markup.
     for (i = 0; i < lists.length; i++) {
       currentList = lists[i];
       if (currentList.bubbles.length) {
         html.push('<li>');
-        html.push('<ul class="ts-bubbles-wrapper">');
+        html.push('<ul class="tsa-bubbles-wrapper">');
         var line = [];
         for (j = 0; j < currentList.bubbles.length; j++) {
           currentBubble = currentList.bubbles[j];
           var position = currentBubble.getPosition(this);
-          var bubbleClasses = ['bubble', 'bubble-' + currentBubble.type];
+          var bubbleClasses = ['tsa-bubble', 'tsa-bubble-' + currentBubble.type];
           if (currentBubble.startedBeforeTimesheet) {
-            bubbleClasses.push('bubble--started-before');
+            bubbleClasses.push('tsa-bubble--started-before');
           }
 
           if (currentBubble.endedAfterTimesheet) {
-            bubbleClasses.push('bubble--ended-after');
+            bubbleClasses.push('tsa-bubble--ended-after');
           }
 
           line.push(
@@ -483,14 +483,14 @@
         dateLabelValue = document.createTextNode(content.dateLabel),
         labelValue = document.createTextNode(content.label);
 
-    tooltip.className = 'timesheet-tooltip';
+    tooltip.className = 'tsa-tooltip';
     if (e.theme === 'light') {
-      tooltip.className += ' theme--dark';
+      tooltip.className += ' tsa-tooltip--dark';
     }
     tooltip.id = 'timesheet-tooltip';
 
     dateLabel.appendChild(dateLabelValue);
-    dateLabel.className = 'timesheet-tooltip-date';
+    dateLabel.className = 'tsa-tooltip-date';
     tooltip.appendChild(dateLabel);
 
     if (content.link) {
@@ -504,7 +504,7 @@
       textLabel.appendChild(labelValue);
     }
 
-    textLabel.className = 'timesheet-tooltip-label';
+    textLabel.className = 'tsa-tooltip-label';
     tooltip.appendChild(textLabel);
 
     tooltip.style.left = ((e.pageX + 90 >= document.body.clientWidth) ? (document.body.clientWidth - 181) : ((e.pageX - 90 < 0) ? 0 : (e.pageX - 90))) + 'px';
