@@ -51,7 +51,7 @@
         type: 'serial',
         timesheetYearMin: 2002,
         timesheetYearMax: 2008,
-        extraClass: 'timesheet--white'
+        theme: 'light'
       });
   });
 })();

@@ -12,5 +12,7 @@ new Timesheet(
       type: 'parallel', // can also be 'serial'
       timesheetYearMin: 2002,
       timesheetYearMax: 2011
-      // extraClass: try 'timesheet--white' or 'timesheet--no-date'
+      // extraClass: add extra classes
+      // theme: 'dark' or 'light'
+      // showDate: true - show date in label
     });

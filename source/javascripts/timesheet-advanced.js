@@ -181,13 +181,13 @@
 
     // Elements on which to detect click event.
     var bubbleFilter = function(elem) {return hasClass(elem, 'bubble');};
-    this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip));
+    this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
   };
 
   /**
    * Helper function for setting event handler to elements that satisfy criteria.
    */
-  var delegate = function(criteria, listener) {
+  var delegate = function(criteria, listener, theme) {
     return function(e) {
       var el = e.target;
       do {
@@ -195,6 +195,7 @@
           continue;
         }
         e.delegateTarget = el;
+        e.theme = theme;
         listener.apply(this, arguments);
         return;
       } while((el = el.parentNode));
@@ -369,6 +370,9 @@
         labelValue = document.createTextNode(content.label);
 
     tooltip.className = 'timesheet-tooltip';
+    if (e.theme === 'light') {
+      tooltip.className += ' theme--dark';
+    }
     tooltip.id = 'timesheet-tooltip';
 
     dateLabel.appendChild(dateLabelValue);
