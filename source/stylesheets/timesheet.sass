@@ -150,6 +150,7 @@
       display: block
       position: absolute
       top: 0
+      width: 0
 
       .info-wrapper
         display: none
@@ -162,14 +163,18 @@
 .timesheet-tooltip
   position: absolute
   background-color: white
-  max-width: 200px
+  width: 160px
   display: inline-block
   color: rgb(51, 51, 51)
   text-align: center
   padding: 10px
 
+  &.theme--dark
+    background-color: rgb(51, 51, 51)
+    color: white
+
 .timesheet-tooltip-date
-  color: black
+  color: rgb(51, 51, 51)
   font-size: 14px
   font-weight: bold
   display: block
@@ -179,10 +184,20 @@
 
 .timesheet-tooltip-label
   width: auto
-  /* text-decoration: underline; cursor: pointer */
   margin: 0 5px
   text-align: center
   font-size: 14px
 
 p.timesheet-tooltip-label
-  color: black
+  color: rgb(51, 51, 51)
+
+.theme--dark
+  .timesheet-tooltip
+    background-color: rgb(51, 51, 51)
+    color: white
+
+  .timesheet-tooltip-date
+    color: white
+
+  p.timesheet-tooltip-label
+    color: white
