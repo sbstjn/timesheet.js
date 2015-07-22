@@ -195,7 +195,7 @@
       this.container.className += ' ' + this.options.extraClass;
     }
 
-    this.container.innerHTML = '<div class="scale">' + html.join('') + '</div>';
+    this.container.innerHTML = '<div class="tsa-scale">' + html.join('') + '</div>';
   };
 
   /**
@@ -207,7 +207,7 @@
     // If max year on X axis is after or is the current year.
     if (this.options.timesheetYearMax >= date.getFullYear()) {
       if (this.options.timesheetYearMax === date.getFullYear() && date.getMonth() < 12) {
-        this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+        this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
 
         var currentMonthOffset = (this.options.timesheetYearMax - this.options.timesheetYearMin) * 12 + date.getMonth();
         this.container.innerHTML += '<div class="ts-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
@@ -303,7 +303,7 @@
    */
   Timesheet.prototype.generateMarkupParallel = function() {
     var html = [];
-    this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+    this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
     var startTag = '';
     var endTag = '';
 
@@ -340,7 +340,7 @@
       }
     }
 
-    this.container.innerHTML += '<ul class="data">' + html.join('') + '</ul>';
+    this.container.innerHTML += '<ul class="tsa-data">' + html.join('') + '</ul>';
   };
 
   /**
@@ -349,11 +349,11 @@
   Timesheet.prototype.generateMarkupSerial = function() {
     var html = [];
     var i, j, currentList, currentBubble;
-    this.widthYear = this.container.querySelector('.scale section').offsetWidth;
+    this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
 
     var lists = this.buildSerialBubbleLists();
 
-    html.push('<ul class="data">');
+    html.push('<ul class="tsa-data">');
     // Lists loop, for rendering markup.
     for (i = 0; i < lists.length; i++) {
       currentList = lists[i];
