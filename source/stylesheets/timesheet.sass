@@ -7,23 +7,23 @@
   background-color: rgba(51, 51, 51, 1)
   position: relative
 
-  .bubble-link
+  .tsa-bubble-link
     border-bottom: 1px dotted rgba(151, 151, 150, 1)
 
-  .bubble-default
+  .tsa-bubble-default
     background-color: white
-  .bubble-red
+  .tsa-bubble-red
     background-color: rgba(252, 70, 74, 1)
-  .bubble-green
+  .tsa-bubble-green
     background-color: rgba(154, 202, 39, 1)
-  .bubble-blue
+  .tsa-bubble-blue
     background-color: rgba(60, 182, 227, 1)
-  .bubble-yellow
+  .tsa-bubble-yellow
     background-color: rgba(244, 207, 48, 1)
-  .bubble-purple
+  .tsa-bubble-purple
     background-color: rgba(169, 105, 202, 1)
 
-  .scale
+  .tsa-scale
     height: 100%
     position: absolute
     top: 0
@@ -46,11 +46,11 @@
         width: 118px
         border-right: 1px dashed rgba(250, 250, 250, 0.2)
 
-  .date
+  .tsa-date
     color: rgba(181, 181, 181, 1)
     font-size: 14px
 
-  .label
+  .tsa-label
     font-weight: lighter
     font-size: 14px
     padding-left: 5px
@@ -58,7 +58,7 @@
     color: rgba(151, 151, 150, 1)
     white-space: nowrap
 
-  .bubble
+  .tsa-bubble
     height: 10px
     display: block
     position: relative
@@ -67,15 +67,15 @@
     margin: 0 10px 6px 0
     opacity: 0.7
 
-    &.bubble--started-before
+    &.tsa-bubble--started-before
       border-top-left-radius: 0 !important
       border-bottom-left-radius: 0 !important
 
-    &.bubble--ended-after
+    &.tsa-bubble--ended-after
       border-top-right-radius: 0 !important
       border-bottom-right-radius: 0 !important
 
-  .data
+  .tsa-data
     margin: 28px 0 0 0
     padding: 0
     text-align: left
@@ -92,20 +92,20 @@
       white-space: nowrap
 
       &:hover
-        .bubble
+        .tsa-bubble
           opacity: 1
 
   &.timesheet--light
     border-top: 1px solid rgba(60, 60, 60, 0.3)
     background-color: rgba(251, 251, 251, 1)
 
-    .bubble-link
+    .tsa-bubble-link
       border-bottom: 1px dotted rgba(51, 51, 50, 1)
 
-    .bubble-default
+    .tsa-bubble-default
       background-color: rgba(20, 20, 20, 1)
 
-    .scale
+    .tsa-scale
       section
         color: rgba(50, 50, 50, 0.8)
         border-left: 1px dashed rgba(50, 50, 50, 0.1)
@@ -113,36 +113,36 @@
         &:last-child
           border-right: 1px dashed rgba(50, 50, 50, 0.1)
 
-    .data
+    .tsa-data
       li
-        .date
+        .tsa-date
           color: rgba(121, 121, 121, 1)
   
-        .label
+        .tsa-label
           color: rgba(51, 51, 50, 1)
 
   &.timesheet--no-date
-    .data
+    .tsa-data
       li
-        .date
+        .tsa-date
           display: none
 
-        .label
+        .tsa-label
           padding-left: 0
 
-  .ts-vertical-line
+  .tsa-vertical-line
     position: absolute
     width: 0
     height: 100%
     border-right: 1px solid #2E7791
 
 .timesheet--serial
-  .bubble
+  .tsa-bubble
     top: 0
     height: 16px
     margin-bottom: 0
 
-  .ts-bubbles-wrapper
+  .tsa-bubbles-wrapper
     position: relative
     height: 25px
 
@@ -152,15 +152,11 @@
       top: 0
       width: 0
 
-      .info-wrapper
-        display: none
-        position: absolute
-
-      .bubble
+      .tsa-bubble
         margin-right: 0
         border-radius: 8px
 
-.timesheet-tooltip
+.tsa-tooltip
   position: absolute
   background-color: white
   width: 160px
@@ -169,11 +165,11 @@
   text-align: center
   padding: 10px
 
-  &.theme--dark
+  &.tsa-tooltip--dark
     background-color: rgb(51, 51, 51)
     color: white
 
-.timesheet-tooltip-date
+.tsa-tooltip-date
   color: rgb(51, 51, 51)
   font-size: 14px
   font-weight: bold
@@ -182,22 +178,22 @@
   padding-bottom: 5px
   margin-bottom: 5px
 
-.timesheet-tooltip-label
+.tsa-tooltip-label
   width: auto
   margin: 0 5px
   text-align: center
   font-size: 14px
 
-p.timesheet-tooltip-label
+p.tsa-tooltip-label
   color: rgb(51, 51, 51)
 
-.theme--dark
-  .timesheet-tooltip
+.tsa-tooltip--dark
+  .tsa-tooltip
     background-color: rgb(51, 51, 51)
     color: white
 
-  .timesheet-tooltip-date
+  .tsa-tooltip-date
     color: white
 
-  p.timesheet-tooltip-label
+  p.tsa-tooltip-label
     color: white
