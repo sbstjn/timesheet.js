@@ -61,7 +61,8 @@
       extraClass: '',
       showDate: true,
       timesheetYearMin: null,
-      timesheetYearMax: null
+      timesheetYearMax: null,
+      scrollX: true
     };
 
     return merge(defaults, options);
@@ -204,14 +205,19 @@
 
     if (this.container.addEventListener) {
       this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip));
-      // IE9, Chrome, Safari, Opera
-      this.container.addEventListener('mousewheel', timesheetScrollbar, false);
-      // Firefox
-      this.container.addEventListener('DOMMouseScroll', timesheetScrollbar, false);
+
+      if (this.options.scrollX) {
+        // IE9, Chrome, Safari, Opera
+        this.container.addEventListener('mousewheel', timesheetScrollbar, false);
+        // Firefox
+        this.container.addEventListener('DOMMouseScroll', timesheetScrollbar, false);
+      }
     } else {
-      // IE 6/7/8
-      this.container.attachEvent('onmousewheel', timesheetScrollbar);
-      this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip));
+      if (this.options.scrollX) {
+        // IE 6/7/8
+        this.container.attachEvent('onmousewheel', timesheetScrollbar);
+        this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip));
+      }
     }
   };
 
