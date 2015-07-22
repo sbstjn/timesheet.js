@@ -470,6 +470,8 @@
    * @param {Object} e Mouse event.
    */
   var drawTooltip = function(e) {
+    e.stopPropagation();
+
     var readAttributes = function(element) {
       return {
         dateLabel: element.getAttribute('data-bubble-date'),
@@ -483,7 +485,8 @@
         dateLabel = document.createElement('span'),
         textLabel,
         dateLabelValue = document.createTextNode(content.dateLabel),
-        labelValue = document.createTextNode(content.label);
+        labelValue = document.createTextNode(content.label),
+        oldTooltip = document.querySelector('#timesheet-tooltip');
 
     tooltip.className = 'timesheet-tooltip';
     if (e.theme === 'light') {
@@ -511,12 +514,42 @@
 
     tooltip.style.left = ((e.pageX + 90 >= document.body.clientWidth) ? (document.body.clientWidth - 181) : ((e.pageX - 90 < 0) ? 0 : (e.pageX - 90))) + 'px';
 
-    document.body.appendChild(tooltip);
+    if (oldTooltip) {
+      document.body.replaceChild(tooltip, oldTooltip);
+    }
+    else {
+      document.body.appendChild(tooltip);
+    }
     if (document.body.clientHeight < e.pageY + tooltip.offsetHeight) {
       tooltip.style.top = (e.pageY - tooltip.offsetHeight - 5) + 'px';
     }
     else {
       tooltip.style.top = e.pageY + 'px';
+    }
+
+    if (document.body.addEventListener) {
+      document.body.addEventListener('click', hideTooltips);
+    }
+    else {
+      document.body.attachEvent('click', hideTooltips);
+    }
+  };
+
+  /**
+   * Removes tooltips.
+   */
+  var hideTooltips = function(e) {
+    var a = hasClass(e.srcElement, 'tooltip');
+    console.log(a);
+    var tooltip = document.querySelector('#timesheet-tooltip');
+    if (tooltip) {
+      document.body.removeChild(tooltip);
+      if (document.body.removeEventListener) {
+        document.body.removeEventListener('click', hideTooltips);
+      }
+      else {
+        document.body.detachEvent('click', hideTooltips);
+      }
     }
   };
 
