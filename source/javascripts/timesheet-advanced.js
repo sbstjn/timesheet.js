@@ -249,7 +249,7 @@
   };
 
   /**
-   * Helper function for setting event handler to elements that satisfy criteria.
+   * Helper function for setting event handler for elements that satisfy criteria.
    *
    * @param {function} criteria Function that selects elements for which to register click event.
    * @param {function} listener Function that responds to click event.
@@ -537,16 +537,18 @@
    * Removes tooltips.
    */
   var hideTooltips = function(e) {
-    var a = hasClass(e.srcElement, 'tooltip');
-    console.log(a);
-    var tooltip = document.querySelector('#timesheet-tooltip');
-    if (tooltip) {
-      document.body.removeChild(tooltip);
-      if (document.body.removeEventListener) {
-        document.body.removeEventListener('click', hideTooltips);
-      }
-      else {
-        document.body.detachEvent('click', hideTooltips);
+    var source = e.srcElement;
+
+    if (!source.className || (source.className.indexOf('tooltip') === -1)) {
+      var tooltip = document.querySelector('#timesheet-tooltip');
+      if (tooltip) {
+        document.body.removeChild(tooltip);
+        if (document.body.removeEventListener) {
+          document.body.removeEventListener('click', hideTooltips);
+        }
+        else {
+          document.body.detachEvent('click', hideTooltips);
+        }
       }
     }
   };
