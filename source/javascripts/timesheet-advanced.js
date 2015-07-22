@@ -165,6 +165,10 @@
 
     this.container.className = 'timesheet ' + 'timesheet--' + this.options.type;
 
+    if (this.options.theme.length) {
+      this.container.className += ' timesheet--' + this.options.theme;
+    }
+
     if (this.options.extraClass.length) {
       this.container.className += ' ' + this.options.extraClass;
     }
