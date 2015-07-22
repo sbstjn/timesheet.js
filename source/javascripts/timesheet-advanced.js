@@ -126,7 +126,8 @@
           label: label,
           timesheetYearMin: this.options.timesheetYearMin,
           timesheetYearMax: this.options.timesheetYearMax,
-          link: link
+          link: link,
+          present: false
         })
       );
     }
@@ -456,9 +457,6 @@
         options.end = maxDate;
       }
       options.present = true;
-    }
-    else {
-      options.present = false;
     }
 
     return new Bubble(options);

@@ -10,7 +10,6 @@ module.exports = function(grunt) {
 			},
 			my_target: {
 				files: {
-          'dist/timesheet.min.js': ['source/javascripts/timesheet.js'],
 					'dist/timesheet-advanced.min.js': ['source/javascripts/timesheet-advanced.js']
 				}
 			}
@@ -43,17 +42,17 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		simplemocha: {
-			options: {
-				globals: ['should'],
-				timeout: 3000,
-				ignoreLeaks: false,
-				grep: '',
-				ui: 'tdd',
-				reporter: 'spec'
-			},
-			all: { src: ['test/**/*.js'] }
-		},
+		//simplemocha: {
+		//	options: {
+		//		globals: ['should'],
+		//		timeout: 3000,
+		//		ignoreLeaks: false,
+		//		grep: '',
+		//		ui: 'tdd',
+		//		reporter: 'spec'
+		//	},
+		//	all: { src: ['test/**/*.js'] }
+		//},
 		express: {
 			options: {
 				port: 8080
@@ -123,8 +122,9 @@ module.exports = function(grunt) {
 
 	// Default task
 	grunt.registerTask('default', 	['build']);
-	grunt.registerTask('build', 		['simplemocha', 'jshint', 'uglify', 'sass']);
-	grunt.registerTask('server', 		['express:dev', 'watch' ])
+	//grunt.registerTask('build', 		['simplemocha', 'jshint', 'uglify', 'sass']);
+	grunt.registerTask('build', 		['jshint', 'uglify', 'sass']);
+	grunt.registerTask('server', 		['express:dev', 'watch' ]);
 	grunt.registerTask('gh', 				['build', 'haml:gh', 'sass:gh', 'copy:gh']);
 
 };
