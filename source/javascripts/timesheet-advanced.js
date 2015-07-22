@@ -483,14 +483,14 @@
         dateLabelValue = document.createTextNode(content.dateLabel),
         labelValue = document.createTextNode(content.label);
 
-    tooltip.className = 'timesheet-tooltip';
+    tooltip.className = 'tsa-tooltip';
     if (e.theme === 'light') {
-      tooltip.className += ' theme--dark';
+      tooltip.className += ' tsa-tooltip--dark';
     }
     tooltip.id = 'timesheet-tooltip';
 
     dateLabel.appendChild(dateLabelValue);
-    dateLabel.className = 'timesheet-tooltip-date';
+    dateLabel.className = 'tsa-tooltip-date';
     tooltip.appendChild(dateLabel);
 
     if (content.link) {
@@ -504,7 +504,7 @@
       textLabel.appendChild(labelValue);
     }
 
-    textLabel.className = 'timesheet-tooltip-label';
+    textLabel.className = 'tsa-tooltip-label';
     tooltip.appendChild(textLabel);
 
     tooltip.style.left = ((e.pageX + 90 >= document.body.clientWidth) ? (document.body.clientWidth - 181) : ((e.pageX - 90 < 0) ? 0 : (e.pageX - 90))) + 'px';

@@ -152,15 +152,11 @@
       top: 0
       width: 0
 
-      .info-wrapper
-        display: none
-        position: absolute
-
       .tsa-bubble
         margin-right: 0
         border-radius: 8px
 
-.timesheet-tooltip
+.tsa-tooltip
   position: absolute
   background-color: white
   width: 160px
@@ -169,11 +165,11 @@
   text-align: center
   padding: 10px
 
-  &.theme--dark
+  &.tsa-tooltip--dark
     background-color: rgb(51, 51, 51)
     color: white
 
-.timesheet-tooltip-date
+.tsa-tooltip-date
   color: rgb(51, 51, 51)
   font-size: 14px
   font-weight: bold
@@ -182,22 +178,22 @@
   padding-bottom: 5px
   margin-bottom: 5px
 
-.timesheet-tooltip-label
+.tsa-tooltip-label
   width: auto
   margin: 0 5px
   text-align: center
   font-size: 14px
 
-p.timesheet-tooltip-label
+p.tsa-tooltip-label
   color: rgb(51, 51, 51)
 
-.theme--dark
-  .timesheet-tooltip
+.tsa-tooltip--dark
+  .tsa-tooltip
     background-color: rgb(51, 51, 51)
     color: white
 
-  .timesheet-tooltip-date
+  .tsa-tooltip-date
     color: white
 
-  p.timesheet-tooltip-label
+  p.tsa-tooltip-label
     color: white
