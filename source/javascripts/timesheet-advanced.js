@@ -227,7 +227,7 @@
     }
 
     // Elements on which to detect click event.
-    var bubbleFilter = function(elem) {return hasClass(elem, 'bubble');};
+    var bubbleFilter = function(elem) {return hasClass(elem, 'tsa-bubble');};
 
     if (this.container.addEventListener) {
       this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
@@ -312,7 +312,7 @@
       if (this.bubbleFits(bubble.start, bubble.end)) {
         var position = bubble.getPosition(this);
         if (bubble.link !== '') {
-          startTag ='<a class="bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
+          startTag ='<a class="tsa-bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
           endTag = '</a>';
         }
         else {
@@ -320,20 +320,20 @@
           endTag = '</span>';
         }
 
-        var bubbleClasses = ['bubble', 'bubble-' + bubble.type];
+        var bubbleClasses = ['tsa-bubble', 'tsa-bubble-' + bubble.type];
         if (bubble.startedBeforeTimesheet) {
-          bubbleClasses.push('bubble--started-before');
+          bubbleClasses.push('tsa-bubble--started-before');
         }
 
         if (bubble.endedAfterTimesheet) {
-          bubbleClasses.push('bubble--ended-after');
+          bubbleClasses.push('tsa-bubble--ended-after');
         }
 
         var line = [
           '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="' + bubbleClasses.join(' ') + '" data-duration="' + bubble.monthsLength + '"></span>' +
           startTag +
-          '<span class="date">' + bubble.getDateLabel() + '</span>',
-          '<span class="label">' + bubble.label + '</span>' + endTag
+          '<span class="tsa-date">' + bubble.getDateLabel() + '</span>',
+          '<span class="tsa-label">' + bubble.label + '</span>' + endTag
         ].join('');
 
         html.push('<li>' + line + '</li>');
@@ -359,18 +359,18 @@
       currentList = lists[i];
       if (currentList.bubbles.length) {
         html.push('<li>');
-        html.push('<ul class="ts-bubbles-wrapper">');
+        html.push('<ul class="tsa-bubbles-wrapper">');
         var line = [];
         for (j = 0; j < currentList.bubbles.length; j++) {
           currentBubble = currentList.bubbles[j];
           var position = currentBubble.getPosition(this);
-          var bubbleClasses = ['bubble', 'bubble-' + currentBubble.type];
+          var bubbleClasses = ['tsa-bubble', 'tsa-bubble-' + currentBubble.type];
           if (currentBubble.startedBeforeTimesheet) {
-            bubbleClasses.push('bubble--started-before');
+            bubbleClasses.push('tsa-bubble--started-before');
           }
 
           if (currentBubble.endedAfterTimesheet) {
-            bubbleClasses.push('bubble--ended-after');
+            bubbleClasses.push('tsa-bubble--ended-after');
           }
 
           line.push(
