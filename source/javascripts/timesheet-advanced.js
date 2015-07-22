@@ -3,9 +3,15 @@
 (function() {
   'use strict';
 
+  /**
+   * Merges two (or more) objects, giving the last one precedence.
+   *
+   * @param {Object} target Target object.
+   * @param {Object} source Source object.
+   *
+   * @return {Object} target Combined object.
+   */
   function merge(target, source) {
-    /* Merges two (or more) objects,
-     giving the last one precedence */
     if ( typeof target !== 'object' ) {
       target = {};
     }
@@ -32,6 +38,10 @@
 
   /**
    * Initialize Timesheet object.
+   * @constructor
+   *
+   * @param {Array} data List of inputs.
+   * @param {Object} options Configuration options.
    */
   var Timesheet = function(data, options) {
     this.options = this.mergeWithDefault(options);
@@ -52,6 +62,10 @@
 
   /**
    * Set default options and merge them with passed ones.
+   *
+   * @param {Object} options Configuration options given.
+   *
+   * @return {Object} options Combination of given and default options.
    */
   Timesheet.prototype.mergeWithDefault = function(options) {
     var defaults = {
@@ -70,6 +84,8 @@
 
   /**
    * Parse timesheet data.
+   *
+   * @param {Array} data List of data for generating bubbles.
    */
   Timesheet.prototype.parse = function(data) {
     var overrideTimesheetMin = this.options.timesheetYearMin === null;
@@ -118,6 +134,11 @@
 
   /**
    * Function for checking whether bubble fits timesheet.
+   *
+   * @param {date} bubbleStart Beginning date for a bubble.
+   * @param {date} bubbleEnd Ending date for a bubble.
+   *
+   * @return {boolean} fits.
    */
   Timesheet.prototype.bubbleFits = function(bubbleStart, bubbleEnd) {
     var dateTimesheetStart = new Date('01/01/' + this.options.timesheetYearMin);
@@ -137,7 +158,7 @@
   };
 
   /**
-   * Parse data string
+   * Parse date string
    */
   Timesheet.prototype.parseDate = function(date) {
     if (date.indexOf('/') === -1) {
@@ -217,13 +238,17 @@
       if (this.options.scrollX) {
         // IE 6/7/8
         this.container.attachEvent('onmousewheel', timesheetScrollbar);
-        this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip));
+        this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
       }
     }
   };
 
   /**
    * Helper function for setting event handler to elements that satisfy criteria.
+   *
+   * @param {function} criteria Function that selects elements for which to register click event.
+   * @param {function} listener Function that responds to click event.
+   * @param {string} theme Color theme for the tooltip.
    */
   var delegate = function(criteria, listener, theme) {
     return function(e) {
@@ -242,6 +267,11 @@
 
   /**
    * Helper function for checking if element has class.
+   *
+   * @param {Object} element
+   * @param {string} cls Class name.
+   *
+   * @return {boolean} True if element has given class.
    */
   var hasClass = function(element, cls) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
@@ -249,6 +279,8 @@
 
   /**
    * Scroll timesheet on X axis if it doesn't fit.
+   *
+   * @param {Object} e Scroll event.
    */
   var timesheetScrollbar = function(e) {
     e = window.event || e;
@@ -354,6 +386,8 @@
 
   /**
    * Helper function for building bubble lists on serial timesheet view.
+   *
+   * @return {Array} Lists of bubbles.
    */
   Timesheet.prototype.buildSerialBubbleLists = function() {
     var i, j;
@@ -400,6 +434,10 @@
 
   /**
    * Wrapper for adding bubbles.
+   *
+   * @param {Object} options Bubble options.
+   *
+   * @return {Object} New bubble.
    */
   Timesheet.prototype.createBubble = function(options) {
     // If end isn't defined, it means that the bubble is still active, so copy min value between current date and ending year that's set up in constructor.
@@ -424,6 +462,8 @@
 
   /**
    * Show tooltip for given mouse event.
+   *
+   * @param {Object} e Mouse event.
    */
   var drawTooltip = function(e) {
     var readAttributes = function(element) {
@@ -478,6 +518,9 @@
 
   /**
    * Timesheet Bubble.
+   * @constructor
+   *
+   * @param {Object} options Bubble options.
    */
   var Bubble = function(options) {
     this.start = options.start;
@@ -503,6 +546,8 @@
 
   /**
    * Get month offsets for start and end of bubbles.
+   *
+   * @return {Object} offsets Month offsets.
    */
   Bubble.prototype.getMonthOffsets = function() {
     var offsets = {};
@@ -527,6 +572,10 @@
 
   /**
    * Format month number
+   *
+   * @param {int} num
+   *
+   * @return {string} num.
    */
   Bubble.prototype.formatMonth = function(num) {
     num = parseInt(num, 10);
@@ -536,6 +585,10 @@
 
   /**
    * Get bubble's width in pixel
+   *
+   * @param {int} widthYear
+   *
+   * @return {number} Bubble width.
    */
   Bubble.prototype.getWidth = function(widthYear) {
     return (widthYear/12) * this.monthsLength;
@@ -543,6 +596,10 @@
 
   /**
    * Returns bubble pixel dimensions and left offset.
+   *
+   * @param {Object} timesheet Timesheet object.
+   *
+   * @return {Object} position Width and offset of a bubble.
    */
   Bubble.prototype.getPosition = function(timesheet) {
     var position = {};
@@ -555,6 +612,8 @@
 
   /**
    * Get the bubble's label
+   *
+   * @return {string} Bubble label.
    */
   Bubble.prototype.getDateLabel = function() {
     return [
