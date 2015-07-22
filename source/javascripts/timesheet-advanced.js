@@ -201,7 +201,18 @@
 
     // Elements on which to detect click event.
     var bubbleFilter = function(elem) {return hasClass(elem, 'bubble');};
-    this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip));
+
+    if (this.container.addEventListener) {
+      this.container.addEventListener('click', delegate(bubbleFilter, drawTooltip));
+      // IE9, Chrome, Safari, Opera
+      this.container.addEventListener('mousewheel', timesheetScrollbar, false);
+      // Firefox
+      this.container.addEventListener('DOMMouseScroll', timesheetScrollbar, false);
+    } else {
+      // IE 6/7/8
+      this.container.attachEvent('onmousewheel', timesheetScrollbar);
+      this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip));
+    }
   };
 
   /**
@@ -226,6 +237,20 @@
    */
   var hasClass = function(element, cls) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+  };
+
+  /**
+   * Scroll timesheet on X axis if it doesn't fit.
+   */
+  var timesheetScrollbar = function(e) {
+    e = window.event || e;
+    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+    this.scrollLeft -= (delta * 40); // Multiplied by 40
+
+    // Prevent body scroll only if scrollLeft is between the content (scrollLeft is not at the start or end).
+    if (this.scrollLeft > 0 && (this.scrollWidth - this.scrollLeft !== this.offsetWidth)) {
+      e.preventDefault();
+    }
   };
 
   /**
