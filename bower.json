@@ -1,10 +1,11 @@
 {
-  "name": "timesheet.js",
-  "homepage": "https://sbstjn.github.io/timesheet.js/",
+  "name": "timesheet-advanced.js",
+  "homepage": "https://github.com/ntucakovic/timesheet-advanced.js",
   "authors": [
-    "sbstjn <mail@sbstjn.com>"
+    "Jelena <jelena@byteout.com>",
+    "Nikola <nikola@byteout.com>"
   ],
-  "description": "With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!",
+  "description": "Timesheet-advanced.js is improved version of timesheet.js plugin with more functionality and more customization options.",
   "main": ["dist/timesheet.min.js", "dist/timesheet.min.css"],
   "moduleType": [
     "amd"
@@ -12,6 +13,7 @@
   "keywords": [
     "timeline",
     "timesheet",
+    "timesheet-advanced",
     "timebar",
     "line",
     "bar",
