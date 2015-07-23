@@ -210,7 +210,7 @@
         this.widthYear = this.container.querySelector('.tsa-scale section').offsetWidth;
 
         var currentMonthOffset = (this.options.timesheetYearMax - this.options.timesheetYearMin) * 12 + date.getMonth();
-        this.container.innerHTML += '<div class="ts-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
+        this.container.innerHTML += '<div class="tsa-vertical-line" style="left: ' + currentMonthOffset * (this.widthYear / 12) + 'px;"></div>';
       }
     }
   };
@@ -411,25 +411,27 @@
     for (i = 0; i < this.bubbles.length; i++) {
       bubble = this.bubbles[i];
 
-      // Lists loop
-      for (j = 0; j < lists.length; j++) {
-        list = lists[j];
-        // Check if is first element in loop (monthOffsetEnd is 0) or if bubble starts at least 1 month after list ends.
-        if (!list.monthOffsetEnd || list.monthOffsetEnd + 1 <= bubble.monthOffsetStart) {
-          lists[j].bubbles.push(bubble);
-          lists[j].monthOffsetEnd = bubble.monthOffsetEnd;
-          break;
-        }
+      if (this.bubbleFits(bubble.start, bubble.end)) {
+        // Lists loop
+        for (j = 0; j < lists.length; j++) {
+          list = lists[j];
+          // Check if is first element in loop (monthOffsetEnd is 0) or if bubble starts at least 1 month after list ends.
+          if (!list.monthOffsetEnd || list.monthOffsetEnd + 1 <= bubble.monthOffsetStart) {
+            lists[j].bubbles.push(bubble);
+            lists[j].monthOffsetEnd = bubble.monthOffsetEnd;
+            break;
+          }
 
-        // If it's the last iteration and we haven't found a list to which we can add bubble, create a new list.
-        if  (j === lists.length - 1) {
-          lists[j + 1] = {
-            monthOffsetEnd: bubble.monthOffsetEnd,
-            bubbles: [
-              bubble
-            ]
-          };
-          break;
+          // If it's the last iteration and we haven't found a list to which we can add bubble, create a new list.
+          if (j === lists.length - 1) {
+            lists[j + 1] = {
+              monthOffsetEnd: bubble.monthOffsetEnd,
+              bubbles: [
+                bubble
+              ]
+            };
+            break;
+          }
         }
       }
     }
