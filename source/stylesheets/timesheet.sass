@@ -198,6 +198,20 @@
 p.tsa-tooltip-label
   color: rgb(51, 51, 51)
 
+.tsa-tooltip-indicator
+  height: 0
+  position: absolute
+  top: -7px
+  width: 0
+  border-bottom: 8px solid white
+  border-left: 10px solid transparent
+  border-right: 10px solid transparent
+
+.tsa-tooltip--top
+  .tsa-tooltip-indicator
+    border-bottom: none
+    border-top: 8px solid white
+
 .tsa-tooltip--dark
   .tsa-tooltip
     background-color: rgb(51, 51, 51)
@@ -208,3 +222,10 @@ p.tsa-tooltip-label
 
   p.tsa-tooltip-label
     color: white
+  
+  .tsa-tooltip-indicator
+    border-bottom-color: rgb(51, 51, 51)
+
+  &.tsa-tooltip--top
+    .tsa-tooltip-indicator
+      border-top-color: rgb(51, 51, 51)
