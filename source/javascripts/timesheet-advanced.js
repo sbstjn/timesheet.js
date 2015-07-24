@@ -76,7 +76,8 @@
       showDate: true,
       timesheetYearMin: null,
       timesheetYearMax: null,
-      scrollX: true
+      scrollX: true,
+      bubbleMonthMargin: 1
     };
 
     return merge(defaults, options);
@@ -417,7 +418,7 @@
         for (j = 0; j < lists.length; j++) {
           list = lists[j];
           // Check if is first element in loop (monthOffsetEnd is 0) or if bubble starts at least 1 month after list ends.
-          if (!list.monthOffsetEnd || list.monthOffsetEnd + 1 <= bubble.monthOffsetStart) {
+          if (!list.monthOffsetEnd || (list.monthOffsetEnd + this.options.bubbleMonthMargin) <= bubble.monthOffsetStart) {
             lists[j].bubbles.push(bubble);
             lists[j].monthOffsetEnd = bubble.monthOffsetEnd;
             break;
