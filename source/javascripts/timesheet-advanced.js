@@ -93,11 +93,12 @@
     var overrideTimesheetMax = this.options.timesheetYearMax === null;
 
     for (var n = 0; n < data.length; n++) {
-      var bubbleStart = checkValue(data[n].start, null),
-        bubbleEnd     = checkValue(data[n].end, null),
-        label         = checkValue(data[n].label, null),
-        bubbleType    = checkValue(data[n].type, 'default'),
-        link          = checkValue(data[n].link, null);
+      var bubbleStart  = checkValue(data[n].start, null),
+        bubbleEnd      = checkValue(data[n].end, null),
+        label          = checkValue(data[n].label, null),
+        bubbleType     = checkValue(data[n].type, 'default'),
+        link           = checkValue(data[n].link, null),
+        dataAttributes = checkValue(data[n].data, {});
 
       if (!bubbleStart) {
         throw 'Label start is required for bubble ' + (n + 1);
@@ -131,6 +132,7 @@
           end: bubbleEnd,
           type: bubbleType,
           label: label,
+          dataAttributes: dataAttributes,
           timesheetYearMin: this.options.timesheetYearMin,
           timesheetYearMax: this.options.timesheetYearMax,
           link: link,
@@ -340,8 +342,15 @@
           endTag = '</span>';
         }
 
+        var dataAttributes = '';
+        for (var dataName in bubble.dataAttributes) {
+          if (bubble.dataAttributes.hasOwnProperty(dataName)) {
+            dataAttributes += ' data-' + dataName + '="' + bubble.dataAttributes[dataName] + '"';
+          }
+        }
+
         var line = [
-          '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="' + bubbleClasses.join(' ') + '" data-duration="' + bubble.monthsLength + '"></span>' +
+          '<span data-bubble-link="' + bubble.link + '" data-bubble-label="' + bubble.label + '" data-bubble-date="' + bubble.getDateLabel() + '" style="margin-left: ' + position.offset + '; width: ' + position.width + ';" class="' + bubbleClasses.join(' ') + '" data-duration="' + bubble.monthsLength + '"' + dataAttributes + '></span>' +
           startTag +
           '<span class="tsa-date">' + bubble.getDateLabel() + '</span>',
           '<span class="tsa-label">' + bubble.label + '</span>' + endTag
@@ -631,6 +640,7 @@
     this.type = options.type;
     this.label = options.label;
     this.present = options.present;
+    this.dataAttributes = options.dataAttributes;
   };
 
   /**
@@ -732,6 +742,15 @@
    * @returns parsed value.
    */
   var checkValue = function(value, defaultValue) {
+    if (typeof defaultValue === 'object' && defaultValue !== null) {
+      if (typeof value === 'object' && defaultValue !== null) {
+        return value;
+      }
+      else {
+        return defaultValue;
+      }
+    }
+
     if (typeof value !== 'undefined' && value.length) {
       return value;
     }

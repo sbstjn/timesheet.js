@@ -6,7 +6,7 @@
   Lib.ready(function() {
     /* jshint -W031 */
     var data = [
-      {start: '2002',    end: '09/2002', label: 'First project', type: 'red'},
+      {start: '2002',    end: '09/2002', label: 'First project', type: 'red', data: { technologies: 'php,drupal,mysql,symfony' }},
       {start: '06/2002', end: '09/2003', label: 'Second project', type: 'blue'},
       {start: '2003',    label: 'Still working on'},
       {start: '10/2003', end: '2006',    label: 'First project', type: 'yellow', link: 'http://www.example.com'},
