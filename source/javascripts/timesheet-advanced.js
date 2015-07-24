@@ -310,16 +310,7 @@
     for (var n = 0; n < this.bubbles.length; n++) {
       var bubble = this.bubbles[n];
       if (this.bubbleFits(bubble.start, bubble.end)) {
-        var position = bubble.getPosition(this);
-        if (bubble.link !== '') {
-          startTag ='<a class="tsa-bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
-          endTag = '</a>';
-        }
-        else {
-          startTag = '<span style="margin-left: ' + position.offset + '">';
-          endTag = '</span>';
-        }
-
+        // Add classes to buble
         var bubbleClasses = ['tsa-bubble', 'tsa-bubble-' + bubble.type];
         if (bubble.startedBeforeTimesheet) {
           bubbleClasses.push('tsa-bubble--started-before');
@@ -327,6 +318,18 @@
 
         if (bubble.endedAfterTimesheet) {
           bubbleClasses.push('tsa-bubble--ended-after');
+        }
+
+        // Set label positions
+        var position = bubble.getPosition(this);
+        if (bubble.link !== '') {
+          startTag ='<a class="tsa-bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
+          endTag = '</a>';
+          bubbleClasses.push('tsa-bubble--linked');
+        }
+        else {
+          startTag = '<span style="margin-left: ' + position.offset + '">';
+          endTag = '</span>';
         }
 
         var line = [
@@ -364,13 +367,16 @@
         for (j = 0; j < currentList.bubbles.length; j++) {
           currentBubble = currentList.bubbles[j];
           var position = currentBubble.getPosition(this);
+          // Set bubble classes
           var bubbleClasses = ['tsa-bubble', 'tsa-bubble-' + currentBubble.type];
           if (currentBubble.startedBeforeTimesheet) {
             bubbleClasses.push('tsa-bubble--started-before');
           }
-
           if (currentBubble.endedAfterTimesheet) {
             bubbleClasses.push('tsa-bubble--ended-after');
+          }
+          if (currentBubble.link !== '') {
+            bubbleClasses.push('tsa-bubble--linked');
           }
 
           line.push(
@@ -483,10 +489,12 @@
     var content = readAttributes(e.delegateTarget),
         tooltip = document.createElement('div'),
         dateLabel = document.createElement('span'),
+        indicator = document.createElement('div'),
         textLabel,
         dateLabelValue = document.createTextNode(content.dateLabel),
         labelValue = document.createTextNode(content.label),
-        oldTooltip = document.querySelector('#timesheet-tooltip');
+        oldTooltip = document.querySelector('#timesheet-tooltip'),
+        tooltipPositionX;
 
     tooltip.className = 'tsa-tooltip';
     if (e.theme === 'light') {
@@ -512,21 +520,45 @@
     textLabel.className = 'tsa-tooltip-label';
     tooltip.appendChild(textLabel);
 
-    tooltip.style.left = ((e.pageX + 90 >= document.body.clientWidth) ? (document.body.clientWidth - 181) : ((e.pageX - 90 < 0) ? 0 : (e.pageX - 90))) + 'px';
-
+    // Check if tooltip chould be replaced
     if (oldTooltip) {
       document.body.replaceChild(tooltip, oldTooltip);
     }
     else {
       document.body.appendChild(tooltip);
     }
-    if (document.body.clientHeight < e.pageY + tooltip.offsetHeight) {
-      tooltip.style.top = (e.pageY - tooltip.offsetHeight - 5) + 'px';
+
+    // Check if tooltip can fit in screen horizontally and adjust its position on x-axis
+    // Also adjust indicator position on x-axis
+    if (e.pageX + 90 >= document.body.clientWidth) {
+      tooltipPositionX = (document.body.clientWidth - 200);
+      indicator.style.left = Math.min((e.pageX - tooltipPositionX - 10), (tooltip.offsetWidth - 35)) + 'px';
+    }
+    else if (e.pageX - 90 < 0) {
+      tooltipPositionX = 0;
+      indicator.style.left = Math.max((e.pageX - 10), 15) + 'px'; 
     }
     else {
-      tooltip.style.top = e.pageY + 'px';
+      tooltipPositionX = e.pageX - 90;
+      indicator.style.left = ((tooltip.offsetWidth / 2) - 10) + 'px';
+    }
+    tooltip.style.left = tooltipPositionX + 'px';
+
+    // Check if tooltip can fit in screen vertically and adjust its position on y-axis
+    if (document.body.clientHeight < (e.pageY + tooltip.offsetHeight + 7)) {
+      tooltip.className += ' tsa-tooltip--top';
+      tooltip.style.top = (e.pageY - tooltip.offsetHeight - 7) + 'px';
+      indicator.style.top = tooltip.offsetHeight + 'px';
+    }
+    else {
+      tooltip.className += ' tsa-tooltip--bottom';
+      tooltip.style.top = (e.pageY + 7) + 'px';
     }
 
+    indicator.className = 'tsa-tooltip-indicator';
+
+    tooltip.appendChild(indicator);
+    // Add event listener for hiding tooltips
     if (document.body.addEventListener) {
       document.body.addEventListener('click', hideTooltips);
     }
