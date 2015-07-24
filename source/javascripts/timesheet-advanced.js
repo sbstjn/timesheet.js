@@ -240,10 +240,11 @@
       }
     }
     else {
+      this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
+      
       if (this.options.scrollX) {
         // IE 6/7/8
         this.container.attachEvent('onmousewheel', timesheetScrollbar);
-        this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
       }
     }
   };
@@ -480,6 +481,8 @@
       };
     };
 
+    removeActiveClass('.tsa-bubble');
+
     var content = readAttributes(e.delegateTarget),
         tooltip = document.createElement('div'),
         dateLabel = document.createElement('span'),
@@ -487,6 +490,11 @@
         dateLabelValue = document.createTextNode(content.dateLabel),
         labelValue = document.createTextNode(content.label),
         oldTooltip = document.querySelector('#timesheet-tooltip');
+
+    var activeBubble = e.target;
+    if (activeBubble.className.indexOf('active') === -1) {
+      activeBubble.className += ' active';
+    }
 
     tooltip.className = 'tsa-tooltip';
     if (e.theme === 'light') {
@@ -545,6 +553,7 @@
       var tooltip = document.querySelector('#timesheet-tooltip');
       if (tooltip) {
         document.body.removeChild(tooltip);
+
         if (document.body.removeEventListener) {
           document.body.removeEventListener('click', hideTooltips);
         }
@@ -553,6 +562,8 @@
         }
       }
     }
+
+    removeActiveClass('.tsa-bubble');
   };
 
   /**
@@ -659,6 +670,18 @@
       (this.start.hasMonth ? this.formatMonth(this.start.getMonth() + 1) + '/' : '' ) + this.start.getFullYear(),
       (this.present ? ' - present' : ' - ' + ((this.end.hasMonth ? this.formatMonth(this.end.getMonth() + 1) + '/' : '' ) + this.end.getFullYear()))
     ].join('');
+  };
+
+  /**
+   * Helper function for removing active class.
+   *
+   * @param {String} className
+   */
+  var removeActiveClass = function(className) {
+    var activeElements = document.querySelectorAll(className + '.active');
+    for (var i = 0; i < activeElements.length; i++) {
+      activeElements[i].className = activeElements[i].className.replace(' active', '');
+    }
   };
 
   window.Timesheet = Timesheet;
