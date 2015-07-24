@@ -93,16 +93,22 @@
     var overrideTimesheetMax = this.options.timesheetYearMax === null;
 
     for (var n = 0; n < data.length; n++) {
-      if (data[n].length !== 5) {
-        throw 'Not enough input parameters for bubble ' + (n + 1);
-      }
-      var bubbleStart = this.parseDate(data[n][0]);
-      var bubbleEnd = (data[n][1] !== '' ? this.parseDate(data[n][1]) : null);
-      var label = data[n][2];
-      var bubbleType = (data[n][3] !== '' ? data[n][3] : 'default');
-      var link = (data[n][4] !== '' ? data[n][4] : '');
+      var bubbleStart = checkValue(data[n].start, null),
+        bubbleEnd     = checkValue(data[n].end, null),
+        label         = checkValue(data[n].label, null),
+        bubbleType    = checkValue(data[n].type, 'default'),
+        link          = checkValue(data[n].link, null);
 
-      // todo: if start before beginning, if end after end don't add to list of bubbles.
+      if (!bubbleStart) {
+        throw 'Label start is required for bubble ' + (n + 1);
+      }
+      else {
+        bubbleStart = this.parseDate(bubbleStart);
+      }
+
+      if (bubbleEnd) {
+        bubbleEnd = this.parseDate(bubbleEnd);
+      }
 
       // Check if  timesheet year min/max wasn't set and use minimum/maximum bubble value for setting up the year sections.
       if (overrideTimesheetMin && bubbleStart.getFullYear() < this.options.timesheetYearMin) {
@@ -682,6 +688,23 @@
     var activeElements = document.querySelectorAll(className + '.active');
     for (var i = 0; i < activeElements.length; i++) {
       activeElements[i].className = activeElements[i].className.replace(' active', '');
+    }
+  };
+
+  /**
+   * Helper function for checking values.
+   *
+   * @param {String|int} value
+   * @param {String|int|null} defaultValue
+   *
+   * @returns parsed value.
+   */
+  var checkValue = function(value, defaultValue) {
+    if (typeof value !== 'undefined' && value.length) {
+      return value;
+    }
+    else {
+      return defaultValue;
     }
   };
 
