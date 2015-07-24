@@ -240,10 +240,11 @@
       }
     }
     else {
+      this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
+      
       if (this.options.scrollX) {
         // IE 6/7/8
         this.container.attachEvent('onmousewheel', timesheetScrollbar);
-        this.container.attachEvent('click', delegate(bubbleFilter, drawTooltip, this.options.theme));
       }
     }
   };
