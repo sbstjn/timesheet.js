@@ -332,7 +332,7 @@
 
         // Set label positions
         var position = bubble.getPosition(this);
-        if (bubble.link !== '') {
+        if (bubble.link && bubble.link.length) {
           startTag ='<a class="tsa-bubble-link" href="' + bubble.link + '" style="margin-left: ' + position.offset + '">';
           endTag = '</a>';
           bubbleClasses.push('tsa-bubble--linked');
@@ -392,7 +392,7 @@
           if (currentBubble.endedAfterTimesheet) {
             bubbleClasses.push('tsa-bubble--ended-after');
           }
-          if (currentBubble.link !== '') {
+          if (currentBubble.link && currentBubble.link.length) {
             bubbleClasses.push('tsa-bubble--linked');
           }
 
@@ -530,7 +530,7 @@
     dateLabel.className = 'tsa-tooltip-date';
     tooltip.appendChild(dateLabel);
 
-    if (content.link) {
+    if (content.link && content.link !== 'null' && content.link.length) {
       textLabel = document.createElement('a');
       textLabel.appendChild(labelValue);
       textLabel.title = content.label;
