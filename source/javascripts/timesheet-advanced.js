@@ -595,7 +595,7 @@
    * Removes tooltips.
    */
   var hideTooltips = function(e) {
-    var source = e.srcElement;
+    var source = typeof e.target !== 'undefined' ? e.target : e.srcElement;
 
     if (!source.className || (source.className.indexOf('tooltip') === -1)) {
       var tooltip = document.querySelector('#timesheet-tooltip');
