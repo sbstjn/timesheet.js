@@ -2,7 +2,7 @@
 
 JavaScript library to create HTML time sheets.
 
-![https://ntucakovic.github.io/timesheet-advanced.js]
+https://ntucakovic.github.io/timesheet-advanced.js
 
 You only have to include `dist/timesheet-advanced.js` and `dist/timesheet.min.css` in your HTML and initialize time sheet with:
 
@@ -48,15 +48,19 @@ Timesheet object contains information about the time sheet itself. It consists o
 - type: serial or parallel.
 
 In parallel mode, every bubble is in its own row.
+
 In serial mode, bubbles are 'packed' in one row without overlapping.
 
 Parallel Dark
+
 ![https://ntucakovic.github.io/timesheet-advanced.js](https://raw.githubusercontent.com/ntucakovic/timesheet-advanced.js/master/images/parallel-dark.png)
 
 Serial Dark
+
 ![https://ntucakovic.github.io/timesheet-advanced.js](https://raw.githubusercontent.com/ntucakovic/timesheet-advanced.js/master/images/serial-dark.png)
 
 Serial Light
+
 ![https://ntucakovic.github.io/timesheet-advanced.js](https://raw.githubusercontent.com/ntucakovic/timesheet-advanced.js/master/images/serial-light.png)
 
 
