@@ -29,7 +29,6 @@
     "bower_components",
     "test",
     "tests",
-    "screen.png",
     "source",
     "Gruntfile.js",
     "package.json"

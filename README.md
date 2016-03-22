@@ -66,7 +66,7 @@ Serial Light
 
 ### Bower
 
-`$ > bower install https://github.com/ntucakovic/timesheet-advanced.js.git`
+`$ > bower install timesheet-advanced.js`
 
 ## Grunt commands
 

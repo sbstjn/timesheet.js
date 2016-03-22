@@ -94,14 +94,11 @@ module.exports = function(grunt) {
 		copy: {
 			gh: {
 				files: [
-					{expand: false, src: __dirname + '/source/javascripts/lib.js', 				 dest: __dirname + '/gh-pages/script/lib.js'},
+					{expand: false, src: __dirname + '/source/javascripts/lib.js', 				dest: __dirname + '/gh-pages/script/lib.js'},
 					{expand: false, src: __dirname + '/source/javascripts/main.js',				dest: __dirname + '/gh-pages/script/main.js'},
-          {expand: false, src: __dirname + '/dist/timesheet.min.js',			      dest: __dirname + '/gh-pages/script/timesheet.min.js'},
-					{expand: false, src: __dirname + '/dist/timesheet-advanced.min.js',			      dest: __dirname + '/gh-pages/script/timesheet-advanced.min.js'},
-					{expand: false, src: __dirname + '/dist/timesheet.min.css', 					 dest: __dirname + '/gh-pages/styles/timesheet.css'},
-					{expand: false, src: __dirname + '/dist/timesheet-white.min.css',			dest: __dirname + '/gh-pages/styles/timesheet-white.css'},
-					{expand: false, src: __dirname + '/dist/timesheet.min.css.map', 			 dest: __dirname + '/gh-pages/styles/timesheet.css.map'},
-					{expand: false, src: __dirname + '/dist/timesheet-white.min.css.map',	dest: __dirname + '/gh-pages/styles/timesheet-white.css.map'}
+					{expand: false, src: __dirname + '/dist/timesheet-advanced.min.js',		dest: __dirname + '/gh-pages/script/timesheet-advanced.min.js'},
+					{expand: false, src: __dirname + '/dist/timesheet.min.css', 					dest: __dirname + '/gh-pages/styles/timesheet.css'},
+					{expand: false, src: __dirname + '/dist/timesheet.min.css.map', 			dest: __dirname + '/gh-pages/styles/timesheet.css.map'},
 				]
 			}
 		}
@@ -110,14 +107,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-simple-mocha');
-
 	grunt.loadNpmTasks('grunt-contrib-copy');
-
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-
 	grunt.loadNpmTasks('grunt-express-server');
-
 	grunt.loadNpmTasks('grunt-haml');
 
 	// Default task

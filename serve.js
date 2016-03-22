@@ -15,16 +15,12 @@ app.get('/script/main.js', function(req, res) {
   res.end(fs.readFileSync(__dirname + '/source/javascripts/main.js'));
 });
 
-app.get('/script/timesheet.min.js', function(req, res) { 
-  res.end(fs.readFileSync(__dirname + '/dist/timesheet.min.js'));
+app.get('/script/timesheet-advanced.min.js', function(req, res) {
+  res.end(fs.readFileSync(__dirname + '/dist/timesheet-advanced.min.js'));
 });
 
 app.get('/styles/timesheet.css', function(req, res) {
   res.end(fs.readFileSync(__dirname + '/dist/timesheet.min.css'));
-});
-
-app.get('/styles/timesheet-white.css', function(req, res) {
-  res.end(fs.readFileSync(__dirname + '/dist/timesheet-white.min.css'));
 });
 
 app.get('/styles/style.css', function(req, res) {
