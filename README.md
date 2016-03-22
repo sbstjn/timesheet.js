@@ -24,7 +24,8 @@ new Timesheet(bubbles, {
     container: 'my-timesheet',
     type: 'parallel',
     timesheetYearMin: 2002,
-    timesheetYearMax: 2008
+    timesheetYearMax: 2008,
+    theme: 'light'
 });
 ```
 
@@ -43,6 +44,7 @@ Timesheet object contains information about the time sheet itself. It consists o
 - timesheetYearMax,
 - timesheetYearMin,
 - container : ID of the HTML element,
+- theme: light or dark,
 - type: serial or parallel.
 
 In parallel mode, every bubble is in its own row.
