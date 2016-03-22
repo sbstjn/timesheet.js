@@ -6,7 +6,7 @@
     "Nikola <nikola@byteout.com>"
   ],
   "description": "Timesheet-advanced.js is improved version of timesheet.js plugin with more functionality and more customization options.",
-  "main": ["dist/timesheet.min.js", "dist/timesheet.min.css"],
+  "main": ["dist/timesheet-advanced.min.js", "dist/timesheet.min.css"],
   "moduleType": [
     "amd"
   ],
