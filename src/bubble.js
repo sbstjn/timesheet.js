@@ -7,4 +7,16 @@ export default class Bubble {
       end: end
     };
   }
+
+  Label() {
+    return this.label;
+  }
+
+  Start() {
+    return this.date.start;
+  }
+
+  End() {
+    return this.date.end;
+  }
 }

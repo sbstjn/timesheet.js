@@ -4,11 +4,11 @@ describe('Bubble', function () {
   const b = new Bubble(1, 2, "label");
 
   it('should have a start and end value', () => {
-    expect(b.date.start).toEqual(1);
-    expect(b.date.end).toEqual(2);
+    expect(b.Start()).toEqual(1);
+    expect(b.End()).toEqual(2);
   });
 
   it("should have a label", () => {
-    expect(b.label).toEqual("label")
+    expect(b.Label()).toEqual("label")
   })
 });

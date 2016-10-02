@@ -1,9 +1,12 @@
+browsers = [
+  "Chrome"
+  // "PhantomJS"
+];
+
 module.exports = function(config) {
   config.set({
     basePath: '',
-    browsers: [
-      "PhantomJS"
-    ],
+    browsers: browsers,
     frameworks: [
       'browserify',
       'jasmine'
