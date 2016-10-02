@@ -1,7 +1,5 @@
-class Timesheet {
+export default class Timesheet {
   constructor(name) {
     this.name = name
   }
 }
-
-export default Timesheet;

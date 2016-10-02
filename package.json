@@ -4,7 +4,7 @@
   "description": "With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!",
   "main": "index.js",
   "scripts": {
-    "test": "make karma"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,6 @@
     "babel": "^6.5.2",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
-    "babel-preset-react": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "jasmine-core": "^2.5.2",

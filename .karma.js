@@ -2,25 +2,22 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     browsers: [
-      "Chrome"
+      "PhantomJS"
     ],
     frameworks: [
       'browserify',
       'jasmine'
     ],
     files: [
-      'src/**/*.js',
-      'test/**/*.js'
+      'src/**/*.js'
     ],
     exclude: [
 
     ],
     preprocessors: {
       'src/**/*.js': [
-        'browserify'
-      ],
-      'test/**/*.js': [
-        'browserify'
+        'browserify',
+        'coverage'
       ]
     },
     browserify: {
