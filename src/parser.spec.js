@@ -16,7 +16,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input)).toEqual([]);
+    expect(p.parse(input).Size()).toEqual(0);
   });
 
   it('should return an empty array for lists without timesheet class', () => {
@@ -26,7 +26,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input)).toEqual([]);
+    expect(p.parse(input).Size()).toEqual(0);
   });
 
   it('should return an empty array for lists with timesheet class but without timesheet-item elements', () => {
@@ -36,67 +36,52 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input)).toEqual([]);
+    expect(p.parse(input).Size()).toEqual(0);
   });
 
   it('should return an array for lists with timesheet class and timesheet-item elements', () => {
     var input = toDOM(`
       <ul class="timesheet">
         <li class="timesheet-item">
-          <span class="timesheet-item--date-start">2015-01-01</span>
-          <span class="timesheet-item--date-end">2015-01-12</span>
+          <span class="timesheet-item--date-start">January 1, 2015</span>
+          <span class="timesheet-item--date-end">January 12, 2015</span>
           <span class="timesheet-item--label">example</span>
         </li>
       </ul>
     `);
 
-    expect(p.parse(input).length).toEqual(1);
+    expect(p.parse(input).Size()).toEqual(1);
   });
 
   it('should return an array of bubbles for lists with timesheet class and timesheet-item elements', () => {
     var input = toDOM(`
       <ul class="timesheet">
         <li class="timesheet-item">
-          <span class="timesheet-item--date-start">2015-01-01</span>
-          <span class="timesheet-item--date-end">2015-01-12</span>
+          <span class="timesheet-item--date-start">2015-01-01T00:00:00Z</span>
           <span class="timesheet-item--label">example-0</span>
+          <span class="timesheet-item--date-end">2015-01-12</span>
         </li>
         <li class="timesheet-item">
-          <span class="timesheet-item--date-end">2015-02-12</span>
           <span class="timesheet-item--label">example-1</span>
+          <span class="timesheet-item--date-end">February 4, 2015</span>
         </li>
         <li class="timesheet-item">
-          <span class="timesheet-item--date-start">2015-03-01</span>
+          <span class="timesheet-item--date-start">March 1, 2015</span>
           <span class="timesheet-item--label">example-2</span>
         </li>
         <li class="timesheet-item">
-          <span class="timesheet-item--date-start">2015-04-01</span>
-          <span class="timesheet-item--date-end">2015-04-12</span>
+          <span class="timesheet-item--date-end">April 12, 2015</span>
+          <span class="timesheet-item--date-start">April 1, 2015</span>
         </li>
       </ul>
     `);
 
     var output = p.parse(input);
-    expect(output.length).toEqual(4);
+    expect(output.Size()).toEqual(1);
 
-    var item = output.shift();
-    expect(item.Start()).toEqual('2015-01-01')
-    expect(item.End()).toEqual('2015-01-12')
+    var item = output.Next();
+    expect(item.Start()).toEqual(1420070400000)
+    expect(item.End()).toEqual(1421020800000)
     expect(item.Label()).toEqual('example-0')
-
-    var item = output.shift();
-    expect(item.Start()).toEqual(null)
-    expect(item.End()).toEqual('2015-02-12')
-    expect(item.Label()).toEqual("example-1")
-
-    var item = output.shift();
-    expect(item.Start()).toEqual("2015-03-01")
-    expect(item.End()).toEqual(null)
-    expect(item.Label()).toEqual("example-2")
-
-    var item = output.shift();
-    expect(item.Start()).toEqual("2015-04-01")
-    expect(item.End()).toEqual("2015-04-12")
-    expect(item.Label()).toEqual(null)
   });
 });

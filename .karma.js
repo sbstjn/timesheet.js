@@ -1,5 +1,5 @@
 browsers = [
-  "Chrome"
+  "Chrome",
   // "PhantomJS"
 ];
 

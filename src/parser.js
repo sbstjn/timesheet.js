@@ -1,21 +1,24 @@
 import Bubble from './bubble.js'
+import List from './list.js'
 
 export default class Parser {
   constructor() {
 
   }
 
-  parse(list) {
-    if (!list.classList.contains('timesheet')) {
-      return [];
+  parse(html) {
+    var list = new List();
+
+    if (!html.classList.contains('timesheet')) {
+      return list;
     }
 
-    var items = list.querySelectorAll('.timesheet-item');
+    var items = html.querySelectorAll('.timesheet-item');
     if (items.length === 0) {
-      return [];
+      return list;
     }
 
-    var data = []
+
     for (var i = 0, m = items.length; i < m; i++) {
       var item = items[i];
 
@@ -23,13 +26,17 @@ export default class Parser {
         , dateEnd = item.querySelector('.timesheet-item--date-end')
         , label = item.querySelector('.timesheet-item--label');
 
-      data.push(new Bubble(
+      if (dateStart === null || dateEnd === null || label === null) {
+        continue;
+      }
+
+      list.Add(new Bubble(
         dateStart ? dateStart.innerHTML : null,
         dateEnd ? dateEnd.innerHTML : null,
         label ? label.innerHTML : null
       ))
     }
 
-    return data;
+    return list;
   }
 }

@@ -3,8 +3,8 @@ export default class Bubble {
     this.label = label;
 
     this.date = {
-      start: start,
-      end: end
+      start: Date.parse(start),
+      end: Date.parse(end)
     };
   }
 
