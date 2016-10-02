@@ -4,7 +4,7 @@
   "description": "With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make karma"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,25 @@
   "bugs": {
     "url": "https://github.com/sbstjn/timesheet.js/issues"
   },
-  "homepage": "https://github.com/sbstjn/timesheet.js#readme"
+  "homepage": "https://github.com/sbstjn/timesheet.js#readme",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-browserify": "^5.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "watchify": "^3.7.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
 }
