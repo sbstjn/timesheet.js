@@ -7,7 +7,9 @@ export default class Parser {
   }
 
   parse(html) {
-    var list = new List();
+    var list = new List((a, b) {
+      return a.Start() < b.Start() ? -1 : 1
+    });
 
     if (!html.classList.contains('timesheet')) {
       return list;
