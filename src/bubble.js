@@ -11,6 +11,11 @@ export default class Bubble {
     };
   }
 
+  // End returns the Bubble's end date object
+  End() {
+    return this.date.end;
+  }
+
   // Label returns the Bubble's label text
   Label() {
     return this.label;
@@ -19,10 +24,5 @@ export default class Bubble {
   // Start returns the Bubble's start date object
   Start() {
     return this.date.start;
-  }
-
-  // End returns the Bubble's end date object
-  End() {
-    return this.date.end;
   }
 }

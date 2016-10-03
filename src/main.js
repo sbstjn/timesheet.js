@@ -7,18 +7,7 @@ export default class Timesheet {
     this.list = p.parse(html)
   }
 
-  Start() {
-    var start = null;
-
-    this.list.Walk((item) => {
-      if (start === null || item.Start() < start) {
-        start = item.Start();
-      }
-    });
-
-    return start;
-  }
-
+  // End returns the last end date of all bubbles
   End() {
     var end = null;
 
@@ -29,5 +18,18 @@ export default class Timesheet {
     });
 
     return end;
+  }
+
+  // Start returns the earliest start date of all bubbles
+  Start() {
+    var start = null;
+
+    this.list.Walk((item) => {
+      if (start === null || item.Start() < start) {
+        start = item.Start();
+      }
+    });
+
+    return start;
   }
 }

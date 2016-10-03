@@ -17,6 +17,30 @@ export default class List {
     this.storage.sort(this.sorter)
   }
 
+  // Add can receive one or multiple parameters which are added to the List
+  Add() {
+    for (var i = 0, m = arguments.length; i < m; i++) {
+      this.storage.push(arguments[i])
+    }
+
+    this.sort();
+  }
+
+  // First returns the first item of the List
+  First() {
+    return this.storage[0]
+  }
+
+  // Get returns all items in the List
+  Get() {
+    return this.storage;
+  }
+
+  // Last returns the last item of the List
+  Last() {
+    return this.storage[this.Size()-1]
+  }
+
   // Next increase the position pointer and return the current element
   Next() {
     this.position++;
@@ -28,37 +52,13 @@ export default class List {
     return this.storage[this.position-1];
   }
 
-  // Add can receive one or multiple parameters which are added to the List
-  Add() {
-    for (var i = 0, m = arguments.length; i < m; i++) {
-      this.storage.push(arguments[i])
-    }
-
-    this.sort();
+  // Size returns the length of the List
+  Size() {
+    return this.storage.length;
   }
 
   // Walk is an alias for forEach
   Walk(func) {
     return this.storage.forEach(func);
-  }
-
-  // First returns the first item of the List
-  First() {
-    return this.storage[0]
-  }
-
-  // Last returns the last item of the List
-  Last() {
-    return this.storage[this.Size()-1]
-  }
-
-  // Get returns all items in the List
-  Get() {
-    return this.storage;
-  }
-
-  // Size returns the length of the List
-  Size() {
-    return this.storage.length;
   }
 }
