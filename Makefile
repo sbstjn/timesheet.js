@@ -12,3 +12,6 @@ lint:
 build:
 		./node_modules/.bin/browserify src/main.js -o dist/timesheet.js
 		./node_modules/.bin/uglifyjs --compress -- dist/timesheet.js > dist/timesheet.min.js
+
+shasum:
+		@shasum -a256 dist/*

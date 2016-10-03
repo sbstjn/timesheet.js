@@ -98,9 +98,7 @@ var List = function () {
         items[_key] = arguments[_key];
       }
 
-      for (var i = 0, m = items.length; i < m; i++) {
-        this.storage.push(items[i]);
-      }
+      Array.prototype.push.apply(this.storage, items);
 
       this.sort();
     }
