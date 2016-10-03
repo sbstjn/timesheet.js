@@ -1,15 +1,15 @@
-import Parser from "./parser.js"
+import Parser from './parser';
 
 export default class Timesheet {
   constructor(html) {
-    var p = new Parser()
+    const p = new Parser();
 
-    this.list = p.parse(html)
+    this.list = p.parse(html);
   }
 
   // End returns the last end date of all bubbles
   End() {
-    var end = null;
+    let end = null;
 
     this.list.Walk((item) => {
       if (end === null || item.End() > end) {
@@ -22,7 +22,7 @@ export default class Timesheet {
 
   // Start returns the earliest start date of all bubbles
   Start() {
-    var start = null;
+    let start = null;
 
     this.list.Walk((item) => {
       if (start === null || item.Start() < start) {

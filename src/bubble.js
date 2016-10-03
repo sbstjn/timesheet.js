@@ -7,7 +7,7 @@ export default class Bubble {
 
     this.date = {
       start: Date.parse(start),
-      end: Date.parse(end)
+      end: Date.parse(end),
     };
   }
 

@@ -6,7 +6,7 @@ export default class List {
   constructor(sort) {
     this.storage = [];
     this.position = 0;
-    this.sorter = sort
+    this.sorter = sort;
   }
 
   sort() {
@@ -14,21 +14,27 @@ export default class List {
       return;
     }
 
-    this.storage.sort(this.sorter)
+    this.storage.sort(this.sorter);
   }
 
   // Add can receive one or multiple parameters which are added to the List
-  Add() {
-    for (var i = 0, m = arguments.length; i < m; i++) {
-      this.storage.push(arguments[i])
+  Add(...items) {
+    for (let i = 0, m = items.length; i < m; i++) {
+      this.storage.push(items[i]);
     }
 
     this.sort();
   }
 
+  // Clear removes all data from storage
+  Clear() {
+    this.storage = [];
+    this.position = 0;
+  }
+
   // First returns the first item of the List
   First() {
-    return this.storage[0]
+    return this.storage[0];
   }
 
   // Get returns all items in the List
@@ -38,18 +44,18 @@ export default class List {
 
   // Last returns the last item of the List
   Last() {
-    return this.storage[this.Size()-1]
+    return this.storage[this.Size() - 1];
   }
 
   // Next increase the position pointer and return the current element
   Next() {
-    this.position++;
-
-    if (this.position > this.storage.length) {
+    if (this.position === this.Size()) {
       return null;
     }
 
-    return this.storage[this.position-1];
+    this.position = this.position + 1;
+
+    return this.storage[this.position - 1];
   }
 
   // Size returns the length of the List
