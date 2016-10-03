@@ -1,0 +1,27 @@
+title: Timesheet.JS
+email: code@sbstjn.com
+description: With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!
+baseurl: ""
+url: "https://sbstjn.com/timesheet.js"
+twitter_username: sbstjn
+github_username:  sbstjn
+
+owner:
+  name: Sebastian Müller
+
+author:
+  twitter: sbstjn
+
+twitter:
+  username: sbstjn
+
+gems:
+  - jekyll-mentions
+  - jekyll-seo-tag
+
+markdown: kramdown
+theme: minima
+
+sass:
+  sass_dir: 'assets/styles/_sass'
+  style: 'compressed'
