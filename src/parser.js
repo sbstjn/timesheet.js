@@ -18,7 +18,7 @@ export default class Parser {
     this.list = new List((a, b) => (a.Start() < b.Start() ? -1 : 1));
   }
 
-  parse(html) {
+  Parse(html) {
     let dateStart, dateEnd, label, item;
 
     // Clear list

@@ -16,7 +16,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input).Size()).toEqual(0);
+    expect(p.Parse(input).Size()).toEqual(0);
   });
 
   it('should return an empty array for lists without timesheet class', () => {
@@ -26,7 +26,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input).Size()).toEqual(0);
+    expect(p.Parse(input).Size()).toEqual(0);
   });
 
   it('should return an empty array for lists with timesheet class but without timesheet-item elements', () => {
@@ -36,7 +36,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input).Size()).toEqual(0);
+    expect(p.Parse(input).Size()).toEqual(0);
   });
 
   it('should return an array for lists with timesheet class and timesheet-item elements', () => {
@@ -50,7 +50,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    expect(p.parse(input).Size()).toEqual(1);
+    expect(p.Parse(input).Size()).toEqual(1);
   });
 
   it('should return an array of bubbles for lists with timesheet class and timesheet-item elements', () => {
@@ -76,7 +76,7 @@ describe('Parser', function () {
       </ul>
     `);
 
-    var output = p.parse(input);
+    var output = p.Parse(input);
     expect(output.Size()).toEqual(1);
 
     var item = output.Next();
