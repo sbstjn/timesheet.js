@@ -23,10 +23,15 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
+    "docs",
+    "node_modules",
     "src",
-    "source",
+    ".babelrc",
+    ".eslintignore",
+    ".eslintrc",
+    ".karma.js",
+    "Makefile",
     "package.json"
   ]
 }
