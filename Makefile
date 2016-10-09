@@ -5,17 +5,16 @@ karma:
 
 cover:
 		@rm -rf .cover
-		@./node_modules/.bin/karma start .karma.coverage.js --single-run
-
-karma-watch:
-		./node_modules/.bin/karma start .karma.js --reporters progress --log-level disable
+		@./node_modules/.bin/karma start .karma.coverage.js
 
 lint:
 		./node_modules/.bin/eslint src/
 
-build:
-		./node_modules/.bin/browserify src/main.js -o dist/timesheet.js
-		./node_modules/.bin/uglifyjs --compress -- dist/timesheet.js > dist/timesheet.min.js
+compile:
+		@./node_modules/.bin/browserify src/main.js -o dist/timesheet.js
+		@./node_modules/.bin/uglifyjs --compress -- dist/timesheet.js > dist/timesheet.min.js
+
+build: compile shasum
 
 publish: build
 		cp -r dist docs/assets/
