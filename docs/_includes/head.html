@@ -1,0 +1,27 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% seo %}
+
+  <style>
+    {% capture include_to_scssify %}
+      {% include styles/critical.scss %}
+    {% endcapture %}
+    {{ include_to_scssify | scssify }}
+  </style>
+
+  <link rel="preload" href="{{ "/assets/styles/main.css" | prepend: site.baseurl }}" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ "/assets/styles/main.css" | prepend: site.baseurl }}"></noscript>
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+  <script type="text/javascript" src="./assets/dist/timesheet.js"></script>
+  <script type="text/javascript">
+    function ready(f){/in/.test(document.readyState)?setTimeout('ready('+f+')',9):f()};
+
+    ready(function() {
+      new Timesheet(document.querySelector('.timesheet'));
+    });
+  </script>
+</head>

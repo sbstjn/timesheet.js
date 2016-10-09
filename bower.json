@@ -2,7 +2,7 @@
   "name": "timesheet.js",
   "homepage": "https://sbstjn.github.io/timesheet.js/",
   "authors": [
-    "sbstjn <mail@sbstjn.com>"
+    "Sebastian Müller <mail@sbstjn.com>"
   ],
   "description": "With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!",
   "main": ["dist/timesheet.min.js", "dist/timesheet.min.css"],
@@ -17,18 +17,21 @@
     "bar",
     "graph",
     "visualize",
-    "chart"
+    "chart",
+    "data"
   ],
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
-    "test",
-    "tests",
-    "screen.png",
-    "source",
-    "Gruntfile.js",
+    "docs",
+    "node_modules",
+    "src",
+    ".babelrc",
+    ".eslintignore",
+    ".eslintrc",
+    ".karma.js",
+    "Makefile",
     "package.json"
   ]
 }

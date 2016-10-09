@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": 1
+  },
+  "rules": {
+    "new-cap": 0,
+    "no-continue": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "one-var-declaration-per-line": ["error", "initializations"],
+    "one-var": ["error", {"const": "never"}]
+  },
+  "global": {
+    "jasmine": true
+  }
+}
