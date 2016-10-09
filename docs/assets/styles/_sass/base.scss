@@ -10,4 +10,61 @@ html, body {
 
 body {
   text-align: center;
+  background-color: #3d3d3d;
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  color: #ff9112;
+  font-family: "Open Sans";
+  font-size: 60pt;
+  font-weight: 800;
+  line-height: 240px;
+}
+
+p {
+    color: #dcdcdc;
+    text-align: left;
+    font-family: "Open Sans";
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+
+#content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+ul + p {
+  margin-top: 15px;
+}
+
+.timesheet-raw {
+  list-style-type: none;
+
+  li {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans";
+    font-weight: 400;
+    color: #CCC;
+    padding-bottom: 6px;
+
+    .timesheet-item--label {
+      font-weight: 600;
+      color: white;
+      display: block;
+    }
+
+    .timesheet-item--date-start, .timesheet-item--date-end {
+      font-size: 14px;
+    }
+
+    .timesheet-item--date-start:after {
+      content: " – ";
+    }
+  }
 }

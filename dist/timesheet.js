@@ -195,7 +195,7 @@ var Timesheet = function () {
 
     var p = new _parser2.default();
 
-    this.list = p.parse(html);
+    this.list = p.Parse(html);
   }
 
   // End returns the last end date of all bubbles
@@ -236,6 +236,11 @@ var Timesheet = function () {
 }();
 
 exports.default = Timesheet;
+
+
+if (window) {
+  window.Timesheet = Timesheet;
+}
 
 },{"./parser":4}],4:[function(require,module,exports){
 'use strict';
@@ -281,8 +286,8 @@ var Parser = function () {
   }
 
   _createClass(Parser, [{
-    key: 'parse',
-    value: function parse(html) {
+    key: 'Parse',
+    value: function Parse(html) {
       var dateStart = void 0,
           dateEnd = void 0,
           label = void 0,
