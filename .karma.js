@@ -5,7 +5,7 @@ browsers = [
 
 module.exports = function(config) {
   config.set({
-    singleRun: true,
+    singleRun: false,
     basePath: '',
     browsers: browsers,
     frameworks: [

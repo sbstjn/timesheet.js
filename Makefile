@@ -1,7 +1,10 @@
 test: karma
 
 karma:
-		@./node_modules/.bin/karma start .karma.js --log-level disable
+		@./node_modules/.bin/karma start .karma.js --single-run --log-level disable
+
+karma-chrome:
+	@./node_modules/.bin/karma start .karma.js --browsers Chrome --log-level disable
 
 cover:
 		@rm -rf .cover
