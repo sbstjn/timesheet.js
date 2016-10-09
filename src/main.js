@@ -33,3 +33,7 @@ export default class Timesheet {
     return start;
   }
 }
+ 
+if (window) {
+  window.Timesheet = Timesheet
+}
