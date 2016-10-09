@@ -1,10 +1,11 @@
 browsers = [
-  "Chrome",
-  // "PhantomJS"
+  //"Chrome",
+  "PhantomJS"
 ];
 
 module.exports = function(config) {
   config.set({
+    singleRun: true,
     basePath: '',
     browsers: browsers,
     frameworks: [
@@ -20,7 +21,7 @@ module.exports = function(config) {
     preprocessors: {
       'src/**/*.js': [
         'browserify',
-        'coverage'
+        'sourcemap',
       ]
     },
     browserify: {
@@ -30,13 +31,7 @@ module.exports = function(config) {
       ]
     },
     reporters: [
-      'progress',
-      'coverage',
-      'coveralls'
-    ],
-    coverageReporter: {
-      type : 'lcov',
-      dir : '.cover/'
-    }
+      'progress'
+    ]
   });
 };

@@ -1,10 +1,11 @@
 test: karma
 
 karma:
-		@./node_modules/.bin/karma start .karma.js --single-run --reporters progress --log-level disable
+		@./node_modules/.bin/karma start .karma.js --log-level disable
 
 cover:
-		@./node_modules/.bin/karma start .karma.js --single-run
+		@rm -rf .cover
+		@./node_modules/.bin/karma start .karma.coverage.js --single-run
 
 karma-watch:
 		./node_modules/.bin/karma start .karma.js --reporters progress --log-level disable
