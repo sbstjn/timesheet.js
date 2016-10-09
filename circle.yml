@@ -1,0 +1,5 @@
+test:
+  override:
+    - make test
+  post:
+    - make cover

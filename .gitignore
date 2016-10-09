@@ -1,5 +1,6 @@
 .bundle
 .cache
+.cover
 .DS_Store
 .jekyll-metadata
 .sass-cache

@@ -28,6 +28,15 @@ module.exports = function(config) {
       transform: [
         'babelify'
       ]
+    },
+    reporters: [
+      'progress',
+      'coverage',
+      'coveralls'
+    ],
+    coverageReporter: {
+      type : 'lcov',
+      dir : '.cover/'
     }
   });
 };
