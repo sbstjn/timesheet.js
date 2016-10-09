@@ -19,7 +19,7 @@ export default class List {
 
   // Add can receive one or multiple parameters which are added to the List
   Add(...items) {
-    Array.prototype.push.apply(this.storage, items)
+    Array.prototype.push.apply(this.storage, items);
 
     this.sort();
   }
