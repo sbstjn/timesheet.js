@@ -43,7 +43,7 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "uglify-js": "^2.7.3",
-    "watchify": "^3.7.0"
+    "watch": "^1.0.1"
   },
   "browserify": {
     "transform": [

@@ -20,10 +20,13 @@ compile:
 build: compile shasum
 
 publish: build
-		cp -r dist docs/assets/
+		@cp -r dist docs/assets/
 
 shasum:
 		@shasum -a256 dist/*
+
+watch:
+		@./node_modules/.bin/watch "make build publish" ./src
 
 run:
 		cd docs/ && bundle exec jekyll serve
