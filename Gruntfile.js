@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 			},
 			my_target: {
 				files: {
-					'dist/timesheet.min.js': ['source/javascripts/timesheet.js']
+					'dist/timesheet-advanced.min.js': ['source/javascripts/timesheet-advanced.js']
 				}
 			}
 		},
@@ -29,7 +29,6 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'dist/timesheet.min.css': 'source/stylesheets/timesheet.sass',
-					'dist/timesheet-white.min.css': 'source/stylesheets/timesheet-white.sass'
 				}
 			}
 		},
@@ -43,17 +42,17 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		simplemocha: {
-			options: {
-				globals: ['should'],
-				timeout: 3000,
-				ignoreLeaks: false,
-				grep: '',
-				ui: 'tdd',
-				reporter: 'spec'
-			},
-			all: { src: ['test/**/*.js'] }
-		},
+		//simplemocha: {
+		//	options: {
+		//		globals: ['should'],
+		//		timeout: 3000,
+		//		ignoreLeaks: false,
+		//		grep: '',
+		//		ui: 'tdd',
+		//		reporter: 'spec'
+		//	},
+		//	all: { src: ['test/**/*.js'] }
+		//},
 		express: {
 			options: {
 				port: 8080
@@ -95,13 +94,11 @@ module.exports = function(grunt) {
 		copy: {
 			gh: {
 				files: [
-					{expand: false, src: __dirname + '/source/javascripts/lib.js', 				 dest: __dirname + '/gh-pages/script/lib.js'},
+					{expand: false, src: __dirname + '/source/javascripts/lib.js', 				dest: __dirname + '/gh-pages/script/lib.js'},
 					{expand: false, src: __dirname + '/source/javascripts/main.js',				dest: __dirname + '/gh-pages/script/main.js'},
-					{expand: false, src: __dirname + '/dist/timesheet.min.js',			      dest: __dirname + '/gh-pages/script/timesheet.min.js'},
-					{expand: false, src: __dirname + '/dist/timesheet.min.css', 					 dest: __dirname + '/gh-pages/styles/timesheet.css'},
-					{expand: false, src: __dirname + '/dist/timesheet-white.min.css',			dest: __dirname + '/gh-pages/styles/timesheet-white.css'},
-					{expand: false, src: __dirname + '/dist/timesheet.min.css.map', 			 dest: __dirname + '/gh-pages/styles/timesheet.css.map'},
-					{expand: false, src: __dirname + '/dist/timesheet-white.min.css.map',	dest: __dirname + '/gh-pages/styles/timesheet-white.css.map'}
+					{expand: false, src: __dirname + '/dist/timesheet-advanced.min.js',		dest: __dirname + '/gh-pages/script/timesheet-advanced.min.js'},
+					{expand: false, src: __dirname + '/dist/timesheet.min.css', 					dest: __dirname + '/gh-pages/styles/timesheet.css'},
+					{expand: false, src: __dirname + '/dist/timesheet.min.css.map', 			dest: __dirname + '/gh-pages/styles/timesheet.css.map'},
 				]
 			}
 		}
@@ -110,20 +107,17 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-simple-mocha');
-
 	grunt.loadNpmTasks('grunt-contrib-copy');
-
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-
 	grunt.loadNpmTasks('grunt-express-server');
-
 	grunt.loadNpmTasks('grunt-haml');
 
 	// Default task
 	grunt.registerTask('default', 	['build']);
-	grunt.registerTask('build', 		['simplemocha', 'jshint', 'uglify', 'sass']);
-	grunt.registerTask('server', 		['express:dev', 'watch' ])
+	//grunt.registerTask('build', 		['simplemocha', 'jshint', 'uglify', 'sass']);
+	grunt.registerTask('build', 		['jshint', 'uglify', 'sass']);
+	grunt.registerTask('server', 		['express:dev', 'watch' ]);
 	grunt.registerTask('gh', 				['build', 'haml:gh', 'sass:gh', 'copy:gh']);
 
 };
