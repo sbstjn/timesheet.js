@@ -3,6 +3,18 @@
   "version": "1.0.1",
   "description": "With Timesheet.js you can easily create simple time and data sheets or timelines using HTML5, JavaScript and CSS3. Yep, it's a Vanilla JS library!",
   "author": "sbstjn <mail@sbstjn.com>",
+  "main": "dist/timesheet.min.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sbstjn/timesheet.js"
+  },
+  "keywords": [
+    "timesheets",
+    "sheets",
+    "html5",
+    "css3"
+  ],
   "devDependencies": {
     "consolidate": "^0.13.1",
     "express": "^4.12.4",
